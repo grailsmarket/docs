@@ -1,0 +1,32 @@
+---
+title: Claim POAP
+description: Grails API v1
+---
+
+### POST /api/v1/poap/claim
+
+Claim a POAP link. Each user can claim exactly one. Uses `SELECT FOR UPDATE SKIP LOCKED` to prevent race conditions.
+
+**Authentication:** Required
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "link": "https://poap.xyz/claim/abc123",
+    "claimed_at": "2026-04-08T00:00:00.000Z"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `ALREADY_CLAIMED` | User has already claimed (includes previous link) |
+| 401 | `UNAUTHORIZED` | Not authenticated |
+| 404 | `NO_LINKS_AVAILABLE` | No POAP links remaining |
+| 500 | `CLAIM_FAILED` | Failed to claim |

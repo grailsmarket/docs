@@ -1,0 +1,51 @@
+---
+title: Manageable Names
+description: Grails API v1
+---
+
+### GET /api/v1/ens-roles/users/:address/manageable-names
+
+Get all ENS names that an address can manage (update records for), with pagination. Results are enriched with full search result data and include the user's role (`owner`, `manager`, or `both`).
+
+**Authentication:** Optional (enriches results with user-specific data)
+
+**Cache:** 15s
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `address` | string | Yes | Ethereum address (`0x` + 40 hex) |
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number (min 1) |
+| `limit` | number | `20` | Results per page (1–100) |
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "address": "0x1234...",
+    "names": [
+      {
+        "name": "example.eth",
+        "role": "owner",
+        // ... standard search result fields
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 15,
+      "totalPages": 1,
+      "hasNext": false,
+      "hasPrev": false
+    }
+  }
+}
+```

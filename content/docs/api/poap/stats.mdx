@@ -1,0 +1,19 @@
+---
+title: POAP Stats
+description: Grails API v1
+---
+
+### GET /api/v1/poap/stats
+
+Get aggregate POAP statistics — total links, claimed, and remaining.
+
+**Authentication:** None
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": { "total": 1000, "claimed": 750, "remaining": 250 }
+}
+```

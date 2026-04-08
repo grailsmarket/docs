@@ -1,0 +1,22 @@
+---
+title: Reclassify
+description: Grails API v1
+---
+
+### POST /api/v1/personas/me/reclassify
+
+Queue a background job to reclassify the authenticated user's persona based on current activity.
+
+**Authentication:** Required
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "jobId": "abc-123",
+    "message": "Reclassification queued"
+  }
+}
+```

@@ -1,8 +1,64 @@
 ---
-title: Route
-description: Grails API v1
+title: Subgraph
+description: Grails API v1 — ENS Subgraph Relay
 ---
 
-# Documentation Pending
+# Subgraph
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+### POST /api/v1/subgraph
+
+GraphQL relay to the ENS subgraph. Forwards raw GraphQL queries to the private ENSNode instance and returns the response. This is a pass-through proxy — the response format is determined by The Graph, not by the Grails API envelope.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Request Body
+
+A standard GraphQL query object:
+
+```jsonc
+{
+  "query": "query { domains(where: { name: \"example.eth\" }) { id name labelhash } }",
+  "variables": {}
+}
+```
+
+#### Sample Request
+
+```sh
+curl -X POST -H "Content-Type: application/json" \
+  https://api.grails.market/api/v1/subgraph \
+  -d '{
+    "query": "query GetDomain($name: String!) { domains(where: { name: $name }) { id name labelhash registrant { id } registration { expiryDate } } }",
+    "variables": { "name": "example.eth" }
+  }'
+```
+
+#### Response
+
+The response is proxied directly from The Graph with no wrapping:
+
+```jsonc
+{
+  "data": {
+    "domains": [
+      {
+        "id": "0x...",
+        "name": "example.eth",
+        "labelhash": "0x...",
+        "registrant": { "id": "0x1234..." },
+        "registration": { "expiryDate": "1735689600" }
+      }
+    ]
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `INVALID_REQUEST` | Body must be a valid GraphQL query object |
+| 502 | `BAD_GATEWAY` | Failed to relay request to ENS subgraph |
+| 503 | `SERVICE_UNAVAILABLE` | Subgraph relay not configured |

@@ -1,0 +1,41 @@
+---
+title: My Persona
+description: Grails API v1
+---
+
+### GET /api/v1/personas/me
+
+Get the authenticated user's persona, default filters, classification scores, and when they were last classified. If unclassified, returns the system default persona.
+
+**Authentication:** Required
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "persona": {
+      "slug": "collector",
+      "name": "Collector",
+      "description": "Focused on accumulating ENS names",
+      "icon": "🏆"
+    },
+    "defaultFilters": {
+      "allNames": { ... },
+      "listings": { ... },
+      "sales": { ... },
+      "registrations": { ... },
+      "offers": { ... }
+    },
+    "scores": { "collector": 0.85, "trader": 0.45, "flipper": 0.2 },
+    "classifiedAt": "2026-04-07T12:00:00.000Z"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 404 | `USER_NOT_FOUND` | User not found |

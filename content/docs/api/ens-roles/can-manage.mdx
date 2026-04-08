@@ -1,0 +1,39 @@
+---
+title: Can Manage
+description: Grails API v1
+---
+
+### GET /api/v1/ens-roles/names/:name/can-manage/:address
+
+Check if a specific address has permission to update records for an ENS name.
+
+**Authentication:** None
+
+**Cache:** 15s
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `name` | string | Yes | ENS name |
+| `address` | string | Yes | Ethereum address (`0x` + 40 hex) |
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "name": "example.eth",
+    "address": "0x1234...",
+    "canManage": true,
+    "reason": "owner"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `VALIDATION_ERROR` | Invalid parameters |

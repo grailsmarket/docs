@@ -1,8 +1,90 @@
 ---
-title: Route
-description: Grails API v1
+title: Legends
+description: Grails API v1 — Legend Status Endpoints
 ---
 
-# Documentation Pending
+# Legends
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+ENS "Legend" status based on early minting activity.
+
+**Base path:** `/api/v1/legends`
+
+---
+
+### GET /api/v1/legends/:address
+
+Get legend summary for an address — counts grouped by legend type with first/last mint timestamps.
+
+**Authentication:** None
+
+**Cache:** 15s
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `address` | string | Yes | Ethereum address (`0x` + 40 hex) |
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "address": "0x1234...",
+    "legends": {
+      "OG": { "qualified": true, "count": 5, "firstMint": "2017-05-04T00:00:00.000Z", "lastMint": "2019-01-15T00:00:00.000Z" },
+      "Pioneer": { "qualified": true, "count": 12, "firstMint": "2019-05-05T00:00:00.000Z", "lastMint": "2021-11-01T00:00:00.000Z" }
+    }
+  }
+}
+```
+
+---
+
+### GET /api/v1/legends/:address/details
+
+Get detailed legend mints for an address, optionally filtered by legend type.
+
+**Authentication:** None
+
+**Cache:** 15s
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `address` | string | Yes | Ethereum address |
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `type` | string | — | Filter by legend type |
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "address": "0x1234...",
+    "legends": {
+      "OG": {
+        "qualified": true,
+        "count": 5,
+        "mints": [
+          {
+            "name": "example.eth",
+            "txHash": "0xabc...",
+            "blockNumber": 3648571,
+            "blockTime": "2017-05-04T12:00:00.000Z",
+            "labelhash": "0x...",
+            "namehash": "0x..."
+          }
+        ]
+      }
+    }
+  }
+}
+```

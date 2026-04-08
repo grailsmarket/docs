@@ -1,0 +1,33 @@
+---
+title: List Personas
+description: Grails API v1
+---
+
+### GET /api/v1/personas
+
+List all available personas with their descriptions, icons, and default filter configurations for each view.
+
+**Authentication:** None
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": [
+    {
+      "slug": "collector",
+      "name": "Collector",
+      "description": "Focused on accumulating ENS names",
+      "icon": "🏆",
+      "defaultFilters": {
+        "allNames": { "sortBy": "price", "sortOrder": "asc" },
+        "listings": { "sortBy": "price", "sortOrder": "asc" },
+        "sales": { "sortBy": "date", "sortOrder": "desc" },
+        "registrations": { "sortBy": "date", "sortOrder": "desc" },
+        "offers": { "sortBy": "price", "sortOrder": "desc" }
+      }
+    }
+  ]
+}
+```

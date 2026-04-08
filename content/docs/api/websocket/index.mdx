@@ -1,8 +1,21 @@
 ---
-title: Route
-description: Grails API v1
+title: WebSocket
+description: Grails API v1 — WebSocket Endpoints
 ---
 
-# Documentation Pending
+# WebSocket
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Real-time event streaming via WebSocket connections. Three channels available for different event types.
+
+**Base path:** `/ws`
+
+**Note:** This is mounted at `/ws`, not `/api/v1/ws`.
+
+## Endpoints
+
+| Type | Path | Description |
+|------|------|-------------|
+| REST | `/ws/status` | Get connection stats (debug) |
+| WS | `/ws/events` | General event subscriptions |
+| WS | `/ws/orders` | Order-specific events |
+| WS | `/ws/activity` | Activity stream with filtering |

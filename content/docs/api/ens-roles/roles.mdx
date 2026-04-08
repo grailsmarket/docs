@@ -1,0 +1,40 @@
+---
+title: Get Roles
+description: Grails API v1
+---
+
+### GET /api/v1/ens-roles/names/:name/roles
+
+Get all roles (owner, manager, ETH address) for a specific ENS name, resolved on-chain.
+
+**Authentication:** None
+
+**Cache:** 15s
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `name` | string | Yes | ENS name (must end with `.eth` or contain `.`) |
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "name": "example.eth",
+    "owner": "0x1234...",
+    "manager": "0xabcd...",
+    "ethAddress": "0x1234...",
+    "isWrapped": true
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `VALIDATION_ERROR` | Invalid ENS name format |
+| 404 | `NAME_NOT_FOUND` | ENS name not found on chain |

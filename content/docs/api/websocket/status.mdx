@@ -1,0 +1,28 @@
+---
+title: Connection Status
+description: Grails API v1
+---
+
+### GET /ws/status
+
+REST endpoint returning WebSocket connection statistics for debugging.
+
+**Authentication:** None
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "eventsClients": 5,
+    "activityClients": 12,
+    "activityClientDetails": [...],
+    "broadcastStats": {
+      "totalBroadcasts": 1500,
+      "lastBroadcastTime": "2026-04-08T00:00:00.000Z",
+      "lastEventType": "sale"
+    }
+  }
+}
+```

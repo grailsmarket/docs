@@ -1,8 +1,18 @@
 ---
-title: Route
-description: Grails API v1
+title: Personas
+description: Grails API v1 — Persona Endpoints
 ---
 
-# Documentation Pending
+# Personas
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+User persona classification system. Each persona defines default search filters for different views. Users are automatically classified based on their activity.
+
+**Base path:** `/api/v1/personas`
+
+## Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/` | None | List all personas with default filters |
+| GET | `/me` | Required | Get authenticated user's persona and scores |
+| POST | `/me/reclassify` | Required | Queue a reclassification for the current user |

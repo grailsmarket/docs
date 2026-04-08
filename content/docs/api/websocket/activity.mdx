@@ -1,0 +1,56 @@
+---
+title: Activity Channel
+description: Grails API v1
+---
+
+### WS /ws/activity
+
+Real-time activity stream with granular subscription filtering. Subscribe to activity by address, ENS name, club, or subscribe to all activity. Supports event type include/exclude filters.
+
+#### Connection
+
+```
+wss://api.grails.market/ws/activity
+```
+
+On connect: `{ "type": "connected", "channel": "activity", "clientId": "...", "timestamp": "..." }`
+
+#### Client Messages
+
+| Message Type | Fields | Description |
+|--------------|--------|-------------|
+| `subscribe_all` | — | Receive all activity |
+| `unsubscribe_all` | — | Stop receiving all activity |
+| `subscribe_address` | `address`: string | Watch activity for an address |
+| `unsubscribe_address` | `address`: string | Stop watching an address |
+| `subscribe_name` | `name`: string | Watch activity for an ENS name |
+| `unsubscribe_name` | `name`: string | Stop watching a name |
+| `subscribe_club` | `club`: string | Watch activity for a club (replaces previous) |
+| `unsubscribe_club` | — | Stop watching club activity |
+| `set_event_filter` | `filter_type`: `include`\|`exclude`, `event_types`: string[] | Filter event types |
+| `clear_event_filter` | — | Remove event type filters |
+| `ping` | — | Keepalive |
+
+#### Server Messages
+
+| Message Type | Description |
+|--------------|-------------|
+| `connected` | Connection established |
+| `subscribed` | Subscription confirmed (includes `subscription_type`) |
+| `unsubscribed` | Unsubscription confirmed |
+| `activity_event` | Activity broadcast (includes `event_type`, `data`, `timestamp`) |
+| `filter_set` | Event filter applied |
+| `filter_cleared` | Event filter removed |
+| `pong` | Keepalive response |
+| `error` | Error message |
+
+#### Subscription Logic
+
+An activity event is sent to a client if **any** of these match:
+- Client subscribed to all (`subscribe_all`)
+- Actor address matches a subscribed address
+- Counterparty address matches a subscribed address
+- ENS name matches a subscribed name
+- Activity's club matches the subscribed club
+
+Then event type filters are applied (include whitelist OR exclude blacklist).

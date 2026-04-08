@@ -1,0 +1,22 @@
+---
+title: Orders Channel
+description: Grails API v1
+---
+
+### WS /ws/orders
+
+Order-specific WebSocket channel for real-time order status updates.
+
+#### Connection
+
+```
+wss://api.grails.market/ws/orders
+```
+
+On connect: `{ "type": "connected", "channel": "orders", "clientId": "...", "timestamp": "..." }`
+
+#### Client Messages
+
+| Message Type | Fields | Description |
+|--------------|--------|-------------|
+| `subscribe` | `orderId`: string | Subscribe to updates for a specific order |

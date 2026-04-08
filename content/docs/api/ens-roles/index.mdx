@@ -1,8 +1,18 @@
 ---
-title: Route
-description: Grails API v1
+title: ENS Roles
+description: Grails API v1 — ENS Role Endpoints
 ---
 
-# Documentation Pending
+# ENS Roles
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Query ENS name ownership and management roles on-chain. Determines who owns, manages, and can update records for ENS names.
+
+**Base path:** `/api/v1/ens-roles`
+
+## Endpoints
+
+| Method | Path | Auth | Cache | Description |
+|--------|------|------|-------|-------------|
+| GET | `/names/:name/roles` | None | 15s | Get all roles for a name |
+| GET | `/names/:name/can-manage/:address` | None | 15s | Check if address can manage a name |
+| GET | `/users/:address/manageable-names` | Optional | 15s | Get names an address can manage |

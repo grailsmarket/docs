@@ -1,0 +1,30 @@
+---
+title: Check Status
+description: Grails API v1
+---
+
+### GET /api/v1/poap/status
+
+Check if the authenticated user has already claimed a POAP link.
+
+**Authentication:** Required
+
+#### Response
+
+```jsonc
+// 200 OK — has claimed
+{
+  "success": true,
+  "data": {
+    "has_claimed": true,
+    "claimed_at": "2026-04-08T00:00:00.000Z",
+    "link": "https://poap.xyz/claim/abc123"
+  }
+}
+
+// 200 OK — has not claimed
+{
+  "success": true,
+  "data": { "has_claimed": false }
+}
+```

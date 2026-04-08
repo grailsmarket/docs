@@ -1,0 +1,36 @@
+---
+title: Events Channel
+description: Grails API v1
+---
+
+### WS /ws/events
+
+General-purpose event subscription channel. Subscribe to specific event types and receive broadcasts when they occur.
+
+#### Connection
+
+```
+wss://api.grails.market/ws/events
+```
+
+On connect, the server sends: `{ "type": "connected", "clientId": "...", "timestamp": "..." }`
+
+#### Client Messages
+
+| Message Type | Fields | Description |
+|--------------|--------|-------------|
+| `subscribe` | `event`: string | Subscribe to an event type |
+| `unsubscribe` | `event`: string | Unsubscribe from an event type |
+| `ping` | — | Keepalive ping |
+
+#### Server Messages
+
+| Message Type | Description |
+|--------------|-------------|
+| `connected` | Connection established |
+| `subscribed` | Subscription confirmed |
+| `unsubscribed` | Unsubscription confirmed |
+| `event` | Event broadcast (includes `event`, `data`, `timestamp`) |
+| `broadcast` | Global broadcast to all clients |
+| `pong` | Keepalive response |
+| `error` | Error message |

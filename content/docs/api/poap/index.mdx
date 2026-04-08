@@ -1,8 +1,18 @@
 ---
-title: Route
-description: Grails API v1
+title: POAP
+description: Grails API v1 — POAP Endpoints
 ---
 
-# Documentation Pending
+# POAP
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+POAP (Proof of Attendance Protocol) link distribution. Each user can claim one POAP link.
+
+**Base path:** `/api/v1/poap`
+
+## Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/claim` | Required | Claim a POAP link (one per user) |
+| GET | `/status` | Required | Check if current user has claimed |
+| GET | `/stats` | None | Get total/claimed/remaining counts |
