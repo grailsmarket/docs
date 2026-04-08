@@ -35,7 +35,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             storageKey: 'grails-docs-theme',
           }}
           sidebar={{
-            defaultMenuCollapseLevel: 1,
+            defaultMenuCollapseLevel: 2,
           }}
           navbar={
             <Navbar
