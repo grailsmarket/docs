@@ -1,8 +1,18 @@
 ---
-title: Route
-description: Grails API v1
+title: Activity
+description: Grails API v1 — Activity Endpoints
 ---
 
-# Documentation Pending
+# Activity
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+On-chain activity history for ENS names — transfers, sales, listings, offers, renewals, etc. All endpoints are cached for 15 seconds.
+
+**Base path:** `/api/v1/activity`
+
+## Endpoints
+
+| Method | Path | Auth | Cache | Description |
+|--------|------|------|-------|-------------|
+| GET | `/:name` | None | 15s | Activity for a specific ENS name |
+| GET | `/address/:address` | None | 15s | Activity for an address (as actor or counterparty) |
+| GET | `/` | None | 15s | Global activity feed with club filtering |

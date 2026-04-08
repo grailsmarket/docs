@@ -1,0 +1,43 @@
+---
+title: By Address
+description: Grails API v1
+---
+
+### GET /api/v1/activity/address/:address
+
+Get activity history for a specific Ethereum address, whether they were the actor or counterparty (buyer or seller).
+
+**Authentication:** None
+
+**Cache:** 15s
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `address` | string | Yes | Ethereum address |
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number |
+| `limit` | number | `50` | Results per page |
+| `event_type` | string or string[] | — | Filter by event type(s) (repeatable) |
+| `platform` | string | — | Filter by platform |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/activity/address/0x1234...?event_type=transfer&event_type=sale"
+```
+
+#### Response
+
+Same structure as [By Name](/docs/api/activity/by-name#response), with activity where the address appears as either `actor_address` or `counterparty_address`.
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 500 | `INTERNAL_ERROR` | Failed to fetch activity |
