@@ -1,0 +1,23 @@
+---
+title: Viewed History
+description: Grails API v1
+---
+
+### GET /api/v1/user/history/viewed
+
+Names the authenticated user has recently viewed, ordered by most recent.
+
+**Authentication:** Required
+
+#### Extra Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `viewed_at` | string | When the user viewed this name |
+
+#### Sample Request
+
+```sh
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.market/api/v1/user/history/viewed?limit=10"
+```

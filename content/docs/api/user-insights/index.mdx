@@ -1,8 +1,30 @@
 ---
-title: Route
-description: Grails API v1
+title: User Insights
+description: Grails API v1 — User History Endpoints
 ---
 
-# Documentation Pending
+# User Insights
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Authenticated user's activity history across different dimensions. All endpoints require authentication, use the same pagination parameters, and return enriched search results with activity-specific metadata.
+
+**Base path:** `/api/v1/user`
+
+**Note:** This prefix is `/api/v1/user` (singular), not `/api/v1/user-insights`.
+
+## Common Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number (min 1) |
+| `limit` | number | `20` | Results per page (1–100) |
+
+## Endpoints
+
+| Method | Path | Description | Extra Fields |
+|--------|------|-------------|--------------|
+| GET | `/history/viewed` | Recently viewed names | `viewed_at` |
+| GET | `/history/watched` | Watchlisted names | `added_at`, `notifications` |
+| GET | `/history/voted` | Names voted on | `my_vote`, `voted_at` |
+| GET | `/history/offers` | Offers made | `offer` object |
+| GET | `/history/purchases` | Names purchased | `purchase` object |
+| GET | `/history/sales` | Names sold | `sale` object |

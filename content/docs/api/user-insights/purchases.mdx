@@ -1,0 +1,33 @@
+---
+title: Purchase History
+description: Grails API v1
+---
+
+### GET /api/v1/user/history/purchases
+
+Names the authenticated user has purchased, ordered by most recent.
+
+**Authentication:** Required
+
+#### Extra Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `purchase.id` | number | Sale record ID |
+| `purchase.price_wei` | string | Purchase price in wei |
+| `purchase.currency_address` | string | Payment token address |
+| `purchase.sale_date` | string | When the purchase occurred |
+| `purchase.transaction_hash` | string | On-chain transaction hash |
+
+#### Sample Request
+
+```sh
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.market/api/v1/user/history/purchases?limit=10"
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 404 | `USER_NOT_FOUND` | User account not found |

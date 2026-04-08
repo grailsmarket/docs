@@ -1,0 +1,24 @@
+---
+title: Vote History
+description: Grails API v1
+---
+
+### GET /api/v1/user/history/voted
+
+Names the authenticated user has voted on, ordered by most recent vote.
+
+**Authentication:** Required
+
+#### Extra Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `my_vote` | number | `1` (upvote) or `-1` (downvote) |
+| `voted_at` | string | When the vote was cast |
+
+#### Sample Request
+
+```sh
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.market/api/v1/user/history/voted?limit=10"
+```

@@ -1,0 +1,34 @@
+---
+title: Offer History
+description: Grails API v1
+---
+
+### GET /api/v1/user/history/offers
+
+Offers the authenticated user has made, ordered by most recent.
+
+**Authentication:** Required
+
+#### Extra Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `offer.id` | number | Offer ID |
+| `offer.price_wei` | string | Offer amount in wei |
+| `offer.currency_address` | string | Payment token address |
+| `offer.status` | string | `pending`, `accepted`, `rejected`, `expired`, `unfunded` |
+| `offer.created_at` | string | When the offer was created |
+| `offer.expires_at` | string \| null | Offer expiration |
+
+#### Sample Request
+
+```sh
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.market/api/v1/user/history/offers?limit=10"
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 404 | `USER_NOT_FOUND` | User account not found |

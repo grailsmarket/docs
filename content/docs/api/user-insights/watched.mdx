@@ -1,0 +1,27 @@
+---
+title: Watched History
+description: Grails API v1
+---
+
+### GET /api/v1/user/history/watched
+
+Names on the authenticated user's watchlists with notification preferences, ordered by most recently added.
+
+**Authentication:** Required
+
+#### Extra Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `added_at` | string | When the name was added to watchlist |
+| `notifications.on_sale` | boolean | Notify on sale |
+| `notifications.on_offer` | boolean | Notify on new offers |
+| `notifications.on_listing` | boolean | Notify on listing |
+| `notifications.on_price_change` | boolean | Notify on price changes |
+
+#### Sample Request
+
+```sh
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.market/api/v1/user/history/watched?limit=10"
+```
