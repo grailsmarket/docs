@@ -1,8 +1,75 @@
 ---
-title: Route
-description: Grails API v1
+title: Google Metrics
+description: Grails API v1 — Google Ads Keyword Metrics
 ---
 
-# Documentation Pending
+# Google Metrics
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+### GET /api/v1/google-metrics/:name
+
+Returns Google Ads keyword metrics for an ENS name label — average monthly searches, cost-per-click, monthly trend, and competition level. Uses two-tier caching (15s Redis + 30-day DB). Fetching new data on cache miss requires authentication. Rate limited to 60 requests/minute per IP.
+
+**Authentication:** Optional (required to fetch new metrics on cache miss)
+
+**Cache:** 15s (Redis) + 30 days (DB)
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `name` | string | Yes | ENS name or label (1–40 chars, max 20 after normalization). `.eth` suffix stripped. |
+
+#### Sample Request
+
+```sh
+curl https://api.grails.market/api/v1/google-metrics/crypto
+```
+
+#### Response
+
+```jsonc
+// 200 OK — cache hit or freshly fetched
+{
+  "success": true,
+  "data": {
+    "avgMonthlySearches": 135000,
+    "avgCpc": 2.45,
+    "monthlyTrend": [12000, 15000, 14500, 13000, 11000, 12500, 14000, 13500, 15000, 16000, 14000, 13000],
+    "competition": "HIGH"
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z"
+  }
+}
+```
+
+```jsonc
+// 200 OK — name not in database or API unavailable
+{
+  "success": true,
+  "data": null,
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z"
+  }
+}
+```
+
+The `X-Cache` header indicates `HIT` (from DB cache) or `MISS` (freshly fetched).
+
+#### Behavior
+
+| Scenario | Result |
+|----------|--------|
+| DB cache hit | Returns cached metrics (any user) |
+| Cache miss + authenticated | Fetches from Google Ads API, caches 30 days |
+| Cache miss + unauthenticated | Returns `401 UNAUTHORIZED` |
+| Name not in database | Returns `data: null` (cached briefly for 5 min) |
+| API failure | Returns `data: null` (not cached) |
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `INVALID_NAME` | Invalid name or exceeds 20 characters |
+| 401 | `UNAUTHORIZED` | Authentication required for fresh fetch |
+| 500 | `INTERNAL_ERROR` | Failed to fetch Google metrics |
