@@ -1,8 +1,19 @@
 ---
-title: Route
-description: Grails API v1
+title: Notifications
+description: Grails API v1 — Notification Endpoints
 ---
 
-# Documentation Pending
+# Notifications
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+User notification system for marketplace events (offers received, listings sold, price changes, etc.). All endpoints require authentication.
+
+**Base path:** `/api/v1/notifications`
+
+## Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/` | Required | List notifications with pagination |
+| GET | `/unread/count` | Required | Get unread notification count |
+| PATCH | `/:id/read` | Required | Mark a single notification as read |
+| PATCH | `/read-all` | Required | Mark all notifications as read |

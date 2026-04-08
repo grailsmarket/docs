@@ -2,8 +2,8 @@
   "metadata": {
     "totalRoutes": 35,
     "totalEndpoints": 134,
-    "completedRoutes": 15,
-    "lastUpdated": "2026-04-08T00:55:00Z"
+    "completedRoutes": 16,
+    "lastUpdated": "2026-04-08T01:05:00Z"
   },
   "routes": [
     {
@@ -234,15 +234,15 @@
       "name": "notifications",
       "file": "notifications.ts",
       "prefix": "/api/v1/notifications",
-      "status": "pending",
+      "status": "completed",
       "endpointCount": 4,
       "endpoints": [
-        { "method": "GET", "path": "/", "auth": "requireAuth", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/unread/count", "auth": "requireAuth", "cache": "none", "documented": false },
-        { "method": "PATCH", "path": "/:id/read", "auth": "requireAuth", "cache": "none", "documented": false },
-        { "method": "PATCH", "path": "/read-all", "auth": "requireAuth", "cache": "none", "documented": false }
+        { "method": "GET", "path": "/", "auth": "requireAuth", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/unread/count", "auth": "requireAuth", "cache": "none", "documented": true },
+        { "method": "PATCH", "path": "/:id/read", "auth": "requireAuth", "cache": "none", "documented": true },
+        { "method": "PATCH", "path": "/read-all", "auth": "requireAuth", "cache": "none", "documented": true }
       ],
-      "completedAt": null
+      "completedAt": "2026-04-08T01:05:00Z"
     },
     {
       "name": "activity",

@@ -1,0 +1,51 @@
+---
+title: Mark as Read
+description: Grails API v1
+---
+
+### PATCH /api/v1/notifications/:id/read
+
+Mark a single notification as read. If already read, the request succeeds without changing the `readAt` timestamp.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `id` | number | Yes | Notification ID |
+
+#### Sample Request
+
+```sh
+curl -X PATCH -H "Authorization: Bearer YOUR_TOKEN" \
+  https://api.grails.market/api/v1/notifications/1/read
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "readAt": "2026-04-08T00:05:00.000Z"
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:05:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 401 | `UNAUTHORIZED` | Missing or invalid token |
+| 403 | `FORBIDDEN` | Notification belongs to another user |
+| 404 | `NOT_FOUND` | Notification not found |
+| 500 | `INTERNAL_ERROR` | Failed to mark as read |

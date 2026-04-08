@@ -1,0 +1,43 @@
+---
+title: Mark All Read
+description: Grails API v1
+---
+
+### PATCH /api/v1/notifications/read-all
+
+Mark all of the authenticated user's unread notifications as read. Returns the count of notifications that were marked.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Sample Request
+
+```sh
+curl -X PATCH -H "Authorization: Bearer YOUR_TOKEN" \
+  https://api.grails.market/api/v1/notifications/read-all
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "markedCount": 5,
+    "message": "5 notification(s) marked as read"
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:05:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 401 | `UNAUTHORIZED` | Missing or invalid token |
+| 500 | `INTERNAL_ERROR` | Failed to mark all as read |

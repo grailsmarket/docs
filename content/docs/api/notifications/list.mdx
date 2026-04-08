@@ -1,0 +1,73 @@
+---
+title: List Notifications
+description: Grails API v1
+---
+
+### GET /api/v1/notifications
+
+Get the authenticated user's notifications with pagination. Each notification includes the associated ENS name and metadata about the event.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number (min 1) |
+| `limit` | number | `20` | Results per page (1–100) |
+| `unreadOnly` | boolean | `false` | Only return unread notifications |
+
+#### Sample Request
+
+```sh
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.market/api/v1/notifications?unreadOnly=true&limit=10"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "notifications": [
+      {
+        "id": 1,
+        "type": "offer_received",
+        "ensName": "example.eth",
+        "ensTokenId": "12345...",
+        "metadata": {
+          "offerAmount": "50000000000000000",
+          "buyerAddress": "0x1234..."
+        },
+        "sentAt": "2026-04-08T00:00:00.000Z",
+        "readAt": null,
+        "isRead": false,
+        "createdAt": "2026-04-08T00:00:00.000Z"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 10,
+      "total": 25,
+      "totalPages": 3,
+      "hasNext": true,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 401 | `UNAUTHORIZED` | Missing or invalid token |
+| 500 | `INTERNAL_ERROR` | Failed to fetch notifications |
