@@ -1,0 +1,63 @@
+---
+title: Get Cart
+description: Grails API v1
+---
+
+### GET /api/v1/cart
+
+Get the authenticated user's cart items, enriched with full ENS name data (listings, votes, watchers, offers). Optionally filter by cart type.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `type` | string | — | Filter by cart type name (e.g. `buy`, `register`) |
+
+#### Sample Request
+
+```sh
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.market/api/v1/cart?type=buy"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "cartItemId": 1,
+        "cartType": "buy",
+        "addedAt": "2026-04-07T12:00:00.000Z",
+        "name": "example.eth",
+        "token_id": "12345...",
+        "owner": "0xabcd...",
+        "listings": [...],
+        "upvotes": 10,
+        "watchers_count": 5,
+        "highest_offer_wei": "50000000000000000"
+        // ... full search result fields
+      }
+    ]
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `VALIDATION_ERROR` | Invalid query parameters |
+| 401 | `UNAUTHORIZED` | Missing or invalid token |
+| 500 | `INTERNAL_ERROR` | Failed to fetch cart |

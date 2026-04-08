@@ -1,8 +1,21 @@
 ---
-title: Route
-description: Grails API v1
+title: Cart
+description: Grails API v1 — Cart Endpoints
 ---
 
-# Documentation Pending
+# Cart
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Shopping cart for ENS names. Items are organized by cart type (e.g. "buy", "register"). All endpoints require authentication.
+
+**Base path:** `/api/v1/cart`
+
+## Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/` | Required | Get cart items with enriched ENS data |
+| GET | `/summary` | Required | Get item counts by cart type |
+| POST | `/` | Required | Add a single item to cart |
+| POST | `/bulk` | Required | Bulk add up to 100 items |
+| DELETE | `/:id` | Required | Remove a single item |
+| DELETE | `/` | Required | Clear cart (all or by type) |
