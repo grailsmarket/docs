@@ -1,0 +1,55 @@
+---
+title: Club Holders
+description: Grails API v1
+---
+
+### GET /api/v1/clubs/:clubName/holders
+
+Get unique holders for a specific club with their name counts. Only includes registered and grace-period names.
+
+**Authentication:** None
+
+**Cache:** 15s
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `clubName` | string | Yes | Club name |
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page (1–100) |
+| `sortOrder` | string | `desc` | Sort by name count: `asc` or `desc` |
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "clubs": ["999"],
+    "unique_holders": 450,
+    "holders": [
+      { "address": "0x1234...", "name_count": 42 },
+      { "address": "0xabcd...", "name_count": 15 }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 20,
+    "total": 450,
+    "pages": 23
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 404 | — | Club not found |

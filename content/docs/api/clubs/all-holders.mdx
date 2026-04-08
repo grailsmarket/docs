@@ -1,0 +1,50 @@
+---
+title: All Holders
+description: Grails API v1
+---
+
+### GET /api/v1/clubs/holders
+
+Get unique holders aggregated across one or more clubs. If no clubs specified, returns holders across all clubs. Only includes registered and grace-period names.
+
+**Authentication:** None
+
+**Cache:** 15s
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page (1–100) |
+| `sortOrder` | string | `desc` | Sort by name count: `asc` or `desc` |
+| `clubs[]` | string[] | — | Filter by specific clubs (repeatable) |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/clubs/holders?clubs[]=999&clubs[]=10k&limit=10"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "clubs": ["999", "10k"],
+    "unique_holders": 1200,
+    "holders": [
+      { "address": "0x1234...", "name_count": 42 },
+      { "address": "0xabcd...", "name_count": 15 }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 10,
+    "total": 1200,
+    "pages": 120
+  }
+}
+```

@@ -1,0 +1,33 @@
+---
+title: Club Header
+description: Grails API v1
+---
+
+### GET /api/v1/clubs/:clubName/header
+
+Serves the club's header image from S3. Returns binary image data (not JSON). Same caching behavior as the avatar endpoint.
+
+**Authentication:** None
+
+**Cache:** None (has its own in-memory image cache)
+
+**Response:** Binary image data with `Content-Type` header (e.g. `image/png`)
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `clubName` | string | Yes | Club name |
+
+#### Sample Request
+
+```sh
+curl https://api.grails.market/api/v1/clubs/999/header -o header.png
+```
+
+#### Error Responses
+
+| Status | Description |
+|--------|-------------|
+| 404 | Club not found or no header set |
+| 503 | Storage not configured |

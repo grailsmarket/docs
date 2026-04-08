@@ -1,0 +1,69 @@
+---
+title: Get Club
+description: Grails API v1
+---
+
+### GET /api/v1/clubs/:clubName
+
+Get a specific club's details and its member names (paginated). Returns both registered and unregistered names in the standard search result format.
+
+**Authentication:** None
+
+**Cache:** 15s
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `clubName` | string | Yes | Club name (e.g. `999`, `10k`) |
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page (1–100) |
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "club": {
+      "name": "999",
+      "display_name": "999 Club",
+      "description": "Three-digit ENS names",
+      "member_count": 1000,
+      "floor_price_wei": "500000000000000000",
+      "avatar_url": "/api/v1/clubs/999/avatar",
+      "header_url": "/api/v1/clubs/999/header"
+      // ... all club stats fields
+    },
+    "names": [
+      {
+        "name": "123.eth",
+        "token_id": "...",
+        "owner": "0x1234...",
+        "listings": [...],
+        // ... standard search result fields
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 1000,
+      "totalPages": 50,
+      "hasNext": true,
+      "hasPrev": false
+    }
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 404 | — | Club not found |

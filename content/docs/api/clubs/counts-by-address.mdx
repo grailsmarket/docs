@@ -1,0 +1,45 @@
+---
+title: Counts by Address
+description: Grails API v1
+---
+
+### GET /api/v1/clubs/counts/:address
+
+Get club membership counts for names owned by a specific address. Returns a count per club plus an `any` key for names in any club.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `address` | string | Yes | Ethereum address (`0x` + 40 hex) |
+
+#### Sample Request
+
+```sh
+curl https://api.grails.market/api/v1/clubs/counts/0x1234...
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "any": 15,
+    "999": 3,
+    "10k": 8,
+    "100k": 4
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `INVALID_ADDRESS` | Invalid Ethereum address format |

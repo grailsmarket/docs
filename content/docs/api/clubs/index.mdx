@@ -1,8 +1,23 @@
 ---
-title: Route
-description: Grails API v1
+title: Clubs
+description: Grails API v1 — Club Endpoints
 ---
 
-# Documentation Pending
+# Clubs
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+ENS name clubs — categories like "999 Club", "10k Club", etc. based on name characteristics. Clubs have metadata, sales statistics, member counts, floor prices, and holder analytics.
+
+**Base path:** `/api/v1/clubs`
+
+## Endpoints
+
+| Method | Path | Auth | Cache | Description |
+|--------|------|------|-------|-------------|
+| GET | `/` | None | 5m | List all clubs with stats, filtering, and sorting |
+| GET | `/holders` | None | 15s | Aggregated holders across clubs |
+| GET | `/:clubName` | None | 15s | Get a club's details and member names |
+| GET | `/:clubName/holders` | None | 15s | Holders for a specific club |
+| GET | `/:clubName/avatar` | None | None | Club avatar image (binary) |
+| GET | `/:clubName/header` | None | None | Club header image (binary) |
+| GET | `/counts/:address` | None | None | Club membership counts for an owner |
+| GET | `/counts/:status` | None | None | Club counts by premium/available status |

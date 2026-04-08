@@ -1,0 +1,39 @@
+---
+title: Counts by Status
+description: Grails API v1
+---
+
+### GET /api/v1/clubs/counts/:status
+
+Get club membership counts for names in premium or available status. Premium names expired 90–111 days ago; available names expired more than 111 days ago.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `status` | string | Yes | `premium` or `available` |
+
+#### Sample Request
+
+```sh
+curl https://api.grails.market/api/v1/clubs/counts/premium
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "any": 50,
+    "999": 2,
+    "10k": 15,
+    "100k": 33
+  }
+}
+```

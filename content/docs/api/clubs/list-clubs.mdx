@@ -1,0 +1,84 @@
+---
+title: List Clubs
+description: Grails API v1
+---
+
+### GET /api/v1/clubs
+
+List all clubs with metadata, sales statistics, member counts, floor prices, and computed metrics. Supports sorting by 30+ fields, classification filtering, and search.
+
+**Authentication:** None
+
+**Cache:** 5m
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `sortBy` | string | `total_sales_volume_wei` | Sort field (see below) |
+| `sortOrder` | string | `desc` | `asc` or `desc` |
+| `class[]` | string[] | — | Filter by classification (repeatable) |
+| `search` | string | — | Search club name, display name, or description |
+
+#### Sort Fields
+
+**Sales:** `total_sales_count`, `total_sales_volume_wei`, `sales_count_1y`, `sales_count_1mo`, `sales_count_1w`, `sales_volume_wei_1y`, `sales_volume_wei_1mo`, `sales_volume_wei_1w`
+
+**Registrations:** `total_reg_count`, `total_reg_volume_wei`, `reg_count_1y`, `reg_count_1mo`, `reg_count_1w`, `reg_volume_wei_1y`, `reg_volume_wei_1mo`, `reg_volume_wei_1w`
+
+**Members:** `member_count`, `registered_count`, `grace_count`, `premium_count`, `available_count`, `listings_count`, `registered_percent`, `grace_percent`, `premium_percent`, `available_percent`, `listings_percent`
+
+**Holders:** `holders_count`, `holders_ratio`
+
+**Other:** `floor_price_wei`, `name`
+
+#### Classifications
+
+`ethmojis`, `digits`, `palindromes`, `prepunk`, `geo`, `letters`, `fantasy`, `crypto`, `ai`
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/clubs?sortBy=floor_price_wei&sortOrder=desc&class[]=digits"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "clubs": [
+      {
+        "name": "999",
+        "display_name": "999 Club",
+        "description": "Three-digit ENS names",
+        "member_count": 1000,
+        "floor_price_wei": "500000000000000000",
+        "floor_price_currency": "0x0000...0000",
+        "total_sales_count": 250,
+        "total_sales_volume_wei": "125000000000000000000",
+        "sales_count_1mo": 12,
+        "sales_volume_wei_1mo": "6000000000000000000",
+        "registered_count": 900,
+        "grace_count": 10,
+        "listings_count": 50,
+        "registered_percent": 90.0,
+        "grace_percent": 1.0,
+        "listings_percent": 5.0,
+        "premium_count": 5,
+        "available_count": 85,
+        "premium_percent": 0.5,
+        "available_percent": 8.5,
+        "holders_count": 450,
+        "holders_ratio": 45.0,
+        "classifications": ["digits"],
+        "avatar_url": "/api/v1/clubs/999/avatar",
+        "header_url": "/api/v1/clubs/999/header"
+      }
+    ],
+    "total": 60
+  }
+}
+```
