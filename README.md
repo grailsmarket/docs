@@ -1,0 +1,2 @@
+# docs
+Grails API Documentation
