@@ -1,8 +1,75 @@
 ---
-title: Route
-description: Grails API v1
+title: AI Search (Related)
+description: Grails API v1 — AI Related Search
 ---
 
-# Documentation Pending
+# AI Related Search
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+### GET /api/v1/ai/search/related
+
+Generates ~30 ENS name suggestions via OpenAI, then does exact term matching in Elasticsearch for precise results. Unlike semantic search (which matches associated words broadly), related search returns actual ENS names that exist in the database.
+
+Supports the same filters as [Global Search](/docs/api/search/global-search#filters).
+
+Cached suggestions are served to all users. Generating **new** suggestions (cache miss) requires authentication. Rate limited to 30 requests/minute per IP.
+
+**Authentication:** Optional (required to generate new suggestions on cache miss)
+
+**Cache:** 15s (Redis) + 30 days (DB for suggestions)
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `q` | string | — | **Required.** Search query (min 2 chars) |
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page (max 100) |
+| `sortBy` | string | — | Sort field (same as Global Search) |
+| `sortOrder` | string | — | `asc` or `desc` |
+
+#### Filters
+
+Same bracket notation as [Global Search filters](/docs/api/search/global-search#filters).
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/ai/search/related?q=cool&limit=10"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "results": [
+      {
+        "name": "chill.eth",
+        // ... standard search result fields
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 10,
+      "total": 12,
+      "totalPages": 2,
+      "hasNext": true,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "suggestionsCount": 30
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `VALIDATION_ERROR` | Query missing or fewer than 2 characters |
+| 401 | `UNAUTHORIZED` | Authentication required to generate new suggestions |
+| 500 | `INTERNAL_ERROR` | Related search failed |

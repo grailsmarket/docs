@@ -1,8 +1,74 @@
 ---
-title: Route
-description: Grails API v1
+title: AI Search (Semantic)
+description: Grails API v1 — AI Semantic Search
 ---
 
-# Documentation Pending
+# AI Semantic Search
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+### GET /api/v1/ai/search/semantic
+
+Expands a search query into ~30 associated words via OpenAI, then searches Elasticsearch for all of them using exact, analyzed, and ngram matching. Supports the same filters as [Global Search](/docs/api/search/global-search#filters).
+
+Cached expansions are served to all users. Generating **new** expansions (cache miss) requires authentication. Rate limited to 30 requests/minute per IP.
+
+**Authentication:** Optional (required to generate new expansions on cache miss)
+
+**Cache:** 15s (Redis) + 30 days (DB for expansions)
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `q` | string | — | **Required.** Search query (min 2 chars) |
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page (max 100) |
+| `sortBy` | string | — | Sort field (same as Global Search) |
+| `sortOrder` | string | — | `asc` or `desc` |
+
+#### Filters
+
+Same bracket notation as [Global Search filters](/docs/api/search/global-search#filters).
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/ai/search/semantic?q=finance&limit=10"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "results": [
+      {
+        "name": "bank.eth",
+        // ... standard search result fields
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 10,
+      "total": 85,
+      "totalPages": 9,
+      "hasNext": true,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "expansionsCount": 30,
+    "semanticTotal": 85
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `VALIDATION_ERROR` | Query missing or fewer than 2 characters |
+| 401 | `UNAUTHORIZED` | Authentication required to generate new expansions |
+| 500 | `INTERNAL_ERROR` | Semantic search failed |
