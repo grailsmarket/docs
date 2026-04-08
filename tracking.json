@@ -2,21 +2,21 @@
   "metadata": {
     "totalRoutes": 35,
     "totalEndpoints": 134,
-    "completedRoutes": 0,
-    "lastUpdated": "2026-04-07T00:00:00Z"
+    "completedRoutes": 1,
+    "lastUpdated": "2026-04-07T22:00:00Z"
   },
   "routes": [
     {
       "name": "health",
       "file": "health.ts",
       "prefix": "/health",
-      "status": "pending",
+      "status": "completed",
       "endpointCount": 2,
       "endpoints": [
-        { "method": "GET", "path": "/", "auth": "none", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/ready", "auth": "none", "cache": "none", "documented": false }
+        { "method": "GET", "path": "/", "auth": "none", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/ready", "auth": "none", "cache": "none", "documented": true }
       ],
-      "completedAt": null
+      "completedAt": "2026-04-07T22:00:00Z"
     },
     {
       "name": "auth",

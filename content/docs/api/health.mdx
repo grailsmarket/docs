@@ -1,8 +1,79 @@
 ---
-title: Route
-description: Grails API v1
+title: Health
+description: Grails API — Health Check Endpoints
 ---
 
-# Documentation Pending
+# Health
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Service health and readiness check endpoints. These are not prefixed with `/api/v1/`.
+
+**Base path:** `/health`
+
+---
+
+### GET /health
+
+Returns the current service status and version.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Sample Request
+
+```sh
+curl https://api.grails.market/health
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "status": "healthy",
+  "timestamp": "2026-04-07T12:00:00.000Z",
+  "version": "1.0.0"
+}
+```
+
+---
+
+### GET /health/ready
+
+Checks connectivity to PostgreSQL and Elasticsearch. Returns `200` if all dependencies are reachable, `503` if any check fails.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Sample Request
+
+```sh
+curl https://api.grails.market/health/ready
+```
+
+#### Response
+
+```jsonc
+// 200 OK — all services reachable
+{
+  "status": "ready",
+  "checks": {
+    "postgres": true,
+    "elasticsearch": true
+  },
+  "timestamp": "2026-04-07T12:00:00.000Z"
+}
+```
+
+```jsonc
+// 503 Service Unavailable — one or more services down
+{
+  "status": "not ready",
+  "checks": {
+    "postgres": true,
+    "elasticsearch": false
+  },
+  "timestamp": "2026-04-07T12:00:00.000Z"
+}
+```

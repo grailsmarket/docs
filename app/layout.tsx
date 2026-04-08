@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { Chivo_Mono } from 'next/font/google'
-import { Layout } from 'nextra-theme-docs'
+import { Layout, Navbar } from 'nextra-theme-docs'
 import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
 import './global.css'
@@ -37,6 +37,12 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           sidebar={{
             defaultMenuCollapseLevel: 1,
           }}
+          navbar={
+            <Navbar
+              logo={<span style={{ fontWeight: 700, fontSize: '1.1rem' }}>Grails API</span>}
+              projectLink="https://github.com/grailsmarket/docs"
+            />
+          }
           footer={<div />}
         >
           {children}
