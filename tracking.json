@@ -2,8 +2,8 @@
   "metadata": {
     "totalRoutes": 35,
     "totalEndpoints": 134,
-    "completedRoutes": 5,
-    "lastUpdated": "2026-04-07T23:00:00Z"
+    "completedRoutes": 6,
+    "lastUpdated": "2026-04-07T23:20:00Z"
   },
   "routes": [
     {
@@ -76,14 +76,14 @@
       "name": "search",
       "file": "search.ts",
       "prefix": "/api/v1/search",
-      "status": "pending",
+      "status": "completed",
       "endpointCount": 3,
       "endpoints": [
-        { "method": "GET", "path": "/", "auth": "optionalAuth", "cache": "none", "documented": false },
-        { "method": "POST", "path": "/bulk", "auth": "optionalAuth", "cache": "none", "documented": false },
-        { "method": "POST", "path": "/bulk-filters", "auth": "optionalAuth", "cache": "none", "documented": false }
+        { "method": "GET", "path": "/", "auth": "optionalAuth", "cache": "none", "documented": true },
+        { "method": "POST", "path": "/bulk", "auth": "optionalAuth", "cache": "none", "documented": true },
+        { "method": "POST", "path": "/bulk-filters", "auth": "optionalAuth", "cache": "none", "documented": true }
       ],
-      "completedAt": null
+      "completedAt": "2026-04-07T23:20:00Z"
     },
     {
       "name": "listings",

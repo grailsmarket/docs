@@ -1,0 +1,200 @@
+---
+title: Global Search
+description: Grails API v1
+---
+
+### GET /api/v1/search
+
+Search all ENS names with full-text queries, extensive filters, sorting, and pagination. Supports CSV export for authenticated users. Uses Elasticsearch with automatic PostgreSQL fallback for complex queries.
+
+**Authentication:** Optional (required for CSV export; enhances results with user-specific data like watchlist status)
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `q` | string | `""` | Search query (full-text match on name) |
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page (max 100) |
+| `sortBy` | string | — | Sort field (see below) |
+| `sortOrder` | string | — | `asc` or `desc` |
+| `export` | boolean | `false` | Set `true` to download results as CSV (requires auth) |
+| `filename` | string | `ens-export` | CSV filename (export mode only) |
+
+#### Sort Fields
+
+`price`, `expiry_date`, `registration_date`, `creation_date`, `last_sale_date`, `last_sale_price`, `character_count`, `watchers_count`, `alphabetical`, `offer`, `listing_date`, `listing_expiry`, `google_monthly_searches`, `google_avg_cpc`
+
+#### Filters
+
+Filters are passed as query parameters in bracket notation: `filters[minPrice]=0.1&filters[clubs][]=999`
+
+##### Price & Offer Filters
+
+| Filter | Type | Description |
+|--------|------|-------------|
+| `filters[minPrice]` | string | Minimum listing price (wei) |
+| `filters[maxPrice]` | string | Maximum listing price (wei) |
+| `filters[minOffer]` | string | Minimum offer price (wei) |
+| `filters[maxOffer]` | string | Maximum offer price (wei) |
+
+##### Length Filters
+
+| Filter | Type | Description |
+|--------|------|-------------|
+| `filters[minLength]` | number | Minimum character count |
+| `filters[maxLength]` | number | Maximum character count |
+
+##### Count Filters
+
+| Filter | Type | Description |
+|--------|------|-------------|
+| `filters[minWatchersCount]` | number | Minimum number of watchers |
+| `filters[maxWatchersCount]` | number | Maximum number of watchers |
+| `filters[minViewCount]` | number | Minimum view count |
+| `filters[maxViewCount]` | number | Maximum view count |
+| `filters[minClubsCount]` | number | Minimum number of club memberships |
+| `filters[maxClubsCount]` | number | Maximum number of club memberships |
+
+##### Character Filters (tri-state)
+
+| Filter | Values | Description |
+|--------|--------|-------------|
+| `filters[digits]` | `include`, `exclude`, `only` | Names containing digits |
+| `filters[letters]` | `include`, `exclude`, `only` | Names containing letters |
+| `filters[emoji]` | `include`, `exclude`, `only` | Names containing emoji |
+| `filters[repeatingChars]` | `include`, `exclude`, `only` | Names with repeating characters |
+
+##### Legacy Character Filters (boolean)
+
+| Filter | Type | Description |
+|--------|------|-------------|
+| `filters[hasNumbers]` | boolean | Has numeric characters |
+| `filters[hasEmoji]` | boolean | Has emoji characters |
+
+##### String Pattern Filters
+
+| Filter | Type | Description |
+|--------|------|-------------|
+| `filters[contains]` | string | Name contains substring |
+| `filters[startsWith]` | string | Name starts with string |
+| `filters[endsWith]` | string | Name ends with string |
+| `filters[doesNotContain]` | string | Name does not contain substring |
+| `filters[doesNotStartWith]` | string | Name does not start with string |
+| `filters[doesNotEndWith]` | string | Name does not end with string |
+
+##### Listing & Market Filters
+
+| Filter | Type | Description |
+|--------|------|-------------|
+| `filters[listed]` | boolean | Has an active listing |
+| `filters[hasOffer]` | boolean | Has an active offer |
+| `filters[showListings]` | boolean | Only show listed names |
+| `filters[showUnlisted]` | boolean | Only show unlisted names |
+| `filters[marketplace]` | string | Filter by marketplace: `grails`, `opensea`, or `all` |
+
+##### Club Filters
+
+| Filter | Type | Description |
+|--------|------|-------------|
+| `filters[clubs][]` | string[] | Only names in these clubs |
+| `filters[excludeClubs][]` | string[] | Exclude names in these clubs |
+| `filters[inAnyClub]` | boolean | Name is in at least one club |
+
+##### Status Filters
+
+| Filter | Type | Description |
+|--------|------|-------------|
+| `filters[status]` | string or string[] | `registered`, `grace`, `premium`, `available`, `all` (comma-separated for multiple) |
+| `filters[isExpired]` | boolean | Name has expired |
+| `filters[isGracePeriod]` | boolean | Name is in grace period |
+| `filters[isPremiumPeriod]` | boolean | Name is in premium period |
+| `filters[expiringWithinDays]` | number | Expires within N days |
+| `filters[includeExpired]` | boolean | Include expired names in results |
+
+##### Sale History Filters
+
+| Filter | Type | Description |
+|--------|------|-------------|
+| `filters[hasSales]` | boolean | Has been sold before |
+| `filters[lastSoldAfter]` | string | Last sold after date (ISO) |
+| `filters[lastSoldBefore]` | string | Last sold before date (ISO) |
+| `filters[minDaysSinceLastSale]` | number | Minimum days since last sale |
+| `filters[maxDaysSinceLastSale]` | number | Maximum days since last sale |
+
+##### Other Filters
+
+| Filter | Type | Description |
+|--------|------|-------------|
+| `filters[minCreationDate]` | string | Created after date (ISO) |
+| `filters[maxCreationDate]` | string | Created before date (ISO) |
+| `filters[owner]` | string | Filter by owner (address or ENS name) |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/search?q=cool&filters[minLength]=3&filters[maxLength]=5&filters[listed]=true&sortBy=price&sortOrder=asc&limit=10"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "results": [
+      {
+        "id": 1,
+        "name": "cool.eth",
+        "token_id": "12345...",
+        "owner": "0x1234...",
+        "expiry_date": "2027-01-15T00:00:00.000Z",
+        "registration_date": "2023-01-15T00:00:00.000Z",
+        "metadata": { ... },
+        "clubs": ["999", "10k"],
+        "listings": [{ "price_wei": "100000000000000000", "source": "grails", ... }],
+        "upvotes": 10,
+        "downvotes": 2,
+        "net_score": 8,
+        "watchers_count": 5,
+        "is_user_watching": false,
+        "highest_offer_wei": "50000000000000000",
+        "view_count": 42
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 10,
+      "total": 150,
+      "totalPages": 15,
+      "hasNext": true,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### CSV Export
+
+Set `export=true` to download results as CSV (requires authentication). The response is a CSV file with headers:
+
+`name`, `owner`, `expiry_date`, `registration_date`, `listed`, `price`, `currency`, and more.
+
+```sh
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.market/api/v1/search?q=cool&export=true&filename=my-export"
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 401 | `UNAUTHORIZED` | Export requires authentication |
+| 500 | `SEARCH_ERROR` | Search service temporarily unavailable |

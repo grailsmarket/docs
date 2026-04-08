@@ -1,0 +1,98 @@
+---
+title: Bulk Filtered Search
+description: Grails API v1
+---
+
+### POST /api/v1/search/bulk-filters
+
+Search for exact ENS name matches with filter and sort support. Unlike `/bulk`, this endpoint:
+
+- Applies filters during search (returns only names matching **both** the terms and filters)
+- Paginates the *filtered results* (not the input terms)
+- Does **not** return placeholder objects for names not found or filtered out
+
+**Authentication:** Optional (enhances results with user-specific data)
+
+**Cache:** None
+
+#### Request Body
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `terms` | string[] | Yes | ENS names to search for (1–10,000 items) |
+| `page` | number | No | Page number (default `1`) |
+| `limit` | number | No | Results per page (1–100, default `20`) |
+| `sortBy` | string | No | Sort field (see [Global Search](/docs/api/search/global-search#sort-fields)) |
+| `sortOrder` | string | No | `asc` or `desc` |
+| `filters` | object | No | Filter object (same structure as [Global Search filters](/docs/api/search/global-search#filters)) |
+
+#### Filters Object
+
+The `filters` object accepts all the same fields as the Global Search endpoint. Key categories:
+
+- **Price:** `minPrice`, `maxPrice`, `minOffer`, `maxOffer`
+- **Length:** `minLength`, `maxLength`
+- **Counts:** `minWatchersCount`, `maxWatchersCount`, `minViewCount`, `maxViewCount`, `minClubsCount`, `maxClubsCount`
+- **Characters:** `digits`, `letters`, `emoji`, `repeatingChars` (tri-state: `include`/`exclude`/`only`)
+- **Patterns:** `contains`, `startsWith`, `endsWith`, `doesNotContain`, `doesNotStartWith`, `doesNotEndWith`
+- **Listings:** `listed`, `hasOffer`, `showListings`, `showUnlisted`, `marketplace`
+- **Clubs:** `clubs[]`, `excludeClubs[]`, `inAnyClub`
+- **Status:** `status`, `isExpired`, `isGracePeriod`, `isPremiumPeriod`, `expiringWithinDays`, `includeExpired`
+- **Sales:** `hasSales`, `lastSoldAfter`, `lastSoldBefore`, `minDaysSinceLastSale`, `maxDaysSinceLastSale`
+- **Other:** `minCreationDate`, `maxCreationDate`, `owner`
+
+#### Sample Request
+
+```sh
+curl -X POST https://api.grails.market/api/v1/search/bulk-filters \
+  -H "Content-Type: application/json" \
+  -d '{
+    "terms": ["cool", "vitalik.eth", "example", "hello"],
+    "sortBy": "price",
+    "sortOrder": "asc",
+    "filters": {
+      "listed": true,
+      "minLength": 3,
+      "maxLength": 5
+    }
+  }'
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "results": [
+      {
+        "name": "cool.eth",
+        "token_id": "12345...",
+        "owner": "0x1234...",
+        "listings": [...],
+        // ... only names matching both terms AND filters
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 2,
+      "totalPages": 1,
+      "hasNext": false,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `VALIDATION_ERROR` | Invalid request body |
+| 500 | `SEARCH_ERROR` | Search service temporarily unavailable |

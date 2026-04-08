@@ -1,8 +1,18 @@
 ---
-title: Route
-description: Grails API v1
+title: Search
+description: Grails API v1 — Search Endpoints
 ---
 
-# Documentation Pending
+# Search
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Full-text, filtered, and bulk search for ENS names. Uses Elasticsearch with automatic PostgreSQL fallback for complex queries.
+
+**Base path:** `/api/v1/search`
+
+## Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/` | Optional | Global search with filters, sorting, and CSV export |
+| POST | `/bulk` | Optional | Exact match search for up to 10,000 terms |
+| POST | `/bulk-filters` | Optional | Exact match search with filters and sorting |
