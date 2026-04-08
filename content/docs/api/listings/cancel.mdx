@@ -1,0 +1,57 @@
+---
+title: Cancel Listing
+description: Grails API v1
+---
+
+### DELETE /api/v1/listings/:id
+
+Cancel an active listing. Sets the listing status to `cancelled`. Only the original seller can cancel their listing. Triggers club floor price recalculation.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `id` | number | Yes | Listing ID |
+
+#### Sample Request
+
+```sh
+curl -X DELETE -H "Authorization: Bearer YOUR_TOKEN" \
+  https://api.grails.market/api/v1/listings/42
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "message": "Listing cancelled successfully",
+    "listing": {
+      "id": 42,
+      "ens_name_id": 1,
+      "seller_address": "0xabcd...",
+      "price_wei": "100000000000000000",
+      "status": "cancelled",
+      "updated_at": "2026-04-07T12:10:00.000Z"
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:10:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 401 | `UNAUTHORIZED` | Missing or invalid token |
+| 403 | `FORBIDDEN` | Only the listing seller can cancel |
+| 404 | `LISTING_NOT_FOUND` | Active listing not found |

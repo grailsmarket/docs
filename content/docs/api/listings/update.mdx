@@ -1,0 +1,66 @@
+---
+title: Update Listing
+description: Grails API v1
+---
+
+### PUT /api/v1/listings/:id
+
+Update the price or expiration of an active listing. Only the original seller can update their listing. Triggers club floor price recalculation if the price changes.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `id` | number | Yes | Listing ID |
+
+#### Request Body
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `priceWei` | string | No | New price in wei |
+| `expiresAt` | string | No | New expiration date (ISO string) |
+
+At least one field must be provided.
+
+#### Sample Request
+
+```sh
+curl -X PUT -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  https://api.grails.market/api/v1/listings/42 \
+  -d '{ "priceWei": "200000000000000000" }'
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "id": 42,
+    "ens_name_id": 1,
+    "seller_address": "0xabcd...",
+    "price_wei": "200000000000000000",
+    "status": "active",
+    "updated_at": "2026-04-07T12:05:00.000Z"
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:05:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `NO_UPDATES` | No fields provided to update |
+| 401 | `UNAUTHORIZED` | Missing or invalid token |
+| 403 | `FORBIDDEN` | Only the listing seller can update |
+| 404 | `LISTING_NOT_FOUND` | Active listing not found |

@@ -1,8 +1,21 @@
 ---
-title: Route
-description: Grails API v1
+title: Listings
+description: Grails API v1 — Listing Endpoints
 ---
 
-# Documentation Pending
+# Listings
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Manage ENS name listings on the Grails marketplace. Listings represent names offered for sale with a price, currency, and optional expiration.
+
+**Base path:** `/api/v1/listings`
+
+## Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/` | None | List listings with filtering and pagination |
+| GET | `/name/:name` | None | Get active listings for an ENS name |
+| GET | `/:id` | None | Get a single listing by ID |
+| POST | `/` | Required | Create a new listing |
+| PUT | `/:id` | Required | Update listing price or expiry |
+| DELETE | `/:id` | Required | Cancel a listing |
