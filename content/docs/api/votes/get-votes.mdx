@@ -1,0 +1,55 @@
+---
+title: Get Votes
+description: Grails API v1
+---
+
+### GET /api/v1/votes/:ensName
+
+Get vote statistics for a specific ENS name. If authenticated, also returns the current user's vote.
+
+**Authentication:** Optional (includes `userVote` when authenticated)
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `ensName` | string | Yes | ENS name (e.g. `example.eth`) |
+
+#### Sample Request
+
+```sh
+curl https://api.grails.market/api/v1/votes/example.eth
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "ensName": "example.eth",
+    "upvotes": 15,
+    "downvotes": 3,
+    "netScore": 12,
+    "userVote": 1
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `userVote` | number \| null | `1`, `-1`, or `null` if not authenticated or no vote cast |
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 404 | `ENS_NAME_NOT_FOUND` | ENS name not found |
+| 500 | `INTERNAL_ERROR` | Failed to fetch vote statistics |

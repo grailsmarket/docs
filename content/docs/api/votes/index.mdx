@@ -1,8 +1,18 @@
 ---
-title: Route
-description: Grails API v1
+title: Votes
+description: Grails API v1 — Vote Endpoints
 ---
 
-# Documentation Pending
+# Votes
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Upvote/downvote system for ENS names. Users can cast one vote per name (upvote, downvote, or remove). Vote counts are stored directly on the ENS name record for fast retrieval.
+
+**Base path:** `/api/v1/votes`
+
+## Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/` | Required | Cast or update a vote |
+| GET | `/:ensName` | Optional | Get vote stats for a name |
+| GET | `/leaderboard` | None | Top voted names leaderboard |

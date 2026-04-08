@@ -2,8 +2,8 @@
   "metadata": {
     "totalRoutes": 35,
     "totalEndpoints": 134,
-    "completedRoutes": 14,
-    "lastUpdated": "2026-04-08T00:45:00Z"
+    "completedRoutes": 15,
+    "lastUpdated": "2026-04-08T00:55:00Z"
   },
   "routes": [
     {
@@ -221,14 +221,14 @@
       "name": "votes",
       "file": "votes.ts",
       "prefix": "/api/v1/votes",
-      "status": "pending",
+      "status": "completed",
       "endpointCount": 3,
       "endpoints": [
-        { "method": "POST", "path": "/", "auth": "requireAuth", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/:ensName", "auth": "optionalAuth", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/leaderboard", "auth": "none", "cache": "none", "documented": false }
+        { "method": "POST", "path": "/", "auth": "requireAuth", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/:ensName", "auth": "optionalAuth", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/leaderboard", "auth": "none", "cache": "none", "documented": true }
       ],
-      "completedAt": null
+      "completedAt": "2026-04-08T00:55:00Z"
     },
     {
       "name": "notifications",

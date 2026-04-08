@@ -1,0 +1,74 @@
+---
+title: Leaderboard
+description: Grails API v1
+---
+
+### GET /api/v1/votes/leaderboard
+
+Get the leaderboard of top-voted ENS names. Only names with at least one vote are included. Each entry includes active listing data if available.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number (min 1) |
+| `limit` | number | `20` | Results per page (1–100) |
+| `sortBy` | string | `netScore` | Sort by: `upvotes`, `downvotes`, or `netScore` |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/votes/leaderboard?sortBy=netScore&limit=10"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "leaderboard": [
+      {
+        "id": 42,
+        "name": "example.eth",
+        "tokenId": "12345...",
+        "ownerAddress": "0xabcd...",
+        "upvotes": 50,
+        "downvotes": 5,
+        "netScore": 45,
+        "activeListing": {
+          "id": 100,
+          "price_wei": "200000000000000000",
+          "currency_address": "0x0000...0000",
+          "status": "active",
+          "source": "grails"
+        }
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 10,
+      "total": 500,
+      "totalPages": 50,
+      "hasNext": true,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `VALIDATION_ERROR` | Invalid query parameters |
+| 500 | `INTERNAL_ERROR` | Failed to fetch leaderboard |
