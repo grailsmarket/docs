@@ -1,0 +1,80 @@
+---
+title: Update Offer
+description: Grails API v1
+---
+
+### PUT /api/v1/offers/:id
+
+Update an offer's amount or status. Authorization depends on the action:
+
+- **Cancel (set status to `rejected`):** Only the buyer (offer creator) can cancel
+- **Accept (set status to `accepted`):** Only the ENS name owner can accept
+- **Other updates:** Either the buyer or the name owner
+
+Triggers highest offer recalculation when the amount changes or when a pending offer's status changes.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `id` | number | Yes | Offer ID |
+
+#### Request Body
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `offerAmountWei` | string | No | New offer amount in wei |
+| `status` | string | No | New status: `pending`, `accepted`, `rejected`, `expired`, `unfunded` |
+
+At least one field must be provided.
+
+#### Sample Request
+
+```sh
+# Buyer cancels their offer
+curl -X PUT -H "Authorization: Bearer BUYER_TOKEN" \
+  -H "Content-Type: application/json" \
+  https://api.grails.market/api/v1/offers/99 \
+  -d '{ "status": "rejected" }'
+
+# Owner accepts an offer
+curl -X PUT -H "Authorization: Bearer OWNER_TOKEN" \
+  -H "Content-Type: application/json" \
+  https://api.grails.market/api/v1/offers/99 \
+  -d '{ "status": "accepted" }'
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "id": 99,
+    "ens_name_id": 1,
+    "buyer_address": "0x1234...",
+    "offer_amount_wei": "50000000000000000",
+    "status": "accepted",
+    "name": "example.eth",
+    "token_id": "12345..."
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `NO_UPDATES` | No fields provided to update |
+| 401 | `UNAUTHORIZED` | Missing or invalid token |
+| 403 | `FORBIDDEN` | Not authorized for this action (see authorization rules above) |
+| 404 | `OFFER_NOT_FOUND` | Offer not found |

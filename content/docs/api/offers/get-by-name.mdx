@@ -1,0 +1,75 @@
+---
+title: Get by Name
+description: Grails API v1
+---
+
+### GET /api/v1/offers/name/:name
+
+Get offers for a specific ENS name, ordered by highest offer amount first. Defaults to pending offers only.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `name` | string | Yes | ENS name (e.g. `example.eth`) |
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page |
+| `status` | string | `pending` | Filter by status: `pending`, `accepted`, `rejected`, `expired`, `unfunded` |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/offers/name/example.eth?status=pending"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "offers": [
+      {
+        "id": 99,
+        "ens_name_id": 1,
+        "buyer_address": "0x1234...",
+        "offer_amount_wei": "50000000000000000",
+        "currency_address": "0x0000...0000",
+        "status": "pending",
+        "expires_at": "2026-05-01T00:00:00.000Z",
+        "created_at": "2026-04-07T12:00:00.000Z",
+        "name": "example.eth",
+        "token_id": "12345..."
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 3,
+      "totalPages": 1,
+      "hasNext": false,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 404 | `NAME_NOT_FOUND` | ENS name not found |

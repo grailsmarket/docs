@@ -1,0 +1,67 @@
+---
+title: Get by Buyer
+description: Grails API v1
+---
+
+### GET /api/v1/offers/buyer/:address
+
+Get all offers made by a specific buyer address, ordered by most recent first.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `address` | string | Yes | Buyer's Ethereum address |
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page |
+| `status` | string | — | Filter by status: `pending`, `accepted`, `rejected`, `expired`, `unfunded` |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/offers/buyer/0x1234...?status=pending"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "offers": [
+      {
+        "id": 99,
+        "ens_name_id": 1,
+        "buyer_address": "0x1234...",
+        "offer_amount_wei": "50000000000000000",
+        "status": "pending",
+        "created_at": "2026-04-07T12:00:00.000Z",
+        "name": "example.eth",
+        "token_id": "12345..."
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 5,
+      "totalPages": 1,
+      "hasNext": false,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```

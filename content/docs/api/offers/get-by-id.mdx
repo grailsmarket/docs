@@ -1,0 +1,56 @@
+---
+title: Get by ID
+description: Grails API v1
+---
+
+### GET /api/v1/offers/:id
+
+Get a single offer by its ID.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `id` | number | Yes | Offer ID |
+
+#### Sample Request
+
+```sh
+curl https://api.grails.market/api/v1/offers/99
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "id": 99,
+    "ens_name_id": 1,
+    "buyer_address": "0x1234...",
+    "offer_amount_wei": "50000000000000000",
+    "currency_address": "0x0000...0000",
+    "order_data": { ... },
+    "status": "pending",
+    "expires_at": "2026-05-01T00:00:00.000Z",
+    "created_at": "2026-04-07T12:00:00.000Z",
+    "name": "example.eth",
+    "token_id": "12345..."
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 404 | `OFFER_NOT_FOUND` | Offer not found |

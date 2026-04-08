@@ -1,0 +1,73 @@
+---
+title: Create Offer
+description: Grails API v1
+---
+
+### POST /api/v1/offers
+
+Create a new offer on an ENS name. The buyer address must match the authenticated user. The order data is validated for correct marketplace fees. On creation, background jobs are queued for expiry scheduling, highest offer update, and balance validation.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Request Body
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `ensNameId` | number | Yes | Database ID of the ENS name |
+| `buyerAddress` | string | Yes | Buyer's Ethereum address (must match authenticated user) |
+| `offerAmountWei` | string | Yes | Offer amount in wei |
+| `currencyAddress` | string | No | Payment token address (defaults to ETH zero address) |
+| `orderData` | any | Yes | Seaport order data for on-chain fulfillment |
+| `expiresAt` | string | No | Offer expiration date (ISO string) |
+
+#### Sample Request
+
+```sh
+curl -X POST -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  https://api.grails.market/api/v1/offers \
+  -d '{
+    "ensNameId": 1,
+    "buyerAddress": "0x1234...",
+    "offerAmountWei": "50000000000000000",
+    "orderData": { ... }
+  }'
+```
+
+#### Response
+
+```jsonc
+// 201 Created
+{
+  "success": true,
+  "data": {
+    "id": 99,
+    "ens_name_id": 1,
+    "buyer_address": "0x1234...",
+    "offer_amount_wei": "50000000000000000",
+    "currency_address": "0x0000000000000000000000000000000000000000",
+    "order_data": { ... },
+    "status": "pending",
+    "expires_at": null,
+    "created_at": "2026-04-07T12:00:00.000Z",
+    "name": "example.eth",
+    "token_id": "12345..."
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `VALIDATION_ERROR` | Invalid request body |
+| 400 | `INVALID_FEE` | Invalid marketplace fee in order data |
+| 401 | `UNAUTHORIZED` | Missing or invalid token |
+| 403 | `FORBIDDEN` | Buyer address does not match authenticated user |
+| 404 | `ENS_NAME_NOT_FOUND` | ENS name ID does not exist |

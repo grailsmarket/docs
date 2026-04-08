@@ -1,8 +1,21 @@
 ---
-title: Route
-description: Grails API v1
+title: Offers
+description: Grails API v1 — Offer Endpoints
 ---
 
-# Documentation Pending
+# Offers
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Manage offers on ENS names. Offers represent bids from buyers, with lifecycle states: `pending`, `accepted`, `rejected`, `expired`, `unfunded`.
+
+**Base path:** `/api/v1/offers`
+
+## Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/` | Required | Create a new offer |
+| GET | `/name/:name` | None | Get offers for an ENS name |
+| GET | `/:id` | None | Get a single offer by ID |
+| PUT | `/:id` | Required | Update offer amount or status |
+| GET | `/buyer/:address` | None | Get offers made by an address |
+| GET | `/owner/:address` | None | Get offers received by a name owner |
