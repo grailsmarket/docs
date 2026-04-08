@@ -1,0 +1,71 @@
+---
+title: Get Name
+description: Grails API v1
+---
+
+### GET /api/v1/names/:name
+
+Get full details for a single ENS name, including vote data (if authenticated), listing and offer data from OpenSea, and ENS metadata. If the name is not in the database, the API fetches it from The Graph and imports it.
+
+Metadata is auto-refreshed from The Graph when stale. Name views are tracked asynchronously.
+
+**Authentication:** Optional (includes user's vote data when authenticated)
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `name` | string | Yes | ENS name (e.g. `example.eth`) |
+
+#### Sample Request
+
+```sh
+curl https://api.grails.market/api/v1/names/example.eth
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "token_id": "12345678901234567890",
+    "name": "example.eth",
+    "owner_address": "0x1234...",
+    "expiry_date": "2027-01-15T00:00:00.000Z",
+    "registration_date": "2023-01-15T00:00:00.000Z",
+    "metadata": {
+      "avatar": "https://...",
+      "description": "An example name",
+      "com.twitter": "example",
+      "url": "https://example.com"
+    },
+    "metadata_updated_at": "2026-04-07T10:00:00.000Z",
+    "vote_score": 42,
+    "user_vote": 1,
+    "opensea_listing": {
+      "price": "0.1",
+      "currency": "ETH",
+      "expiration_date": "2026-05-01T00:00:00.000Z"
+    },
+    "opensea_offer": {
+      "price": "0.05",
+      "currency": "WETH"
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 404 | `NAME_NOT_FOUND` | ENS name not found in database or on-chain |

@@ -1,0 +1,76 @@
+---
+title: Get Name (Legacy)
+description: Grails API v1
+---
+
+### GET /api/v1/names/:name/legacy
+
+Legacy endpoint that returns name data with inline listing details, active offers count, recent transactions, and OpenSea data. Resolves Name Wrapper ownership automatically.
+
+If the name is not in the database, the API fetches it from The Graph and imports it.
+
+**Authentication:** None
+
+**Cache:** 15s
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `name` | string | Yes | ENS name (e.g. `example.eth`) |
+
+#### Sample Request
+
+```sh
+curl https://api.grails.market/api/v1/names/example.eth/legacy
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "token_id": "12345678901234567890",
+    "name": "example.eth",
+    "owner_address": "0x1234...",
+    "expiry_date": "2027-01-15T00:00:00.000Z",
+    "registration_date": "2023-01-15T00:00:00.000Z",
+    "metadata": { ... },
+    "listing_price": "100000000000000000",
+    "listing_status": "active",
+    "listing_expires_at": null,
+    "listing_seller": "0xabcd...",
+    "listing_order_data": { ... },
+    "listing_currency_address": "0x0000...0000",
+    "listing_source": "grails",
+    "active_offers_count": "3",
+    "recent_transactions": [
+      {
+        "transaction_hash": "0xabc...",
+        "block_number": 12345678,
+        "from_address": "0x1234...",
+        "to_address": "0xabcd...",
+        "price_wei": "50000000000000000",
+        "transaction_type": "transfer",
+        "timestamp": "2026-03-15T12:00:00.000Z"
+      }
+    ],
+    "opensea_listing": { ... },
+    "opensea_offer": { ... }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 404 | `NAME_NOT_FOUND` | ENS name not found in database or on-chain |
+| 404 | `INVALID_NAME` | Could not determine token ID for the name |

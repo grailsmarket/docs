@@ -1,0 +1,57 @@
+---
+title: Get Metadata
+description: Grails API v1
+---
+
+### GET /api/v1/names/:name/metadata
+
+Fetch fresh ENS text records for a name directly from The Graph. Unlike the main name endpoint which uses cached metadata, this always queries The Graph for the latest records. Database sync happens asynchronously.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `name` | string | Yes | ENS name (e.g. `example.eth`) |
+
+#### Sample Request
+
+```sh
+curl https://api.grails.market/api/v1/names/example.eth/metadata
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "name": "example.eth",
+    "metadata": {
+      "avatar": "https://...",
+      "name": "Example User",
+      "description": "ENS enthusiast",
+      "url": "https://example.com",
+      "com.twitter": "example",
+      "com.github": "example",
+      "com.discord": "example#1234",
+      "org.telegram": "example"
+    },
+    "source": "graph"
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 404 | `NAME_NOT_FOUND` | ENS name not found in database |

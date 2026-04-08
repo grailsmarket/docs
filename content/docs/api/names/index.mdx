@@ -1,8 +1,20 @@
 ---
-title: Route
-description: Grails API v1
+title: Names
+description: Grails API v1 — ENS Name Endpoints
 ---
 
-# Documentation Pending
+# Names
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Look up, list, and inspect ENS names. Names not found in the database are automatically fetched from The Graph ENS subgraph.
+
+**Base path:** `/api/v1/names`
+
+## Endpoints
+
+| Method | Path | Auth | Cache | Description |
+|--------|------|------|-------|-------------|
+| GET | `/` | None | 15s | List names with filtering and pagination |
+| GET | `/:name` | Optional | None | Get full details for a single name |
+| GET | `/:name/metadata` | None | None | Get fresh ENS text records from The Graph |
+| GET | `/:name/legacy` | None | 15s | Get name with listing and transaction data (legacy format) |
+| GET | `/:name/history` | None | 15s | Get transaction history for a name |

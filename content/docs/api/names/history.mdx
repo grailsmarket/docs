@@ -1,0 +1,73 @@
+---
+title: Transaction History
+description: Grails API v1
+---
+
+### GET /api/v1/names/:name/history
+
+Get the on-chain transaction history for an ENS name, with pagination.
+
+**Authentication:** None
+
+**Cache:** 15s
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `name` | string | Yes | ENS name (e.g. `example.eth`) |
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/names/example.eth/history?page=1&limit=10"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "transactions": [
+      {
+        "id": 1,
+        "ens_name_id": 42,
+        "transaction_hash": "0xabc123...",
+        "block_number": 12345678,
+        "from_address": "0x1234...",
+        "to_address": "0xabcd...",
+        "price_wei": "100000000000000000",
+        "transaction_type": "transfer",
+        "timestamp": "2026-03-15T12:00:00.000Z"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 10,
+      "total": 25,
+      "totalPages": 3,
+      "hasNext": true,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 404 | `NAME_NOT_FOUND` | ENS name not found in database |

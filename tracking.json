@@ -2,8 +2,8 @@
   "metadata": {
     "totalRoutes": 35,
     "totalEndpoints": 134,
-    "completedRoutes": 4,
-    "lastUpdated": "2026-04-07T22:50:00Z"
+    "completedRoutes": 5,
+    "lastUpdated": "2026-04-07T23:00:00Z"
   },
   "routes": [
     {
@@ -61,16 +61,16 @@
       "name": "names",
       "file": "names.ts",
       "prefix": "/api/v1/names",
-      "status": "pending",
+      "status": "completed",
       "endpointCount": 5,
       "endpoints": [
-        { "method": "GET", "path": "/", "auth": "none", "cache": "cacheHandler", "documented": false },
-        { "method": "GET", "path": "/:name", "auth": "optionalAuth", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/:name/metadata", "auth": "none", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/:name/legacy", "auth": "none", "cache": "cacheHandler", "documented": false },
-        { "method": "GET", "path": "/:name/history", "auth": "none", "cache": "cacheHandler", "documented": false }
+        { "method": "GET", "path": "/", "auth": "none", "cache": "cacheHandler", "documented": true },
+        { "method": "GET", "path": "/:name", "auth": "optionalAuth", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/:name/metadata", "auth": "none", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/:name/legacy", "auth": "none", "cache": "cacheHandler", "documented": true },
+        { "method": "GET", "path": "/:name/history", "auth": "none", "cache": "cacheHandler", "documented": true }
       ],
-      "completedAt": null
+      "completedAt": "2026-04-07T23:00:00Z"
     },
     {
       "name": "search",
