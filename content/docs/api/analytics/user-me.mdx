@@ -1,0 +1,40 @@
+---
+title: My Activity
+description: Grails API v1
+---
+
+### GET /api/v1/analytics/user/me
+
+Activity summary for the authenticated user — names owned, listings, offers, sales, and watchlist stats.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "names_owned": 25,
+    "names_in_clubs": 12,
+    "active_listings": 5,
+    "active_offers_made": 3,
+    "active_offers_received": 8,
+    "total_sales": 10,
+    "total_purchases": 15,
+    "total_sales_volume_wei": "5000000000000000000",
+    "total_purchases_volume_wei": "7500000000000000000",
+    "watchlist_count": 42,
+    "votes_cast": 30,
+    "profile_views": 150
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 401 | `UNAUTHORIZED` | Missing or invalid token |

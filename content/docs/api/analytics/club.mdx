@@ -1,0 +1,53 @@
+---
+title: Club Analytics
+description: Grails API v1
+---
+
+### GET /api/v1/analytics/clubs/:club
+
+Analytics for a specific club — member stats, sales volume, activity, and current floor price.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `club` | string | Yes | Club name (e.g. `999`) |
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `period` | string | `7d` | `24h`, `7d`, `30d`, `90d` |
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "club": "999",
+    "period": "7d",
+    "stats": {
+      "member_count": 1000,
+      "active_listings": 50,
+      "active_offers": 30,
+      "total_views": 5000,
+      "floor_price_wei": "200000000000000000"
+    },
+    "volume": {
+      "sales_count": 12,
+      "total_volume_wei": "6000000000000000000",
+      "avg_sale_price_wei": "500000000000000000"
+    },
+    "activity": {
+      "views": 5000,
+      "watchlist_adds": 100,
+      "votes": 50
+    }
+  }
+}
+```

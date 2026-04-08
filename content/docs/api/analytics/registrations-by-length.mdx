@@ -1,0 +1,34 @@
+---
+title: Registrations by Length
+description: Grails API v1
+---
+
+### GET /api/v1/analytics/registrations/by-length
+
+Registration counts grouped by name character length for the selected period.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `period` | string | `7d` | `24h`, `7d`, `30d`, `1y`, `all` |
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "period": "7d",
+    "by_length": [
+      { "length": 3, "count": 15, "total_cost_wei": "750000000000000000" },
+      { "length": 4, "count": 45, "total_cost_wei": "225000000000000000" },
+      { "length": 5, "count": 120, "total_cost_wei": "600000000000000000" }
+    ]
+  }
+}
+```

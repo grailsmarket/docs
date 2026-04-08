@@ -1,0 +1,48 @@
+---
+title: Listings Feed
+description: Grails API v1
+---
+
+### GET /api/v1/analytics/listings
+
+Paginated feed of listings with sorting, status/source filtering, and club filtering.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `period` | string | `7d` | `24h`, `7d`, `30d`, `1y`, `all` |
+| `status` | string | — | `active`, `cancelled`, or `sold` |
+| `source` | string | — | `opensea` or `grails` |
+| `sortBy` | string | `date` | `price` or `date` |
+| `sortOrder` | string | `desc` | `asc` or `desc` |
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page |
+| `clubs[]` | string[] | — | Filter by clubs (repeatable, comma-separated) |
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "listings": [
+      {
+        "name": "example.eth",
+        "price_wei": "200000000000000000",
+        "currency_address": "0x0000...0000",
+        "seller_address": "0xabcd...",
+        "status": "active",
+        "source": "grails",
+        "created_at": "2026-04-07T12:00:00.000Z",
+        "clubs": ["999"]
+      }
+    ],
+    "pagination": { "page": 1, "limit": 20, "total": 300, "totalPages": 15 }
+  }
+}
+```

@@ -1,0 +1,54 @@
+---
+title: Market Overview
+description: Grails API v1
+---
+
+### GET /api/v1/analytics/market
+
+Global market statistics including name counts, active listings/offers, sales volume, and activity metrics.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `period` | string | `7d` | `24h`, `7d`, `30d`, `90d`, `all` |
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "period": "7d",
+    "overview": {
+      "total_names": 50000,
+      "active_listings": 1200,
+      "active_offers": 800,
+      "total_watchers": 3500,
+      "total_views": 25000
+    },
+    "volume": {
+      "sales_count": 150,
+      "total_volume_wei": "75000000000000000000",
+      "avg_sale_price_wei": "500000000000000000",
+      "max_sale_price_wei": "5000000000000000000",
+      "min_sale_price_wei": "10000000000000000",
+      "unique_names_sold": 140,
+      "unique_buyers": 95,
+      "unique_sellers": 80
+    },
+    "activity": {
+      "views": 25000,
+      "watchlist_adds": 500,
+      "votes": 200,
+      "offers": 150,
+      "listings": 300
+    }
+  }
+}
+```

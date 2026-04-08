@@ -1,0 +1,46 @@
+---
+title: Registrations
+description: Grails API v1
+---
+
+### GET /api/v1/analytics/registrations
+
+Paginated feed of ENS name registrations with sorting and club filtering.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `period` | string | `7d` | `24h`, `7d`, `30d`, `1y`, `all` |
+| `sortBy` | string | `date` | `cost`, `date`, `length` |
+| `sortOrder` | string | `desc` | `asc` or `desc` |
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page |
+| `clubs[]` | string[] | — | Filter by clubs (repeatable, comma-separated) |
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "registrations": [
+      {
+        "name": "example.eth",
+        "registrant_address": "0x1234...",
+        "registration_date": "2026-04-07T12:00:00.000Z",
+        "expiry_date": "2027-04-07T12:00:00.000Z",
+        "total_cost_wei": "5000000000000000",
+        "duration_years": 1,
+        "source": "grails",
+        "clubs": ["999"]
+      }
+    ],
+    "pagination": { "page": 1, "limit": 20, "total": 500, "totalPages": 25 }
+  }
+}
+```

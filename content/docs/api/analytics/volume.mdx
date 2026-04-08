@@ -1,0 +1,35 @@
+---
+title: Volume Distribution
+description: Grails API v1
+---
+
+### GET /api/v1/analytics/volume
+
+Sales volume distribution broken down by price range buckets.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `period` | string | `7d` | `24h`, `7d`, `30d`, `90d`, `all` |
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "period": "7d",
+    "distribution": [
+      { "range": "0-0.01 ETH", "count": 50, "volume_wei": "250000000000000000" },
+      { "range": "0.01-0.1 ETH", "count": 80, "volume_wei": "4000000000000000000" },
+      { "range": "0.1-1 ETH", "count": 15, "volume_wei": "7500000000000000000" },
+      { "range": "1+ ETH", "count": 5, "volume_wei": "25000000000000000000" }
+    ]
+  }
+}
+```

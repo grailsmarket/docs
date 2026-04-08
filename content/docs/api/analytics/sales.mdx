@@ -1,0 +1,48 @@
+---
+title: Sales Feed
+description: Grails API v1
+---
+
+### GET /api/v1/analytics/sales
+
+Paginated feed of completed sales with sorting, source filtering, and club filtering.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `period` | string | `7d` | `24h`, `7d`, `30d`, `1y`, `all` |
+| `source` | string | — | Filter by marketplace: `opensea` or `grails` |
+| `sortBy` | string | `date` | `price` or `date` |
+| `sortOrder` | string | `desc` | `asc` or `desc` |
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page |
+| `clubs[]` | string[] | — | Filter by clubs (repeatable, comma-separated) |
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "sales": [
+      {
+        "name": "example.eth",
+        "sale_price_wei": "100000000000000000",
+        "currency_address": "0x0000...0000",
+        "buyer_address": "0x1234...",
+        "seller_address": "0xabcd...",
+        "sale_date": "2026-04-07T18:00:00.000Z",
+        "source": "grails",
+        "transaction_hash": "0xdef...",
+        "clubs": ["999"]
+      }
+    ],
+    "pagination": { "page": 1, "limit": 20, "total": 150, "totalPages": 8 }
+  }
+}
+```

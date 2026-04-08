@@ -1,8 +1,38 @@
 ---
-title: Route
-description: Grails API v1
+title: Analytics
+description: Grails API v1 — Analytics Endpoints
 ---
 
-# Documentation Pending
+# Analytics
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Market analytics, user activity, and data feeds for sales, listings, offers, and registrations.
+
+**Base path:** `/api/v1/analytics`
+
+## Common Parameters
+
+Most endpoints accept a `period` parameter:
+
+| Value | Duration |
+|-------|----------|
+| `24h` | Last 24 hours |
+| `7d` | Last 7 days (default) |
+| `30d` | Last 30 days |
+| `90d` | Last 90 days |
+| `1y` | Last year (feed endpoints only) |
+| `all` | All time |
+
+## Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/market` | None | Global market statistics |
+| GET | `/clubs/:club` | None | Analytics for a specific club |
+| GET | `/price-trends` | None | Daily price aggregates over time |
+| GET | `/volume` | None | Volume distribution by price range |
+| GET | `/user/me` | Required | Authenticated user's activity summary |
+| GET | `/registrations` | None | Registration feed with sorting and club filtering |
+| GET | `/registrations/by-length` | None | Registration counts grouped by name length |
+| GET | `/sales` | None | Sales feed with sorting and club filtering |
+| GET | `/listings` | None | Listings feed with sorting and club filtering |
+| GET | `/offers` | None | Offers feed with sorting and club filtering |

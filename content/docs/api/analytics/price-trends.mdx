@@ -1,0 +1,39 @@
+---
+title: Price Trends
+description: Grails API v1
+---
+
+### GET /api/v1/analytics/price-trends
+
+Daily price aggregates over the selected period — sales count, volume, average/max/min prices per day. ETH and WETH sales only.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `period` | string | `7d` | `24h`, `7d`, `30d`, `90d`, `all` |
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "period": "30d",
+    "trends": [
+      {
+        "date": "2026-04-07T00:00:00.000Z",
+        "sales_count": 25,
+        "volume_wei": "12500000000000000000",
+        "avg_price_wei": "500000000000000000",
+        "max_price_wei": "2000000000000000000",
+        "min_price_wei": "50000000000000000"
+      }
+    ]
+  }
+}
+```
