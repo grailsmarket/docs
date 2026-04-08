@@ -1,0 +1,79 @@
+---
+title: Save Order
+description: Grails API v1
+---
+
+### POST /api/v1/orders
+
+Save a Seaport order (listing or offer) to the database. For listings, the ENS name is looked up by token ID — if not found, it is fetched from The Graph and created. Existing active listings with the same order hash and source are auto-cancelled before the new one is inserted.
+
+Fee validation is performed for Grails marketplace orders.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Request Body
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `type` | string | Yes | Order type: `listing`, `offer`, or `collection_offer` |
+| `token_id` | string | Yes | ENS name token ID |
+| `price_wei` | string | Yes | Price in wei |
+| `currency_address` | string | No | Payment token (defaults to ETH zero address) |
+| `order_data` | string | Yes | JSON string of the Seaport order |
+| `order_hash` | string | Yes | Unique Seaport order hash |
+| `seller_address` | string | No | Seller address (for listings) |
+| `buyer_address` | string | No | Buyer address (for offers) |
+| `traits` | any | No | Optional traits metadata |
+| `status` | string | No | Order status (default `active`) |
+| `source` | string | No | Marketplace source (default `grails`) |
+
+#### Sample Request
+
+```sh
+curl -X POST -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  https://api.grails.market/api/v1/orders \
+  -d '{
+    "type": "listing",
+    "token_id": "12345678901234567890",
+    "price_wei": "100000000000000000",
+    "order_data": "{...}",
+    "order_hash": "0xabc123...",
+    "seller_address": "0xabcd..."
+  }'
+```
+
+#### Response
+
+```jsonc
+// 201 Created
+{
+  "success": true,
+  "data": {
+    "id": 43,
+    "ens_name_id": 1,
+    "seller_address": "0xabcd...",
+    "price_wei": "100000000000000000",
+    "order_hash": "0xabc123...",
+    "status": "active",
+    "source": "grails",
+    "expires_at": "2026-04-14T12:00:00.000Z",
+    "created_at": "2026-04-07T12:00:00.000Z"
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `INVALID_FEE` | Invalid marketplace fee in order data |
+| 403 | `FORBIDDEN` | Address does not match authenticated user |
+| 500 | `ORDER_SAVE_FAILED` | Failed to save order to database |
+| 501 | `NOT_IMPLEMENTED` | Offer creation via this endpoint not yet implemented |

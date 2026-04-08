@@ -1,0 +1,54 @@
+---
+title: Cancel Order
+description: Grails API v1
+---
+
+### DELETE /api/v1/orders/:id
+
+Cancel an active order by its database ID or order hash. Only the original seller can cancel. Sets the listing status to `cancelled`.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `id` | string | Yes | Listing ID (number) or order hash (hex string) |
+
+#### Sample Request
+
+```sh
+curl -X DELETE -H "Authorization: Bearer YOUR_TOKEN" \
+  https://api.grails.market/api/v1/orders/42
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "message": "Order cancelled successfully",
+    "order": {
+      "id": 42,
+      "status": "cancelled",
+      "updated_at": "2026-04-07T12:10:00.000Z"
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:10:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 401 | `UNAUTHORIZED` | Missing or invalid token |
+| 403 | `FORBIDDEN` | Cannot cancel another user's order |
+| 404 | `ORDER_NOT_FOUND` | Active order not found |

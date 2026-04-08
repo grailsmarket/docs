@@ -1,8 +1,21 @@
 ---
-title: Route
-description: Grails API v1
+title: Orders
+description: Grails API v1 — Order Endpoints
 ---
 
-# Documentation Pending
+# Orders
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Low-level Seaport order management. These endpoints handle creating, validating, saving, and cancelling Seaport protocol orders that back marketplace listings and offers.
+
+**Base path:** `/api/v1/orders`
+
+## Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/` | Required | Save a Seaport order (listing or offer) to database |
+| POST | `/create` | None | Generate a new Seaport order |
+| POST | `/validate` | None | Validate a Seaport order |
+| GET | `/:id` | None | Get an order by ID or order hash |
+| DELETE | `/:id` | Required | Cancel an active order |
+| POST | `/bulk` | Required | Bulk create up to 500 listings |

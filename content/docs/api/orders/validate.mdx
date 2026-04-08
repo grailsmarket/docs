@@ -1,0 +1,64 @@
+---
+title: Validate Order
+description: Grails API v1
+---
+
+### POST /api/v1/orders/validate
+
+Validate a Seaport order's structure and parameters. Returns whether the order is valid and any validation errors.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Request Body
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `orderData` | object | Yes | Complete Seaport order object to validate |
+
+#### Sample Request
+
+```sh
+curl -X POST -H "Content-Type: application/json" \
+  https://api.grails.market/api/v1/orders/validate \
+  -d '{ "orderData": { "parameters": { ... } } }'
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "valid": true,
+    "errors": []
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+```jsonc
+// 200 OK — invalid order
+{
+  "success": true,
+  "data": {
+    "valid": false,
+    "errors": ["Invalid offer amount", "Missing consideration items"]
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `ORDER_VALIDATION_FAILED` | Could not validate order |

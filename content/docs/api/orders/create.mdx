@@ -1,0 +1,67 @@
+---
+title: Create Seaport Order
+description: Grails API v1
+---
+
+### POST /api/v1/orders/create
+
+Generate a new Seaport protocol order for an ENS name listing. Returns the complete order data ready for on-chain signing.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Request Body
+
+| Field | Type | Required | Default | Description |
+|-------|------|----------|---------|-------------|
+| `tokenId` | string | Yes | — | ENS name token ID |
+| `price` | string | Yes | — | Listing price |
+| `currency` | string | No | ETH (zero address) | Payment token address |
+| `duration` | number | No | `7` | Listing duration in days (1–365) |
+| `offerer` | string | Yes | — | Address of the seller/offerer |
+
+#### Sample Request
+
+```sh
+curl -X POST -H "Content-Type: application/json" \
+  https://api.grails.market/api/v1/orders/create \
+  -d '{
+    "tokenId": "12345678901234567890",
+    "price": "100000000000000000",
+    "duration": 30,
+    "offerer": "0xabcd..."
+  }'
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "parameters": {
+      "offerer": "0xabcd...",
+      "offer": [...],
+      "consideration": [...],
+      "startTime": "1712505600",
+      "endTime": "1715097600",
+      "orderType": 0,
+      "zone": "0x0000...",
+      "salt": "0x...",
+      "conduitKey": "0x..."
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `ORDER_CREATION_FAILED` | Failed to create order (invalid parameters) |

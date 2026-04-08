@@ -1,0 +1,121 @@
+---
+title: Bulk Create Listings
+description: Grails API v1
+---
+
+### POST /api/v1/orders/bulk
+
+Bulk create up to 500 listings in a single request. All listings must belong to the authenticated user. For each listing:
+
+1. Fee validation is performed upfront
+2. ENS names are resolved by token ID (batch fetched from The Graph if missing)
+3. Existing duplicates (same order hash + source) are deleted
+4. New listings are batch inserted
+
+Returns a per-item result with `created`, `failed`, or `skipped` status. Uses HTTP `201` if all succeed, `207` (Multi-Status) if any fail.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Request Body
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `listings` | array | Yes | Array of listing objects (1–500 items) |
+
+Each listing object:
+
+| Field | Type | Required | Default | Description |
+|-------|------|----------|---------|-------------|
+| `type` | string | Yes | — | Must be `listing` |
+| `token_id` | string | Yes | — | ENS name token ID |
+| `price_wei` | string | Yes | — | Price in wei |
+| `currency_address` | string | No | ETH zero address | Payment token |
+| `order_data` | string | Yes | — | JSON string of Seaport order |
+| `order_hash` | string | Yes | — | Unique order hash |
+| `seller_address` | string | Yes | — | Seller address (must match authed user) |
+| `traits` | any | No | — | Optional traits metadata |
+| `status` | string | No | `active` | Order status |
+| `source` | string | No | `grails` | Marketplace source |
+
+#### Sample Request
+
+```sh
+curl -X POST -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  https://api.grails.market/api/v1/orders/bulk \
+  -d '{
+    "listings": [
+      {
+        "type": "listing",
+        "token_id": "111",
+        "price_wei": "100000000000000000",
+        "order_data": "{...}",
+        "order_hash": "0xabc...",
+        "seller_address": "0xabcd..."
+      },
+      {
+        "type": "listing",
+        "token_id": "222",
+        "price_wei": "200000000000000000",
+        "order_data": "{...}",
+        "order_hash": "0xdef...",
+        "seller_address": "0xabcd..."
+      }
+    ]
+  }'
+```
+
+#### Response
+
+```jsonc
+// 201 Created (all succeeded) or 207 Multi-Status (some failed)
+{
+  "success": true,
+  "data": {
+    "summary": {
+      "total": 2,
+      "succeeded": 2,
+      "failed": 0,
+      "skipped": 0
+    },
+    "results": [
+      {
+        "index": 0,
+        "token_id": "111",
+        "order_hash": "0xabc...",
+        "status": "created",
+        "listing_id": 43
+      },
+      {
+        "index": 1,
+        "token_id": "222",
+        "order_hash": "0xdef...",
+        "status": "created",
+        "listing_id": 44
+      }
+    ]
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `VALIDATION_ERROR` | Invalid request body |
+| 403 | `FORBIDDEN` | All listings must have seller_address matching authenticated user |
+| 500 | `BULK_ORDER_FAILED` | Failed to create bulk listings |
+
+Per-item errors in results:
+
+| Code | Description |
+|------|-------------|
+| `INVALID_FEE` | Invalid marketplace fee |
+| `ENS_NAME_NOT_FOUND` | Failed to resolve ENS name |
+| `INSERT_FAILED` | Database insert failed |
