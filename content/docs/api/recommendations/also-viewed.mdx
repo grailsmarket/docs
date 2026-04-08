@@ -1,0 +1,58 @@
+---
+title: Also Viewed
+description: Grails API v1
+---
+
+### GET /api/v1/recommendations/also-viewed
+
+Get names that collectors who viewed a specific name also viewed. Uses collaborative filtering based on view patterns.
+
+**Authentication:** Optional (enhances results with user-specific data)
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `name` | string | — | **Required.** ENS name to find related names for |
+| `limit` | number | `10` | Max results (1–50) |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/recommendations/also-viewed?name=example.eth&limit=10"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "names": [
+      {
+        "name": "similar.eth",
+        // ... standard search result fields
+        "recommendation_metrics": {
+          "type": "also-viewed",
+          "also_viewed_count": 25,
+          "shared_viewers_count": 12
+        }
+      }
+    ],
+    "meta": {
+      "type": "also-viewed",
+      "target_name": "example.eth",
+      "limit": 10
+    }
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 404 | `NAME_NOT_FOUND` | ENS name not found |

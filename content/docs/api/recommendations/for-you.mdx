@@ -1,0 +1,61 @@
+---
+title: For You
+description: Grails API v1
+---
+
+### GET /api/v1/recommendations/for-you
+
+Personalized recommendations combining watchlist similarity (3x weight) and vote similarity (2x weight). Fetches candidates from both sources, scores them by weighted sum, and returns the top results.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `limit` | number | `10` | Max results (1–50) |
+
+#### Score Weights
+
+| Signal | Weight |
+|--------|--------|
+| Watchlist similarity | 3x |
+| Vote similarity | 2x |
+
+#### Sample Request
+
+```sh
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.market/api/v1/recommendations/for-you?limit=20"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "names": [
+      {
+        "name": "recommended.eth",
+        // ... standard search result fields
+        "recommendation_metrics": {
+          "type": "for-you",
+          "personalized_score": 45
+        }
+      }
+    ],
+    "meta": {
+      "type": "for-you",
+      "limit": 20,
+      "score_weights": {
+        "watchlist_similarity": 3,
+        "vote_similarity": 2
+      }
+    }
+  }
+}
+```

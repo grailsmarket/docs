@@ -1,0 +1,51 @@
+---
+title: Based on Votes
+description: Grails API v1
+---
+
+### GET /api/v1/recommendations/based-on-votes
+
+Get names upvoted by users who have similar voting patterns to the authenticated user. Uses collaborative filtering based on vote overlap.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `limit` | number | `10` | Max results (1–50) |
+
+#### Sample Request
+
+```sh
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.market/api/v1/recommendations/based-on-votes?limit=10"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "names": [
+      {
+        "name": "recommended.eth",
+        // ... standard search result fields
+        "recommendation_metrics": {
+          "type": "based-on-votes",
+          "recommendation_score": 12,
+          "similar_voters": 6
+        }
+      }
+    ],
+    "meta": {
+      "type": "based-on-votes",
+      "limit": 10
+    }
+  }
+}
+```

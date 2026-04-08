@@ -1,8 +1,19 @@
 ---
-title: Route
-description: Grails API v1
+title: Recommendations
+description: Grails API v1 — Recommendation Endpoints
 ---
 
-# Documentation Pending
+# Recommendations
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Personalized ENS name recommendations using collaborative filtering. All results include enriched search result data plus recommendation-specific metrics.
+
+**Base path:** `/api/v1/recommendations`
+
+## Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/also-viewed` | Optional | Names viewed by collectors who viewed a given name |
+| GET | `/similar-to-watchlist` | Required | Names watched by users with similar watchlists |
+| GET | `/based-on-votes` | Required | Names upvoted by users with similar voting patterns |
+| GET | `/for-you` | Required | Personalized blend of all recommendation signals |

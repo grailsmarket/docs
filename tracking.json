@@ -2,8 +2,8 @@
   "metadata": {
     "totalRoutes": 35,
     "totalEndpoints": 134,
-    "completedRoutes": 20,
-    "lastUpdated": "2026-04-08T01:35:00Z"
+    "completedRoutes": 21,
+    "lastUpdated": "2026-04-08T01:45:00Z"
   },
   "routes": [
     {
@@ -299,15 +299,15 @@
       "name": "recommendations",
       "file": "recommendations.ts",
       "prefix": "/api/v1/recommendations",
-      "status": "pending",
+      "status": "completed",
       "endpointCount": 4,
       "endpoints": [
-        { "method": "GET", "path": "/also-viewed", "auth": "optionalAuth", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/similar-to-watchlist", "auth": "requireAuth", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/based-on-votes", "auth": "requireAuth", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/for-you", "auth": "requireAuth", "cache": "none", "documented": false }
+        { "method": "GET", "path": "/also-viewed", "auth": "optionalAuth", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/similar-to-watchlist", "auth": "requireAuth", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/based-on-votes", "auth": "requireAuth", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/for-you", "auth": "requireAuth", "cache": "none", "documented": true }
       ],
-      "completedAt": null
+      "completedAt": "2026-04-08T01:45:00Z"
     },
     {
       "name": "ai-recommendations",

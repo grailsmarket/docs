@@ -1,0 +1,51 @@
+---
+title: Similar to Watchlist
+description: Grails API v1
+---
+
+### GET /api/v1/recommendations/similar-to-watchlist
+
+Get names watched by users who have similar watchlists to the authenticated user. Uses collaborative filtering based on watchlist overlap.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `limit` | number | `10` | Max results (1–50) |
+
+#### Sample Request
+
+```sh
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.market/api/v1/recommendations/similar-to-watchlist?limit=10"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "names": [
+      {
+        "name": "recommended.eth",
+        // ... standard search result fields
+        "recommendation_metrics": {
+          "type": "similar-to-watchlist",
+          "similarity_score": 15,
+          "common_watchers": 8
+        }
+      }
+    ],
+    "meta": {
+      "type": "similar-to-watchlist",
+      "limit": 10
+    }
+  }
+}
+```
