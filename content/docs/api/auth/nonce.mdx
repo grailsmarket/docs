@@ -1,0 +1,48 @@
+---
+title: Get Nonce
+description: Grails API v1
+---
+
+### GET /api/v1/auth/nonce
+
+Request a cryptographic nonce for SIWE authentication. The nonce expires after 5 minutes. Any existing unused nonces for the address are deleted when a new one is requested.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `address` | string | Yes | Ethereum address (`0x` + 40 hex chars) |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/auth/nonce?address=0x1234567890abcdef1234567890abcdef12345678"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "nonce": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6",
+    "expiresAt": "2026-04-07T12:05:00.000Z"
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `VALIDATION_ERROR` | Invalid Ethereum address format |
+| 500 | `INTERNAL_ERROR` | Failed to generate nonce |

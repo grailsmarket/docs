@@ -1,8 +1,19 @@
 ---
-title: Route
-description: Grails API v1
+title: Authentication
+description: Grails API v1 — Auth Endpoints
 ---
 
-# Documentation Pending
+# Authentication
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+SIWE (Sign-In with Ethereum) authentication endpoints. See the [Authentication guide](/docs/authentication) for the full flow.
+
+**Base path:** `/api/v1/auth`
+
+## Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/nonce` | None | Request a nonce for SIWE signing |
+| POST | `/verify` | None | Verify SIWE signature and get JWT |
+| GET | `/me` | Required | Get current authenticated user |
+| POST | `/logout` | Required | Logout (client-side token removal) |

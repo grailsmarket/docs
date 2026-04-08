@@ -1,0 +1,54 @@
+---
+title: Get Current User
+description: Grails API v1
+---
+
+### GET /api/v1/auth/me
+
+Returns the full profile of the currently authenticated user.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Sample Request
+
+```sh
+curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  https://api.grails.market/api/v1/auth/me
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "address": "0x1234567890abcdef1234567890abcdef12345678",
+    "email": "user@example.com",
+    "emailVerified": true,
+    "telegram": "@username",
+    "discord": "user#1234",
+    "notifyOnOfferReceived": true,
+    "notifyOnListingSold": true,
+    "minOfferThreshold": 0.1,
+    "createdAt": "2026-01-15T00:00:00.000Z",
+    "updatedAt": "2026-04-01T00:00:00.000Z",
+    "lastSignIn": "2026-04-07T12:00:00.000Z"
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 401 | `UNAUTHORIZED` | Missing or invalid token |
+| 404 | `USER_NOT_FOUND` | User record not found |
+| 500 | `INTERNAL_ERROR` | Failed to fetch user |

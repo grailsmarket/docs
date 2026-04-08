@@ -1,0 +1,72 @@
+---
+title: Verify Signature
+description: Grails API v1
+---
+
+### POST /api/v1/auth/verify
+
+Verify a SIWE signature and create an authenticated session. Returns a JWT token and user object. Supports both EOA signatures and smart wallet signatures (ERC-1271, ERC-6492).
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Request Body
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `message` | string | Yes | The full SIWE message string |
+| `signature` | string | Yes | Hex-encoded signature (`0x...`) |
+
+#### Sample Request
+
+```sh
+curl -X POST https://api.grails.market/api/v1/auth/verify \
+  -H "Content-Type: application/json" \
+  -d '{
+    "message": "api.grails.market wants you to sign in with your Ethereum account:\n0x1234...5678\n\nSign in to Grails\n\nURI: https://api.grails.market\nVersion: 1\nChain ID: 1\nNonce: a1b2c3d4e5f6a7b8\nIssued At: 2026-04-07T12:00:00.000Z",
+    "signature": "0xabc123..."
+  }'
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIs...",
+    "user": {
+      "id": 1,
+      "address": "0x1234567890abcdef1234567890abcdef12345678",
+      "email": null,
+      "emailVerified": false,
+      "telegram": null,
+      "discord": null,
+      "notifyOnOfferReceived": true,
+      "notifyOnListingSold": true,
+      "minOfferThreshold": null,
+      "createdAt": "2026-01-15T00:00:00.000Z",
+      "lastSignIn": "2026-04-07T12:00:00.000Z"
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `VALIDATION_ERROR` | Invalid request body |
+| 400 | `INVALID_MESSAGE` | SIWE message missing required fields |
+| 401 | `INVALID_SIWE_MESSAGE` | Cannot parse SIWE message format |
+| 401 | `INVALID_NONCE` | Nonce not found or already used |
+| 401 | `NONCE_EXPIRED` | Nonce has expired (5-minute window) |
+| 401 | `SIGNATURE_VERIFICATION_FAILED` | Signature does not match message signer |
+| 401 | `INVALID_SIGNATURE` | Failed to verify signature |
+| 500 | `INTERNAL_ERROR` | Server error during verification |

@@ -1,0 +1,41 @@
+---
+title: Logout
+description: Grails API v1
+---
+
+### POST /api/v1/auth/logout
+
+Logout the current user. Currently handles client-side token removal — the JWT should be discarded by the client after this call.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Sample Request
+
+```sh
+curl -X POST -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  https://api.grails.market/api/v1/auth/logout
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "message": "Logged out successfully"
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 401 | `UNAUTHORIZED` | Missing or invalid token |

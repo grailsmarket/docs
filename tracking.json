@@ -2,8 +2,8 @@
   "metadata": {
     "totalRoutes": 35,
     "totalEndpoints": 134,
-    "completedRoutes": 1,
-    "lastUpdated": "2026-04-07T22:00:00Z"
+    "completedRoutes": 2,
+    "lastUpdated": "2026-04-07T22:30:00Z"
   },
   "routes": [
     {
@@ -22,15 +22,15 @@
       "name": "auth",
       "file": "auth.ts",
       "prefix": "/api/v1/auth",
-      "status": "pending",
+      "status": "completed",
       "endpointCount": 4,
       "endpoints": [
-        { "method": "GET", "path": "/nonce", "auth": "none", "cache": "none", "documented": false },
-        { "method": "POST", "path": "/verify", "auth": "none", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/me", "auth": "requireAuth", "cache": "none", "documented": false },
-        { "method": "POST", "path": "/logout", "auth": "requireAuth", "cache": "none", "documented": false }
+        { "method": "GET", "path": "/nonce", "auth": "none", "cache": "none", "documented": true },
+        { "method": "POST", "path": "/verify", "auth": "none", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/me", "auth": "requireAuth", "cache": "none", "documented": true },
+        { "method": "POST", "path": "/logout", "auth": "requireAuth", "cache": "none", "documented": true }
       ],
-      "completedAt": null
+      "completedAt": "2026-04-07T22:30:00Z"
     },
     {
       "name": "users",
