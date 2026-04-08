@@ -1,0 +1,71 @@
+---
+title: Sales by Name
+description: Grails API v1
+---
+
+### GET /api/v1/sales/name/:name
+
+Get the sales history for a specific ENS name.
+
+**Authentication:** None
+
+**Cache:** 60s
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `name` | string | Yes | ENS name (e.g. `example.eth`) |
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/sales/name/example.eth"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "results": [
+      {
+        "id": 1,
+        "name": "example.eth",
+        "price_wei": "100000000000000000",
+        "buyer_address": "0x1234...",
+        "seller_address": "0xabcd...",
+        "transaction_hash": "0xdef...",
+        "sold_at": "2026-04-06T18:00:00.000Z"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 3,
+      "totalPages": 1,
+      "hasNext": false,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 500 | `INTERNAL_ERROR` | Failed to fetch sales |

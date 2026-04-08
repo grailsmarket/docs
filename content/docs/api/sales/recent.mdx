@@ -1,0 +1,67 @@
+---
+title: Recent Sales
+description: Grails API v1
+---
+
+### GET /api/v1/sales
+
+List recent ENS name sales with pagination.
+
+**Authentication:** None
+
+**Cache:** 15s
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/sales?page=1&limit=10"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "results": [
+      {
+        "id": 1,
+        "ens_name_id": 42,
+        "name": "example.eth",
+        "price_wei": "100000000000000000",
+        "currency_address": "0x0000...0000",
+        "buyer_address": "0x1234...",
+        "seller_address": "0xabcd...",
+        "transaction_hash": "0xdef...",
+        "sold_at": "2026-04-06T18:00:00.000Z"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 10,
+      "total": 500,
+      "totalPages": 50,
+      "hasNext": true,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 500 | `INTERNAL_ERROR` | Failed to fetch sales |

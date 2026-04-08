@@ -1,0 +1,72 @@
+---
+title: Sales by Address
+description: Grails API v1
+---
+
+### GET /api/v1/sales/address/:address
+
+Get sales involving a specific Ethereum address, as buyer, seller, or both.
+
+**Authentication:** None
+
+**Cache:** 15s
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `address` | string | Yes | Ethereum address |
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page |
+| `type` | string | `both` | Filter by role: `buyer`, `seller`, or `both` |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/sales/address/0x1234...?type=buyer"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "results": [
+      {
+        "id": 1,
+        "name": "example.eth",
+        "price_wei": "100000000000000000",
+        "buyer_address": "0x1234...",
+        "seller_address": "0xabcd...",
+        "transaction_hash": "0xdef...",
+        "sold_at": "2026-04-06T18:00:00.000Z"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 12,
+      "totalPages": 1,
+      "hasNext": false,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 500 | `INTERNAL_ERROR` | Failed to fetch sales |

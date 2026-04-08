@@ -2,8 +2,8 @@
   "metadata": {
     "totalRoutes": 35,
     "totalEndpoints": 134,
-    "completedRoutes": 9,
-    "lastUpdated": "2026-04-07T23:50:00Z"
+    "completedRoutes": 10,
+    "lastUpdated": "2026-04-08T00:00:00Z"
   },
   "routes": [
     {
@@ -137,15 +137,15 @@
       "name": "sales",
       "file": "sales.ts",
       "prefix": "/api/v1/sales",
-      "status": "pending",
+      "status": "completed",
       "endpointCount": 4,
       "endpoints": [
-        { "method": "GET", "path": "/", "auth": "none", "cache": "cacheHandler", "documented": false },
-        { "method": "GET", "path": "/name/:name", "auth": "none", "cache": "longCacheHandler", "documented": false },
-        { "method": "GET", "path": "/address/:address", "auth": "none", "cache": "cacheHandler", "documented": false },
-        { "method": "GET", "path": "/:nameOrId/analytics", "auth": "none", "cache": "longCacheHandler", "documented": false }
+        { "method": "GET", "path": "/", "auth": "none", "cache": "cacheHandler", "documented": true },
+        { "method": "GET", "path": "/name/:name", "auth": "none", "cache": "longCacheHandler", "documented": true },
+        { "method": "GET", "path": "/address/:address", "auth": "none", "cache": "cacheHandler", "documented": true },
+        { "method": "GET", "path": "/:nameOrId/analytics", "auth": "none", "cache": "longCacheHandler", "documented": true }
       ],
-      "completedAt": null
+      "completedAt": "2026-04-08T00:00:00Z"
     },
     {
       "name": "brokered-listings",

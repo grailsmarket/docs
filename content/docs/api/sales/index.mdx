@@ -1,8 +1,19 @@
 ---
-title: Route
-description: Grails API v1
+title: Sales
+description: Grails API v1 — Sales Endpoints
 ---
 
-# Documentation Pending
+# Sales
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Query completed ENS name sales by recency, name, or address, and view per-name analytics.
+
+**Base path:** `/api/v1/sales`
+
+## Endpoints
+
+| Method | Path | Auth | Cache | Description |
+|--------|------|------|-------|-------------|
+| GET | `/` | None | 15s | List recent sales |
+| GET | `/name/:name` | None | 60s | Sales history for a specific name |
+| GET | `/address/:address` | None | 15s | Sales involving an address |
+| GET | `/:nameOrId/analytics` | None | 60s | Sales analytics for a name |
