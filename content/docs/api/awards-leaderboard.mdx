@@ -1,8 +1,96 @@
 ---
-title: Route
-description: Grails API v1
+title: Awards Leaderboard
+description: Grails API v1 — Awards Leaderboard
 ---
 
-# Documentation Pending
+# Awards Leaderboard
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+### GET /api/v1/awards-leaderboard
+
+Ranks users by ENS registration and renewal activity through the Grails referral program. Points are earned based on total duration — 1 point per year of registration/renewal duration. The program started on April 1, 2026.
+
+**Authentication:** None
+
+**Cache:** 5m
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page (1–100) |
+| `sortBy` | string | `points` | Sort field (see below) |
+| `sortOrder` | string | `desc` | `asc` or `desc` |
+
+#### Sort Fields
+
+`points`, `registration_duration`, `renewal_duration`, `total_duration`, `total_eth_spend`, `base_cost_usd`, `base_cost_eth`
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/awards-leaderboard?sortBy=points&limit=10"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "users": [
+      {
+        "rank": 1,
+        "address": "0x1234...",
+        "points": 12,
+        "registration_duration_seconds": 252455616,
+        "renewal_duration_seconds": 126227808,
+        "total_duration_seconds": 378683424,
+        "total_duration_years": 12.0,
+        "total_eth_spend_wei": "500000000000000000",
+        "base_cost_usd": 60.0,
+        "base_cost_eth": 0.03,
+        "registration_count": 8,
+        "renewal_count": 4
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 10,
+    "total": 250,
+    "pages": 25
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0",
+    "program_start": "2026-04-01T00:00:00Z",
+    "seconds_per_year": 31556952,
+    "sort": { "by": "points", "order": "desc" }
+  }
+}
+```
+
+#### Response Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `rank` | number | Position in the leaderboard |
+| `address` | string | User's Ethereum address |
+| `points` | number | Total points (1 per year of duration) |
+| `registration_duration_seconds` | number | Total registration duration |
+| `renewal_duration_seconds` | number | Total renewal duration |
+| `total_duration_seconds` | number | Combined registration + renewal duration |
+| `total_duration_years` | number | Duration in years |
+| `total_eth_spend_wei` | string | Total ETH spent (wei) |
+| `base_cost_usd` | number | Estimated base cost in USD ($5/year) |
+| `base_cost_eth` | number | Estimated base cost in ETH (at time of transaction) |
+| `registration_count` | number | Number of registrations |
+| `renewal_count` | number | Number of renewals |
+
+#### Error Responses
+
+| Status | Description |
+|--------|-------------|
+| 500 | Failed to fetch awards leaderboard |
