@@ -1,0 +1,35 @@
+---
+title: Listings Chart
+description: Grails API v1
+---
+
+### GET /api/v1/charts/listings
+
+Listings created per time bucket with Grails/OpenSea source breakdown.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/charts/listings?period=30d&club=999,10k"
+```
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "period": "30d",
+    "club": "999,10k",
+    "clubs": ["999", "10k"],
+    "points": [
+      { "date": "2026-03-09T00:00:00.000Z", "total": 12, "grails": 8, "opensea": 4 },
+      { "date": "2026-03-10T00:00:00.000Z", "total": 3, "grails": 2, "opensea": 1 }
+    ]
+  }
+}
+```

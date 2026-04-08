@@ -2,8 +2,8 @@
   "metadata": {
     "totalRoutes": 35,
     "totalEndpoints": 134,
-    "completedRoutes": 25,
-    "lastUpdated": "2026-04-08T02:15:00Z"
+    "completedRoutes": 26,
+    "lastUpdated": "2026-04-08T02:25:00Z"
   },
   "routes": [
     {
@@ -366,16 +366,16 @@
       "name": "charts",
       "file": "charts.ts",
       "prefix": "/api/v1/charts",
-      "status": "pending",
+      "status": "completed",
       "endpointCount": 5,
       "endpoints": [
-        { "method": "GET", "path": "/sales", "auth": "none", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/volume", "auth": "none", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/listings", "auth": "none", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/registrations", "auth": "none", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/offers", "auth": "none", "cache": "none", "documented": false }
+        { "method": "GET", "path": "/sales", "auth": "none", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/volume", "auth": "none", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/listings", "auth": "none", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/registrations", "auth": "none", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/offers", "auth": "none", "cache": "none", "documented": true }
       ],
-      "completedAt": null
+      "completedAt": "2026-04-08T02:25:00Z"
     },
     {
       "name": "user-insights",

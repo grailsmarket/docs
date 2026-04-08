@@ -1,8 +1,39 @@
 ---
-title: Route
-description: Grails API v1
+title: Charts
+description: Grails API v1 — Chart Data Endpoints
 ---
 
-# Documentation Pending
+# Charts
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Time-series chart data for sales, volume, listings, registrations, and offers. All endpoints return data points bucketed by hour (for 1d period) or day (for longer periods), with a continuous time series (zero-filled gaps).
+
+**Base path:** `/api/v1/charts`
+
+## Common Parameters
+
+All chart endpoints accept:
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `period` | string | `7d` | `1d`, `7d`, `30d`, `1y`, `all` |
+| `club` | string | — | Filter by club(s) — comma-separated, or `any`/`none` |
+
+### Time Bucketing
+
+| Period | Bucket Size | Duration |
+|--------|-------------|----------|
+| `1d` | 1 hour | 24 hours |
+| `7d` | 1 day | 7 days |
+| `30d` | 1 day | 30 days |
+| `1y` | 1 day | 1 year |
+| `all` | 1 day | ~8 years |
+
+## Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/sales` | Sales count per bucket (grails/opensea breakdown) |
+| GET | `/volume` | Sales volume in wei per bucket (ETH/WETH only) |
+| GET | `/listings` | Listings created per bucket (grails/opensea breakdown) |
+| GET | `/registrations` | Registration count and cost per bucket |
+| GET | `/offers` | Offers created per bucket (grails/opensea breakdown) |

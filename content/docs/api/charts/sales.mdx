@@ -1,0 +1,36 @@
+---
+title: Sales Chart
+description: Grails API v1
+---
+
+### GET /api/v1/charts/sales
+
+Sales count per time bucket with Grails/OpenSea source breakdown.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/charts/sales?period=30d&club=999"
+```
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "period": "30d",
+    "club": "999",
+    "clubs": ["999"],
+    "points": [
+      { "date": "2026-03-09T00:00:00.000Z", "total": 5, "grails": 3, "opensea": 2 },
+      { "date": "2026-03-10T00:00:00.000Z", "total": 0, "grails": 0, "opensea": 0 },
+      { "date": "2026-03-11T00:00:00.000Z", "total": 8, "grails": 6, "opensea": 2 }
+    ]
+  }
+}
+```

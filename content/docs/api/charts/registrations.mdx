@@ -1,0 +1,53 @@
+---
+title: Registrations Chart
+description: Grails API v1
+---
+
+### GET /api/v1/charts/registrations
+
+Registration count and cost metrics per time bucket, including base cost, premium cost, and premium registration count.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/charts/registrations?period=30d"
+```
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "period": "30d",
+    "club": null,
+    "clubs": null,
+    "points": [
+      {
+        "date": "2026-03-09T00:00:00.000Z",
+        "count": 25,
+        "total_cost_wei": "125000000000000000",
+        "avg_cost_wei": "5000000000000000",
+        "total_base_cost_wei": "100000000000000000",
+        "total_premium_wei": "25000000000000000",
+        "premium_count": 3
+      }
+    ]
+  }
+}
+```
+
+#### Point Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `count` | number | Registrations in this bucket |
+| `total_cost_wei` | string | Total registration cost (wei) |
+| `avg_cost_wei` | string | Average cost per registration (wei) |
+| `total_base_cost_wei` | string | Sum of base costs (wei) |
+| `total_premium_wei` | string | Sum of premium costs (wei) |
+| `premium_count` | number | Registrations that included a premium |

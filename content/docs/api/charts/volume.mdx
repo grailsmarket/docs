@@ -1,0 +1,47 @@
+---
+title: Volume Chart
+description: Grails API v1
+---
+
+### GET /api/v1/charts/volume
+
+Total sales volume (in wei) per time bucket with Grails/OpenSea source breakdown. Only includes ETH and WETH sales.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/charts/volume?period=7d"
+```
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "period": "7d",
+    "club": null,
+    "clubs": null,
+    "points": [
+      {
+        "date": "2026-04-01T00:00:00.000Z",
+        "total": "2500000000000000000",
+        "grails": "1500000000000000000",
+        "opensea": "1000000000000000000"
+      },
+      {
+        "date": "2026-04-02T00:00:00.000Z",
+        "total": "0",
+        "grails": "0",
+        "opensea": "0"
+      }
+    ]
+  }
+}
+```
+
+Volume values are strings (wei) to preserve precision.

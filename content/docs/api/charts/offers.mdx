@@ -1,0 +1,35 @@
+---
+title: Offers Chart
+description: Grails API v1
+---
+
+### GET /api/v1/charts/offers
+
+Offers created per time bucket with Grails/OpenSea source breakdown.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/charts/offers?period=7d&club=any"
+```
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "period": "7d",
+    "club": "any",
+    "clubs": ["any"],
+    "points": [
+      { "date": "2026-04-01T00:00:00.000Z", "total": 15, "grails": 10, "opensea": 5 },
+      { "date": "2026-04-02T00:00:00.000Z", "total": 8, "grails": 6, "opensea": 2 }
+    ]
+  }
+}
+```
