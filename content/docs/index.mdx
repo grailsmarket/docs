@@ -1,0 +1,39 @@
+---
+title: Introduction
+description: Grails API v1
+---
+
+# Grails API
+
+The Grails API provides programmatic access to the Grails ENS name manager and marketplace. It is a RESTful API built on Fastify, returning JSON responses with a standard envelope format.
+
+## Base URL
+
+```
+https://api.grails.market
+```
+
+All endpoints are prefixed with `/api/v1/` unless otherwise noted.
+
+## Key Features
+
+- **ENS Name Management** — Look up, list, buy, and sell ENS names
+- **Marketplace** — Listings, offers, orders, and sales
+- **Social** — Watchlists, clubs, voting, and activity feeds
+- **Analytics** — Market trends, charts, leaderboards, and recommendations
+- **Search** — Full-text, filtered, bulk, and AI-powered search
+- **Real-time** — WebSocket streams for live activity
+
+## Authentication
+
+Most read endpoints are public. Write operations require a JWT token obtained through the [SIWE authentication flow](/docs/authentication).
+
+## Rate Limiting
+
+The API enforces rate limits. Cached responses include an `X-Cache: HIT` header.
+
+## Next Steps
+
+- [Authentication](/docs/authentication) — Learn how to obtain a JWT token
+- [Response Format](/docs/response-format) — Understand the standard response envelope
+- [API Reference](/docs/api) — Browse all endpoints

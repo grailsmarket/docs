@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --font-mono: 'Chivo Mono', monospace;
+  --color-primary: #FFFA80;
+  --color-primary-hover: #FDF420;
+  --color-secondary: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::-moz-selection {
+  color: black;
+  background: white;
+}
+
+::selection {
+  color: black;
+  background: white;
+}

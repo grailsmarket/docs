@@ -1,0 +1,48 @@
+---
+title: Authentication
+description: Grails API v1 — SIWE Authentication Flow
+---
+
+# Authentication
+
+The Grails API uses [Sign-In with Ethereum (SIWE)](https://eips.ethereum.org/EIPS/eip-4361) for authentication. This produces a JWT token used for all authenticated requests.
+
+## Authentication Flow
+
+1. **Request a nonce** — `GET /api/v1/auth/nonce?address=0x...`
+2. **Construct SIWE message** — Build a SIWE message client-side using the nonce
+3. **Sign with wallet** — Sign the message with the user's Ethereum wallet
+4. **Verify signature** — `POST /api/v1/auth/verify` with the message and signature
+5. **Receive JWT** — The API returns a JWT token and user object
+6. **Use token** — Include the token in subsequent requests
+
+## Using the Token
+
+Include the JWT in the `Authorization` header for all authenticated requests:
+
+```sh
+curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  https://api.grails.market/api/v1/auth/me
+```
+
+## Token Payload
+
+The JWT contains the following claims:
+
+| Claim | Type | Description |
+|-------|------|-------------|
+| `sub` | string | User ID |
+| `address` | string | Ethereum address (lowercase) |
+| `iat` | number | Issued at (Unix timestamp) |
+| `exp` | number | Expires at (Unix timestamp) |
+
+## Auth Middleware
+
+Endpoints use two types of auth middleware:
+
+- **Required** (`requireAuth`) — Request fails with `401 UNAUTHORIZED` if no valid token is provided
+- **Optional** (`optionalAuth`) — Request succeeds without a token, but authenticated users receive enhanced responses (e.g., personalized data)
+
+## Smart Wallet Support
+
+The verification endpoint supports both EOA signatures and smart wallet signatures (ERC-1271, ERC-6492). Smart wallet signatures are verified on-chain via `viem`.

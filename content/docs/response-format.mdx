@@ -1,0 +1,88 @@
+---
+title: Response Format
+description: Grails API v1 — Standard Response Envelope
+---
+
+# Response Format
+
+All API responses use a consistent JSON envelope.
+
+## Success Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    // Response payload — varies per endpoint
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+## Error Response
+
+```jsonc
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Human-readable error description",
+    "details": [] // Optional — validation errors, stack traces (non-production only)
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z"
+  }
+}
+```
+
+## Common Error Codes
+
+| Code | HTTP Status | Description |
+|------|-------------|-------------|
+| `VALIDATION_ERROR` | 400 | Invalid request parameters or body |
+| `UNAUTHORIZED` | 401 | Missing or invalid authentication token |
+| `INVALID_NONCE` | 401 | Nonce not found or already used |
+| `NONCE_EXPIRED` | 401 | Authentication nonce has expired |
+| `INVALID_SIGNATURE` | 401 | Signature verification failed |
+| `NOT_FOUND` | 404 | Requested resource does not exist |
+| `INTERNAL_ERROR` | 500 | Unexpected server error |
+
+## Pagination
+
+Paginated endpoints accept these query parameters:
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number (1-indexed) |
+| `limit` | number | `20` | Results per page (max varies by endpoint, typically 100) |
+| `sortBy` | string | varies | Field to sort by |
+| `sortOrder` | string | `desc` | Sort direction: `asc` or `desc` |
+
+Paginated responses include pagination metadata in the `data` field:
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "items": [...],
+    "total": 1250,
+    "page": 1,
+    "limit": 20,
+    "totalPages": 63
+  }
+}
+```
+
+## Caching
+
+Some endpoints return cached responses. The `X-Cache` header indicates cache status:
+
+| Header Value | Description |
+|--------------|-------------|
+| `X-Cache: HIT` | Response served from cache |
+| `X-Cache: MISS` | Response generated fresh |
+
+Cache durations vary by endpoint and are noted in each endpoint's documentation.

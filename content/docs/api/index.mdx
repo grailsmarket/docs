@@ -1,0 +1,27 @@
+---
+title: API Reference
+description: Grails API v1 — Complete Endpoint Reference
+---
+
+# API Reference
+
+Complete reference for all Grails API endpoints. All endpoints return responses in the [standard format](/docs/response-format).
+
+## Endpoint Inventory
+
+| Section | Routes | Endpoints | Description |
+|---------|--------|-----------|-------------|
+| **Core** | health, auth, users, profiles | ~11 | Service health, authentication, user management |
+| **Names & Search** | names, search | ~8 | ENS name lookup, full-text and filtered search |
+| **Marketplace** | listings, offers, orders, sales, brokered-listings, cart | ~32 | Full marketplace lifecycle |
+| **Social** | watchlist, clubs, votes, notifications, activity | ~28 | Social features and engagement |
+| **Discovery** | trending, leaderboard, recommendations, ai-search | ~16 | Discovery and recommendation engines |
+| **Analytics** | analytics, charts, google-metrics, user-insights | ~22 | Market analytics and user insights |
+| **System** | verification, legends, personas, poap, ens-roles, subgraph, websocket | ~17 | Supporting services |
+
+## Common Patterns
+
+- **Authentication** — See [Authentication](/docs/authentication) for the SIWE flow
+- **Pagination** — Most list endpoints accept `page`, `limit`, `sortBy`, `sortOrder` params
+- **Caching** — Cached endpoints return `X-Cache: HIT/MISS` headers
+- **Validation** — Invalid params return `400 VALIDATION_ERROR` with details

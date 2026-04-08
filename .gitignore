@@ -137,3 +137,9 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Pagefind search index (generated at build time)
+public/_pagefind
+
+# Next.js generated types
+next-env.d.ts

@@ -1,0 +1,494 @@
+{
+  "metadata": {
+    "totalRoutes": 35,
+    "totalEndpoints": 134,
+    "completedRoutes": 0,
+    "lastUpdated": "2026-04-07T00:00:00Z"
+  },
+  "routes": [
+    {
+      "name": "health",
+      "file": "health.ts",
+      "prefix": "/health",
+      "status": "pending",
+      "endpointCount": 2,
+      "endpoints": [
+        { "method": "GET", "path": "/", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/ready", "auth": "none", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "auth",
+      "file": "auth.ts",
+      "prefix": "/api/v1/auth",
+      "status": "pending",
+      "endpointCount": 4,
+      "endpoints": [
+        { "method": "GET", "path": "/nonce", "auth": "none", "cache": "none", "documented": false },
+        { "method": "POST", "path": "/verify", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/me", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "POST", "path": "/logout", "auth": "requireAuth", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "users",
+      "file": "users.ts",
+      "prefix": "/api/v1/users",
+      "status": "pending",
+      "endpointCount": 4,
+      "endpoints": [
+        { "method": "GET", "path": "/:address/badges", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/:address/balances", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/:address/unclaimed-deposits", "auth": "none", "cache": "none", "documented": false },
+        { "method": "PATCH", "path": "/me", "auth": "requireAuth", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "profiles",
+      "file": "profiles.ts",
+      "prefix": "/api/v1/profiles",
+      "status": "pending",
+      "endpointCount": 1,
+      "endpoints": [
+        { "method": "GET", "path": "/:addressOrName", "auth": "optionalAuth", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "names",
+      "file": "names.ts",
+      "prefix": "/api/v1/names",
+      "status": "pending",
+      "endpointCount": 5,
+      "endpoints": [
+        { "method": "GET", "path": "/", "auth": "none", "cache": "cacheHandler", "documented": false },
+        { "method": "GET", "path": "/:name", "auth": "optionalAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/:name/metadata", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/:name/legacy", "auth": "none", "cache": "cacheHandler", "documented": false },
+        { "method": "GET", "path": "/:name/history", "auth": "none", "cache": "cacheHandler", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "search",
+      "file": "search.ts",
+      "prefix": "/api/v1/search",
+      "status": "pending",
+      "endpointCount": 3,
+      "endpoints": [
+        { "method": "GET", "path": "/", "auth": "optionalAuth", "cache": "none", "documented": false },
+        { "method": "POST", "path": "/bulk", "auth": "optionalAuth", "cache": "none", "documented": false },
+        { "method": "POST", "path": "/bulk-filters", "auth": "optionalAuth", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "listings",
+      "file": "listings.ts",
+      "prefix": "/api/v1/listings",
+      "status": "pending",
+      "endpointCount": 6,
+      "endpoints": [
+        { "method": "GET", "path": "/", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/name/:name", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/:id", "auth": "none", "cache": "none", "documented": false },
+        { "method": "POST", "path": "/", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "PUT", "path": "/:id", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "DELETE", "path": "/:id", "auth": "requireAuth", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "offers",
+      "file": "offers.ts",
+      "prefix": "/api/v1/offers",
+      "status": "pending",
+      "endpointCount": 6,
+      "endpoints": [
+        { "method": "POST", "path": "/", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/name/:name", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/:id", "auth": "none", "cache": "none", "documented": false },
+        { "method": "PUT", "path": "/:id", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/buyer/:address", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/owner/:address", "auth": "none", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "orders",
+      "file": "orders.ts",
+      "prefix": "/api/v1/orders",
+      "status": "pending",
+      "endpointCount": 6,
+      "endpoints": [
+        { "method": "POST", "path": "/", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "POST", "path": "/create", "auth": "none", "cache": "none", "documented": false },
+        { "method": "POST", "path": "/validate", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/:id", "auth": "none", "cache": "none", "documented": false },
+        { "method": "DELETE", "path": "/:id", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "POST", "path": "/bulk", "auth": "requireAuth", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "sales",
+      "file": "sales.ts",
+      "prefix": "/api/v1/sales",
+      "status": "pending",
+      "endpointCount": 4,
+      "endpoints": [
+        { "method": "GET", "path": "/", "auth": "none", "cache": "cacheHandler", "documented": false },
+        { "method": "GET", "path": "/name/:name", "auth": "none", "cache": "longCacheHandler", "documented": false },
+        { "method": "GET", "path": "/address/:address", "auth": "none", "cache": "cacheHandler", "documented": false },
+        { "method": "GET", "path": "/:nameOrId/analytics", "auth": "none", "cache": "longCacheHandler", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "brokered-listings",
+      "file": "brokered-listings.ts",
+      "prefix": "/api/v1/brokered-listings",
+      "status": "pending",
+      "endpointCount": 4,
+      "endpoints": [
+        { "method": "GET", "path": "/config", "auth": "none", "cache": "none", "documented": false },
+        { "method": "POST", "path": "/", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/broker/:address", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/stats", "auth": "none", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "cart",
+      "file": "cart.ts",
+      "prefix": "/api/v1/cart",
+      "status": "pending",
+      "endpointCount": 6,
+      "endpoints": [
+        { "method": "GET", "path": "/", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/summary", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "POST", "path": "/", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "POST", "path": "/bulk", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "DELETE", "path": "/:id", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "DELETE", "path": "/", "auth": "requireAuth", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "watchlist",
+      "file": "watchlist.ts",
+      "prefix": "/api/v1/watchlist",
+      "status": "pending",
+      "endpointCount": 12,
+      "endpoints": [
+        { "method": "GET", "path": "/lists", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "POST", "path": "/lists", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "PATCH", "path": "/lists/:listId", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "DELETE", "path": "/lists/:listId", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "POST", "path": "/bulk", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "DELETE", "path": "/bulk", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "POST", "path": "/", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "DELETE", "path": "/:id", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "PATCH", "path": "/:id", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/check/:name", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/search", "auth": "requireAuth", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "clubs",
+      "file": "clubs.ts",
+      "prefix": "/api/v1/clubs",
+      "status": "pending",
+      "endpointCount": 6,
+      "endpoints": [
+        { "method": "GET", "path": "/", "auth": "none", "cache": "veryLongCacheHandler", "documented": false },
+        { "method": "GET", "path": "/holders", "auth": "none", "cache": "cacheHandler", "documented": false },
+        { "method": "GET", "path": "/:clubName/avatar", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/:clubName/header", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/:clubName", "auth": "none", "cache": "cacheHandler", "documented": false },
+        { "method": "GET", "path": "/:clubName/holders", "auth": "none", "cache": "cacheHandler", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "votes",
+      "file": "votes.ts",
+      "prefix": "/api/v1/votes",
+      "status": "pending",
+      "endpointCount": 3,
+      "endpoints": [
+        { "method": "POST", "path": "/", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/:ensName", "auth": "optionalAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/leaderboard", "auth": "none", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "notifications",
+      "file": "notifications.ts",
+      "prefix": "/api/v1/notifications",
+      "status": "pending",
+      "endpointCount": 4,
+      "endpoints": [
+        { "method": "GET", "path": "/", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/unread/count", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "PATCH", "path": "/:id/read", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "PATCH", "path": "/read-all", "auth": "requireAuth", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "activity",
+      "file": "activity.ts",
+      "prefix": "/api/v1/activity",
+      "status": "pending",
+      "endpointCount": 3,
+      "endpoints": [
+        { "method": "GET", "path": "/:name", "auth": "none", "cache": "cacheHandler", "documented": false },
+        { "method": "GET", "path": "/address/:address", "auth": "none", "cache": "cacheHandler", "documented": false },
+        { "method": "GET", "path": "/", "auth": "none", "cache": "cacheHandler", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "trending",
+      "file": "trending.ts",
+      "prefix": "/api/v1/trending",
+      "status": "pending",
+      "endpointCount": 6,
+      "endpoints": [
+        { "method": "GET", "path": "/views", "auth": "optionalAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/watchlist", "auth": "optionalAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/votes", "auth": "optionalAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/sales", "auth": "optionalAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/offers", "auth": "optionalAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/composite", "auth": "optionalAuth", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "leaderboard",
+      "file": "leaderboard.ts",
+      "prefix": "/api/v1/leaderboard",
+      "status": "pending",
+      "endpointCount": 1,
+      "endpoints": [
+        { "method": "GET", "path": "/", "auth": "none", "cache": "leaderboardCacheHandler", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "awards-leaderboard",
+      "file": "awards-leaderboard.ts",
+      "prefix": "/api/v1/awards-leaderboard",
+      "status": "pending",
+      "endpointCount": 1,
+      "endpoints": [
+        { "method": "GET", "path": "/", "auth": "none", "cache": "veryLongCacheHandler", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "recommendations",
+      "file": "recommendations.ts",
+      "prefix": "/api/v1/recommendations",
+      "status": "pending",
+      "endpointCount": 4,
+      "endpoints": [
+        { "method": "GET", "path": "/also-viewed", "auth": "optionalAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/similar-to-watchlist", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/based-on-votes", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/for-you", "auth": "requireAuth", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "ai-recommendations",
+      "file": "ai-recommendations.ts",
+      "prefix": "/api/v1/ai-recommendations",
+      "status": "pending",
+      "endpointCount": 1,
+      "endpoints": [
+        { "method": "GET", "path": "/:name", "auth": "optionalAuth", "cache": "cacheHandler", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "ai-search-semantic",
+      "file": "ai-search.ts",
+      "prefix": "/api/v1/ai/search/semantic",
+      "status": "pending",
+      "endpointCount": 1,
+      "endpoints": [
+        { "method": "GET", "path": "/", "auth": "optionalAuth", "cache": "cacheHandler", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "ai-search-related",
+      "file": "ai-search.ts",
+      "prefix": "/api/v1/ai/search/related",
+      "status": "pending",
+      "endpointCount": 1,
+      "endpoints": [
+        { "method": "GET", "path": "/", "auth": "optionalAuth", "cache": "cacheHandler", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "analytics",
+      "file": "analytics.ts",
+      "prefix": "/api/v1/analytics",
+      "status": "pending",
+      "endpointCount": 10,
+      "endpoints": [
+        { "method": "GET", "path": "/market", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/clubs/:club", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/price-trends", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/volume", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/user/me", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/registrations", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/registrations/by-length", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/sales", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/listings", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/offers", "auth": "none", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "charts",
+      "file": "charts.ts",
+      "prefix": "/api/v1/charts",
+      "status": "pending",
+      "endpointCount": 5,
+      "endpoints": [
+        { "method": "GET", "path": "/sales", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/volume", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/listings", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/registrations", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/offers", "auth": "none", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "user-insights",
+      "file": "user-insights.ts",
+      "prefix": "/api/v1/user",
+      "status": "pending",
+      "endpointCount": 6,
+      "endpoints": [
+        { "method": "GET", "path": "/history/viewed", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/history/watched", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/history/voted", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/history/offers", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/history/purchases", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/history/sales", "auth": "requireAuth", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "google-metrics",
+      "file": "google-metrics.ts",
+      "prefix": "/api/v1/google-metrics",
+      "status": "pending",
+      "endpointCount": 1,
+      "endpoints": [
+        { "method": "GET", "path": "/:name", "auth": "optionalAuth", "cache": "cacheHandler", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "verification",
+      "file": "verification.ts",
+      "prefix": "/api/v1/verification",
+      "status": "pending",
+      "endpointCount": 2,
+      "endpoints": [
+        { "method": "POST", "path": "/email", "auth": "none", "cache": "none", "documented": false },
+        { "method": "POST", "path": "/resend", "auth": "requireAuth", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "legends",
+      "file": "legends.ts",
+      "prefix": "/api/v1/legends",
+      "status": "pending",
+      "endpointCount": 2,
+      "endpoints": [
+        { "method": "GET", "path": "/:address", "auth": "none", "cache": "cacheHandler", "documented": false },
+        { "method": "GET", "path": "/:address/details", "auth": "none", "cache": "cacheHandler", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "personas",
+      "file": "personas.ts",
+      "prefix": "/api/v1/personas",
+      "status": "pending",
+      "endpointCount": 3,
+      "endpoints": [
+        { "method": "GET", "path": "/", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/me", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "POST", "path": "/me/reclassify", "auth": "requireAuth", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "poap",
+      "file": "poap.ts",
+      "prefix": "/api/v1/poap",
+      "status": "pending",
+      "endpointCount": 3,
+      "endpoints": [
+        { "method": "POST", "path": "/claim", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/status", "auth": "requireAuth", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/stats", "auth": "none", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "ens-roles",
+      "file": "ens-roles.ts",
+      "prefix": "/api/v1/ens-roles",
+      "status": "pending",
+      "endpointCount": 3,
+      "endpoints": [
+        { "method": "GET", "path": "/names/:name/roles", "auth": "none", "cache": "cacheHandler", "documented": false },
+        { "method": "GET", "path": "/names/:name/can-manage/:address", "auth": "none", "cache": "cacheHandler", "documented": false },
+        { "method": "GET", "path": "/users/:address/manageable-names", "auth": "optionalAuth", "cache": "cacheHandler", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "subgraph",
+      "file": "subgraph.ts",
+      "prefix": "/api/v1/subgraph",
+      "status": "pending",
+      "endpointCount": 1,
+      "endpoints": [
+        { "method": "POST", "path": "/", "auth": "none", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    },
+    {
+      "name": "websocket",
+      "file": "websocket.ts",
+      "prefix": "/ws",
+      "status": "pending",
+      "endpointCount": 4,
+      "endpoints": [
+        { "method": "GET", "path": "/status", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/events", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/orders", "auth": "none", "cache": "none", "documented": false },
+        { "method": "GET", "path": "/activity", "auth": "none", "cache": "none", "documented": false }
+      ],
+      "completedAt": null
+    }
+  ]
+}

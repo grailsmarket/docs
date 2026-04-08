@@ -1,0 +1,38 @@
+{
+  "name": "grails-docs",
+  "version": "0.0.1",
+  "description": "Documentation for the Grails API",
+  "type": "module",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind",
+    "start": "next start",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.2.2",
+    "clsx": "^2.1.1",
+    "mini-svg-data-uri": "^1.4.4",
+    "next": "^16.2.2",
+    "nextra": "^4.6.1",
+    "nextra-theme-docs": "^4.6.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwind-merge": "^3.5.0"
+  },
+  "devDependencies": {
+    "@total-typescript/ts-reset": "^0.6.1",
+    "@types/bun": "latest",
+    "@types/node": "^25.5.2",
+    "@types/react": "^19.2.14",
+    "autoprefixer": "^10.4.27",
+    "pagefind": "^1.5.0",
+    "postcss": "^8.5.9",
+    "prettier": "^3.8.1",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^6.0.2"
+  }
+}
