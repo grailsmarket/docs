@@ -2,8 +2,8 @@
   "metadata": {
     "totalRoutes": 35,
     "totalEndpoints": 134,
-    "completedRoutes": 10,
-    "lastUpdated": "2026-04-08T00:00:00Z"
+    "completedRoutes": 11,
+    "lastUpdated": "2026-04-08T00:10:00Z"
   },
   "routes": [
     {
@@ -151,15 +151,15 @@
       "name": "brokered-listings",
       "file": "brokered-listings.ts",
       "prefix": "/api/v1/brokered-listings",
-      "status": "pending",
+      "status": "completed",
       "endpointCount": 4,
       "endpoints": [
-        { "method": "GET", "path": "/config", "auth": "none", "cache": "none", "documented": false },
-        { "method": "POST", "path": "/", "auth": "requireAuth", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/broker/:address", "auth": "none", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/stats", "auth": "none", "cache": "none", "documented": false }
+        { "method": "GET", "path": "/config", "auth": "none", "cache": "none", "documented": true },
+        { "method": "POST", "path": "/", "auth": "requireAuth", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/broker/:address", "auth": "none", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/stats", "auth": "none", "cache": "none", "documented": true }
       ],
-      "completedAt": null
+      "completedAt": "2026-04-08T00:10:00Z"
     },
     {
       "name": "cart",

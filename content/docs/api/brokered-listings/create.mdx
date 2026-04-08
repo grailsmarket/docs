@@ -1,0 +1,84 @@
+---
+title: Create Brokered Listing
+description: Grails API v1
+---
+
+### POST /api/v1/brokered-listings
+
+Create a listing brokered by a third party. The seller address must match the authenticated user, and the seller cannot be their own broker. The broker fee (in basis points) is validated against the minimum configured fee and must be correctly encoded in the Seaport order's consideration items.
+
+Existing active listings with the same order hash are auto-cancelled before insertion.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Request Body
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `token_id` | string | Yes | ENS name token ID |
+| `price_wei` | string | Yes | Listing price in wei |
+| `currency_address` | string | No | Payment token (defaults to ETH zero address) |
+| `order_data` | string | Yes | JSON string of the Seaport order |
+| `order_hash` | string | Yes | Unique Seaport order hash |
+| `seller_address` | string | Yes | Seller's address (`0x` + 40 hex, must match authenticated user) |
+| `broker_address` | string | Yes | Broker's address (`0x` + 40 hex, must differ from seller) |
+| `broker_fee_bps` | number | Yes | Broker fee in basis points (0–10000, must meet minimum) |
+| `expires_at` | string | No | Listing expiration (ISO string); falls back to order endTime |
+
+#### Sample Request
+
+```sh
+curl -X POST -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  https://api.grails.market/api/v1/brokered-listings \
+  -d '{
+    "token_id": "12345678901234567890",
+    "price_wei": "100000000000000000",
+    "order_data": "{...}",
+    "order_hash": "0xabc123...",
+    "seller_address": "0xabcd...",
+    "broker_address": "0x5678...",
+    "broker_fee_bps": 500
+  }'
+```
+
+#### Response
+
+```jsonc
+// 201 Created
+{
+  "success": true,
+  "data": {
+    "id": 44,
+    "ens_name_id": 1,
+    "seller_address": "0xabcd...",
+    "price_wei": "100000000000000000",
+    "order_hash": "0xabc123...",
+    "status": "active",
+    "source": "grails",
+    "broker_address": "0x5678...",
+    "broker_fee_bps": 500,
+    "expires_at": "2026-04-14T12:00:00.000Z",
+    "ens_name": "example.eth",
+    "token_id": "12345678901234567890"
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `VALIDATION_ERROR` | Invalid request body |
+| 400 | `SELF_BROKER_NOT_ALLOWED` | Seller cannot be their own broker |
+| 400 | `BROKER_FEE_TOO_LOW` | Fee below minimum required basis points |
+| 400 | `INVALID_FEE` | Fee configuration in order doesn't match |
+| 403 | `FORBIDDEN` | Seller address does not match authenticated user |
+| 404 | `ENS_NAME_NOT_FOUND` | Token ID not found in database |
+| 500 | `BROKERED_LISTING_FAILED` | Server error creating listing |

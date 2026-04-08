@@ -1,8 +1,19 @@
 ---
-title: Route
-description: Grails API v1
+title: Brokered Listings
+description: Grails API v1 — Brokered Listing Endpoints
 ---
 
-# Documentation Pending
+# Brokered Listings
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Listings created by a broker on behalf of a seller, with a configurable broker fee. The broker fee is encoded in the Seaport order's consideration items and validated server-side.
+
+**Base path:** `/api/v1/brokered-listings`
+
+## Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/config` | None | Get broker fee configuration |
+| POST | `/` | Required | Create a brokered listing |
+| GET | `/broker/:address` | None | Get listings by broker address |
+| GET | `/stats` | None | Get aggregate broker statistics |

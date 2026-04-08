@@ -1,0 +1,45 @@
+---
+title: Broker Stats
+description: Grails API v1
+---
+
+### GET /api/v1/brokered-listings/stats
+
+Get aggregate statistics about brokered listings across the platform.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Sample Request
+
+```sh
+curl https://api.grails.market/api/v1/brokered-listings/stats
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "activeBrokeredListings": 42,
+    "soldBrokeredListings": 128,
+    "uniqueBrokers": 15,
+    "averageBrokerFeeBps": 350.5
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z"
+  }
+}
+```
+
+#### Response Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `activeBrokeredListings` | number | Currently active brokered listings |
+| `soldBrokeredListings` | number | Completed brokered sales |
+| `uniqueBrokers` | number | Distinct broker addresses |
+| `averageBrokerFeeBps` | number \| null | Average broker fee in basis points |
