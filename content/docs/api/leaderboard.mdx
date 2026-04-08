@@ -1,8 +1,92 @@
 ---
-title: Route
-description: Grails API v1
+title: Leaderboard
+description: Grails API v1 — User Leaderboard
 ---
 
-# Documentation Pending
+# Leaderboard
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+### GET /api/v1/leaderboard
+
+Ranks users by ENS name holdings, club membership, listings, sales, and volume. Optionally filter to users who hold names in specific clubs.
+
+**Authentication:** None
+
+**Cache:** 12h
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page (1–100) |
+| `sortBy` | string | `names_owned` | Sort field (see below) |
+| `sortOrder` | string | `desc` | `asc` or `desc` |
+| `clubs[]` | string[] | — | Filter to users holding names in these clubs (repeatable) |
+
+#### Sort Fields
+
+`names_owned`, `names_in_clubs`, `expired_names`, `names_listed`, `names_sold`, `sales_volume`
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/leaderboard?sortBy=names_owned&limit=10"
+```
+
+```sh
+# Filter to 999 Club holders
+curl "https://api.grails.market/api/v1/leaderboard?clubs[]=999&sortBy=sales_volume"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "users": [
+      {
+        "address": "0x1234...",
+        "names_owned": 150,
+        "names_in_clubs": 42,
+        "expired_names": 5,
+        "names_listed": 12,
+        "names_sold": 25,
+        "sales_volume": "15000000000000000000",
+        "clubs": ["999", "10k", "100k"]
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 10,
+    "total": 5000,
+    "pages": 500
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0",
+    "sort": { "by": "names_owned", "order": "desc" }
+  }
+}
+```
+
+#### Response Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `address` | string | Owner's Ethereum address |
+| `names_owned` | number | Active names (not past grace period) |
+| `names_in_clubs` | number | Active names that are in at least one club |
+| `expired_names` | number | Names past grace period |
+| `names_listed` | number | Currently listed for sale |
+| `names_sold` | number | Total names sold (ETH/WETH sales only) |
+| `sales_volume` | string | Total sales volume in wei (ETH/WETH only) |
+| `clubs` | string[] | Distinct clubs the user holds names in |
+
+#### Error Responses
+
+| Status | Description |
+|--------|-------------|
+| 500 | Failed to fetch leaderboard |
