@@ -2,8 +2,8 @@
   "metadata": {
     "totalRoutes": 35,
     "totalEndpoints": 134,
-    "completedRoutes": 3,
-    "lastUpdated": "2026-04-07T22:40:00Z"
+    "completedRoutes": 4,
+    "lastUpdated": "2026-04-07T22:50:00Z"
   },
   "routes": [
     {
@@ -50,12 +50,12 @@
       "name": "profiles",
       "file": "profiles.ts",
       "prefix": "/api/v1/profiles",
-      "status": "pending",
+      "status": "completed",
       "endpointCount": 1,
       "endpoints": [
-        { "method": "GET", "path": "/:addressOrName", "auth": "optionalAuth", "cache": "none", "documented": false }
+        { "method": "GET", "path": "/:addressOrName", "auth": "optionalAuth", "cache": "none", "documented": true }
       ],
-      "completedAt": null
+      "completedAt": "2026-04-07T22:50:00Z"
     },
     {
       "name": "names",
