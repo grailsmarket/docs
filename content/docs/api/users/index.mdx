@@ -1,8 +1,19 @@
 ---
-title: Route
-description: Grails API v1
+title: Users
+description: Grails API v1 — User Endpoints
 ---
 
-# Documentation Pending
+# Users
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+User data endpoints for badges, token balances, unclaimed deposits, and profile management.
+
+**Base path:** `/api/v1/users`
+
+## Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/:address/badges` | None | Get POAP badges for an address |
+| GET | `/:address/balances` | None | Get token balances (ETH, WETH, USDC, ENS) |
+| GET | `/:address/unclaimed-deposits` | None | Check for unclaimed registrar deposits |
+| PATCH | `/me` | Required | Update current user's profile |

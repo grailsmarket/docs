@@ -1,0 +1,72 @@
+---
+title: Update Profile
+description: Grails API v1
+---
+
+### PATCH /api/v1/users/me
+
+Update the current authenticated user's profile. All fields are optional — only provided fields are updated. If the email is changed, `emailVerified` is reset to `false` and a verification email is sent.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Request Body
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `email` | string | No | Email address (must be valid format) |
+| `telegram` | string | No | Telegram handle (max 100 chars) |
+| `discord` | string | No | Discord username (max 100 chars) |
+| `notifyOnOfferReceived` | boolean | No | Enable offer received notifications |
+| `notifyOnListingSold` | boolean | No | Enable listing sold notifications |
+| `minOfferThreshold` | number \| null | No | Minimum offer amount to trigger notification (0+, or null to disable) |
+
+#### Sample Request
+
+```sh
+curl -X PATCH -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  https://api.grails.market/api/v1/users/me \
+  -d '{
+    "email": "user@example.com",
+    "telegram": "@myhandle",
+    "notifyOnOfferReceived": true,
+    "minOfferThreshold": 0.05
+  }'
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "address": "0x1234567890abcdef1234567890abcdef12345678",
+    "email": "user@example.com",
+    "emailVerified": false,
+    "telegram": "@myhandle",
+    "discord": null,
+    "notifyOnOfferReceived": true,
+    "notifyOnListingSold": true,
+    "minOfferThreshold": 0.05,
+    "updatedAt": "2026-04-07T12:00:00.000Z"
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `VALIDATION_ERROR` | Invalid request body |
+| 400 | `NO_UPDATES` | No fields provided to update |
+| 401 | `UNAUTHORIZED` | Missing or invalid token |
+| 404 | `USER_NOT_FOUND` | User not found |
+| 500 | `INTERNAL_ERROR` | Failed to update profile |

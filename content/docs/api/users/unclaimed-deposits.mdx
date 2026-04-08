@@ -1,0 +1,49 @@
+---
+title: Unclaimed Deposits
+description: Grails API v1
+---
+
+### GET /api/v1/users/:address/unclaimed-deposits
+
+Check for unclaimed ENS old registrar deposits (Vickrey auction deeds) for the given address.
+
+**Authentication:** None
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `address` | string | Yes | Ethereum address (`0x` + 40 hex chars) |
+
+#### Sample Request
+
+```sh
+curl https://api.grails.market/api/v1/users/0x1234.../unclaimed-deposits
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "address": "0x1234567890abcdef1234567890abcdef12345678",
+    "deposits": [],
+    "totalUnclaimedWei": "0"
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `VALIDATION_ERROR` | Invalid address format |
+| 500 | `INTERNAL_ERROR` | Failed to fetch unclaimed deposits |
