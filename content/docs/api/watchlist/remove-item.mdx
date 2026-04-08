@@ -1,0 +1,25 @@
+---
+title: Remove Item
+description: Grails API v1
+---
+
+### DELETE /api/v1/watchlist/:id
+
+Remove a single item from a watchlist.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `id` | number | Yes | Watchlist entry ID |
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 403 | `FORBIDDEN` | Entry belongs to another user |
+| 404 | `NOT_FOUND` | Watchlist entry not found |

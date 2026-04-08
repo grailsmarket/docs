@@ -1,0 +1,33 @@
+---
+title: Rename List
+description: Grails API v1
+---
+
+### PATCH /api/v1/watchlist/lists/:listId
+
+Rename a watchlist. The default watchlist cannot be renamed.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `listId` | number | Yes | List ID |
+
+#### Request Body
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | Yes | New list name (1–100 chars, trimmed) |
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `CANNOT_RENAME_DEFAULT` | The default watchlist cannot be renamed |
+| 403 | `FORBIDDEN` | List belongs to another user |
+| 404 | `NOT_FOUND` | List not found |
+| 409 | `DUPLICATE_LIST_NAME` | A list with this name already exists |

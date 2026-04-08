@@ -1,0 +1,32 @@
+---
+title: Add Item
+description: Grails API v1
+---
+
+### POST /api/v1/watchlist
+
+Add an ENS name to a watchlist with notification preferences. If the name is already on the specified list, the notification preferences are updated (upsert).
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Request Body
+
+| Field | Type | Required | Default | Description |
+|-------|------|----------|---------|-------------|
+| `ensName` | string | Yes | — | ENS name to watch |
+| `listId` | number | No | default list | Target list ID |
+| `notifyOnSale` | boolean | No | `true` | Notify when name is sold |
+| `notifyOnOffer` | boolean | No | `true` | Notify on new offers |
+| `notifyOnListing` | boolean | No | `true` | Notify when listed |
+| `notifyOnPriceChange` | boolean | No | `false` | Notify on price changes |
+| `minOfferThreshold` | number \| null | No | `null` | Minimum offer amount to trigger notification (0+) |
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `VALIDATION_ERROR` | Invalid request body |
+| 404 | `ENS_NAME_NOT_FOUND` | ENS name not found |
+| 404 | `LIST_NOT_FOUND` | Specified list not found |

@@ -1,0 +1,38 @@
+---
+title: Update Item
+description: Grails API v1
+---
+
+### PATCH /api/v1/watchlist/:id
+
+Update notification preferences for a watchlist entry.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `id` | number | Yes | Watchlist entry ID |
+
+#### Request Body
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `notifyOnSale` | boolean | No | Notify when name is sold |
+| `notifyOnOffer` | boolean | No | Notify on new offers |
+| `notifyOnListing` | boolean | No | Notify when listed |
+| `notifyOnPriceChange` | boolean | No | Notify on price changes |
+| `minOfferThreshold` | number \| null | No | Minimum offer amount (0+, or null) |
+
+At least one field must be provided.
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `NO_UPDATES` | No fields provided |
+| 403 | `FORBIDDEN` | Entry belongs to another user |
+| 404 | `NOT_FOUND` | Watchlist entry not found |

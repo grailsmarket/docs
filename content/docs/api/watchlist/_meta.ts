@@ -1,3 +1,15 @@
 export default {
   index: 'Overview',
+  'get-lists': 'Get Lists',
+  'create-list': 'Create List',
+  'rename-list': 'Rename List',
+  'delete-list': 'Delete List',
+  'get-items': 'Get Items',
+  'add-item': 'Add Item',
+  'update-item': 'Update Item',
+  'remove-item': 'Remove Item',
+  'bulk-add': 'Bulk Add',
+  'bulk-remove': 'Bulk Remove',
+  check: 'Check Name',
+  search: 'Search Watchlist',
 }

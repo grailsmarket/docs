@@ -1,0 +1,26 @@
+---
+title: Delete List
+description: Grails API v1
+---
+
+### DELETE /api/v1/watchlist/lists/:listId
+
+Delete a watchlist and all its items (cascade delete). The default watchlist cannot be deleted.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `listId` | number | Yes | List ID |
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `CANNOT_DELETE_DEFAULT` | The default watchlist cannot be deleted |
+| 403 | `FORBIDDEN` | List belongs to another user |
+| 404 | `NOT_FOUND` | List not found |

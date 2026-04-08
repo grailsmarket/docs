@@ -1,0 +1,76 @@
+---
+title: Search Watchlist
+description: Grails API v1
+---
+
+### GET /api/v1/watchlist/search
+
+Search and filter the user's watchlist using Elasticsearch with the same filter system as [Global Search](/docs/api/search/global-search). Supports CSV export. Falls back to PostgreSQL for sort fields not in ES (watchers_count, view_count, clubs_count).
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `q` | string | `*` | Search query |
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page (1–100) |
+| `sortBy` | string | — | Sort field (see below) |
+| `sortOrder` | string | — | `asc` or `desc` |
+| `listId` | number | — | Filter by list ID (defaults to user's default list) |
+| `export` | boolean | `false` | Download as CSV |
+| `filename` | string | `watchlist-export` | CSV filename |
+
+#### Sort Fields
+
+`price`, `expiry_date`, `registration_date`, `creation_date`, `last_sale_date`, `last_sale_price`, `character_count`, `watchers_count`, `clubs_count`, `view_count`, `alphabetical`, `offer`, `listing_date`, `listing_expiry`
+
+#### Filters
+
+Same bracket notation as [Global Search filters](/docs/api/search/global-search#filters): price, length, counts, characters, patterns, listings, clubs, status, and sales filters.
+
+#### Sample Request
+
+```sh
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.market/api/v1/watchlist/search?sortBy=price&sortOrder=asc&filters[listed]=true"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "results": [
+      {
+        "name": "example.eth",
+        "token_id": "12345...",
+        "owner": "0xabcd...",
+        "listings": [...],
+        "upvotes": 10,
+        "watchers_count": 5
+        // ... standard search result fields
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 15,
+      "totalPages": 1,
+      "hasNext": false,
+      "hasPrev": false
+    }
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 404 | `LIST_NOT_FOUND` | Specified list not found |

@@ -1,0 +1,61 @@
+---
+title: Check Name
+description: Grails API v1
+---
+
+### GET /api/v1/watchlist/check/:name
+
+Check if a specific ENS name is on any of the user's watchlists. Returns both a backward-compatible single entry and per-list details.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `name` | string | Yes | ENS name to check (e.g. `example.eth`) |
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "isWatching": true,
+    "watchlistEntry": {
+      "id": 1,
+      "ensNameId": 100,
+      "ensName": "example.eth",
+      "notifyOnSale": true,
+      "notifyOnOffer": true,
+      "notifyOnListing": true,
+      "notifyOnPriceChange": false,
+      "minOfferThreshold": null,
+      "addedAt": "2026-04-01T00:00:00.000Z"
+    },
+    "lists": [
+      {
+        "listId": 1,
+        "listName": "Watchlist",
+        "listIsDefault": true,
+        "watchlistEntryId": 1,
+        "notifyOnSale": true,
+        "notifyOnOffer": true,
+        "notifyOnListing": true,
+        "notifyOnPriceChange": false,
+        "minOfferThreshold": null,
+        "addedAt": "2026-04-01T00:00:00.000Z"
+      }
+    ]
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 404 | `ENS_NAME_NOT_FOUND` | ENS name not found in database |

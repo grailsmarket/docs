@@ -1,0 +1,36 @@
+---
+title: Bulk Remove
+description: Grails API v1
+---
+
+### DELETE /api/v1/watchlist/bulk
+
+Remove multiple watchlist entries by their IDs. Only entries belonging to the authenticated user (via list ownership) are deleted.
+
+**Authentication:** Required
+
+**Cache:** None
+
+#### Request Body
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `ids` | number[] | Yes | Watchlist entry IDs to remove (1–100) |
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "removed": 5
+  }
+}
+```
+
+#### Error Responses
+
+| Status | Code | Description |
+|--------|------|-------------|
+| 400 | `VALIDATION_ERROR` | Invalid request body |

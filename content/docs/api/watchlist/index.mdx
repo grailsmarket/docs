@@ -1,8 +1,37 @@
 ---
-title: Route
-description: Grails API v1
+title: Watchlist
+description: Grails API v1 — Watchlist Endpoints
 ---
 
-# Documentation Pending
+# Watchlist
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Multi-list watchlist system for tracking ENS names with per-item notification preferences. Users can create up to 20 named lists (plus a default "Watchlist"). All endpoints require authentication.
+
+**Base path:** `/api/v1/watchlist`
+
+## List Management
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/lists` | Get all lists with item counts |
+| POST | `/lists` | Create a named list (max 20) |
+| PATCH | `/lists/:listId` | Rename a list |
+| DELETE | `/lists/:listId` | Delete a list (cascades items) |
+
+## Item Management
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/` | Get watchlist items with ENS data |
+| POST | `/` | Add a name with notification preferences |
+| PATCH | `/:id` | Update notification preferences |
+| DELETE | `/:id` | Remove a single item |
+| POST | `/bulk` | Bulk add up to 100 names |
+| DELETE | `/bulk` | Bulk remove by IDs |
+
+## Lookup & Search
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/check/:name` | Check if a name is watched (across all lists) |
+| GET | `/search` | Search/filter watchlist with ES + CSV export |
