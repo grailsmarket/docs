@@ -1,0 +1,45 @@
+---
+title: By Watchlist
+description: Grails API v1
+---
+
+### GET /api/v1/trending/watchlist
+
+Trending names ranked by watchlist additions in the period.
+
+**Authentication:** Optional
+
+#### Trending Metrics
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `period_additions` | number | Watchlist additions in the period |
+| `total_watchers` | number | Total current watchers |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/trending/watchlist?period=7d&limit=10"
+```
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "names": [
+      {
+        "name": "example.eth",
+        // ... standard search result fields
+        "trending_metrics": {
+          "period": "7d",
+          "period_additions": 25,
+          "total_watchers": 120
+        }
+      }
+    ],
+    "meta": { "period": "7d", "type": "watchlist", "limit": 10 }
+  }
+}
+```

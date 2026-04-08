@@ -1,0 +1,48 @@
+---
+title: By Offers
+description: Grails API v1
+---
+
+### GET /api/v1/trending/offers
+
+Trending names ranked by offer activity in the period.
+
+**Authentication:** Optional
+
+#### Trending Metrics
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `period_offers` | number | Offers received in the period |
+| `highest_offer` | string | Highest offer amount in wei |
+| `avg_offer` | string | Average offer amount in wei |
+| `unique_bidders` | number | Distinct bidder addresses |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/trending/offers?period=24h&limit=10"
+```
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "names": [
+      {
+        "name": "example.eth",
+        "trending_metrics": {
+          "period": "24h",
+          "period_offers": 8,
+          "highest_offer": "200000000000000000",
+          "avg_offer": "120000000000000000",
+          "unique_bidders": 6
+        }
+      }
+    ],
+    "meta": { "period": "24h", "type": "offers", "limit": 10 }
+  }
+}
+```

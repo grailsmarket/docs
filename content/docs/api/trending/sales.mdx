@@ -1,0 +1,50 @@
+---
+title: By Sales
+description: Grails API v1
+---
+
+### GET /api/v1/trending/sales
+
+Trending names ranked by sales activity in the period.
+
+**Authentication:** Optional
+
+#### Trending Metrics
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `period_sales` | number | Number of sales in the period |
+| `period_volume` | string | Total sales volume in wei |
+| `avg_price` | string | Average sale price in wei |
+| `max_price` | string | Highest sale price in wei |
+| `min_price` | string | Lowest sale price in wei |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/trending/sales?period=7d&limit=10"
+```
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "names": [
+      {
+        "name": "example.eth",
+        "trending_metrics": {
+          "period": "7d",
+          "period_sales": 3,
+          "period_volume": "500000000000000000",
+          "avg_price": "166666666666666666",
+          "max_price": "250000000000000000",
+          "min_price": "100000000000000000"
+        }
+      }
+    ],
+    "meta": { "period": "7d", "type": "sales", "limit": 10 }
+  }
+}
+```

@@ -1,0 +1,79 @@
+---
+title: Composite Score
+description: Grails API v1
+---
+
+### GET /api/v1/trending/composite
+
+Trending names ranked by a weighted composite score combining all signals. The response includes the breakdown by signal and the scoring weights.
+
+**Authentication:** Optional
+
+#### Trending Metrics
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `trending_score` | number | Weighted composite score |
+| `breakdown.views` | number | Views in the period |
+| `breakdown.watchlist_adds` | number | Watchlist additions |
+| `breakdown.votes` | number | Total votes |
+| `breakdown.offers` | number | Offers received |
+| `breakdown.sales` | number | Sales count |
+
+#### Score Weights
+
+| Signal | Weight |
+|--------|--------|
+| Views | 1 |
+| Watchlist adds | 5 |
+| Upvotes | 3 |
+| Downvotes | -1 |
+| Offers | 10 |
+| Listings | 8 |
+| Sales | 50 |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/trending/composite?period=24h&limit=10"
+```
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "names": [
+      {
+        "name": "example.eth",
+        "trending_metrics": {
+          "period": "24h",
+          "trending_score": 285.5,
+          "breakdown": {
+            "views": 150,
+            "watchlist_adds": 5,
+            "votes": 12,
+            "offers": 3,
+            "sales": 1
+          }
+        }
+      }
+    ],
+    "meta": {
+      "period": "24h",
+      "type": "composite",
+      "limit": 10,
+      "score_weights": {
+        "views": 1,
+        "watchlist_adds": 5,
+        "upvotes": 3,
+        "downvotes": -1,
+        "offers": 10,
+        "listings": 8,
+        "sales": 50
+      }
+    }
+  }
+}
+```

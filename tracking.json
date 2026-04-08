@@ -2,8 +2,8 @@
   "metadata": {
     "totalRoutes": 35,
     "totalEndpoints": 134,
-    "completedRoutes": 17,
-    "lastUpdated": "2026-04-08T01:15:00Z"
+    "completedRoutes": 18,
+    "lastUpdated": "2026-04-08T01:25:00Z"
   },
   "routes": [
     {
@@ -261,17 +261,17 @@
       "name": "trending",
       "file": "trending.ts",
       "prefix": "/api/v1/trending",
-      "status": "pending",
+      "status": "completed",
       "endpointCount": 6,
       "endpoints": [
-        { "method": "GET", "path": "/views", "auth": "optionalAuth", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/watchlist", "auth": "optionalAuth", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/votes", "auth": "optionalAuth", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/sales", "auth": "optionalAuth", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/offers", "auth": "optionalAuth", "cache": "none", "documented": false },
-        { "method": "GET", "path": "/composite", "auth": "optionalAuth", "cache": "none", "documented": false }
+        { "method": "GET", "path": "/views", "auth": "optionalAuth", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/watchlist", "auth": "optionalAuth", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/votes", "auth": "optionalAuth", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/sales", "auth": "optionalAuth", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/offers", "auth": "optionalAuth", "cache": "none", "documented": true },
+        { "method": "GET", "path": "/composite", "auth": "optionalAuth", "cache": "none", "documented": true }
       ],
-      "completedAt": null
+      "completedAt": "2026-04-08T01:25:00Z"
     },
     {
       "name": "leaderboard",

@@ -1,0 +1,48 @@
+---
+title: By Views
+description: Grails API v1
+---
+
+### GET /api/v1/trending/views
+
+Trending names ranked by page view count. Uses materialized views (`trending_views_24h` / `trending_views_7d`).
+
+**Authentication:** Optional
+
+#### Trending Metrics
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `period_views` | number | Views in the selected period |
+| `unique_viewers` | number | Unique viewers in the period |
+| `total_views` | number | All-time view count |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/trending/views?period=24h&limit=10"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "names": [
+      {
+        "name": "example.eth",
+        // ... standard search result fields
+        "trending_metrics": {
+          "period": "24h",
+          "period_views": 150,
+          "unique_viewers": 85,
+          "total_views": 3200
+        }
+      }
+    ],
+    "meta": { "period": "24h", "type": "views", "limit": 10 }
+  }
+}
+```

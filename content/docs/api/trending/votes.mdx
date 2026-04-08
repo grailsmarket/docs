@@ -1,0 +1,48 @@
+---
+title: By Votes
+description: Grails API v1
+---
+
+### GET /api/v1/trending/votes
+
+Trending names ranked by total voting activity (upvotes + downvotes) in the period.
+
+**Authentication:** Optional
+
+#### Trending Metrics
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `period_upvotes` | number | Upvotes in the period |
+| `period_downvotes` | number | Downvotes in the period |
+| `period_votes` | number | Total votes in the period |
+| `net_score_total` | number | All-time net score |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.market/api/v1/trending/votes?period=24h&limit=10"
+```
+
+#### Response
+
+```jsonc
+{
+  "success": true,
+  "data": {
+    "names": [
+      {
+        "name": "example.eth",
+        "trending_metrics": {
+          "period": "24h",
+          "period_upvotes": 12,
+          "period_downvotes": 2,
+          "period_votes": 14,
+          "net_score_total": 45
+        }
+      }
+    ],
+    "meta": { "period": "24h", "type": "votes", "limit": 10 }
+  }
+}
+```

@@ -1,8 +1,32 @@
 ---
-title: Route
-description: Grails API v1
+title: Trending
+description: Grails API v1 — Trending Endpoints
 ---
 
-# Documentation Pending
+# Trending
 
-This route is queued for documentation. See [tracking progress](/docs/api).
+Trending ENS names ranked by different signals over a time period. All endpoints use the same query parameters and return enriched search results with signal-specific `trending_metrics`.
+
+**Base path:** `/api/v1/trending`
+
+## Common Query Parameters
+
+All trending endpoints accept:
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `period` | string | `24h` | Time window: `24h` or `7d` |
+| `limit` | number | `20` | Max results (1–100) |
+
+**Authentication:** Optional (enriches results with user-specific data)
+
+## Endpoints
+
+| Method | Path | Signal | Metrics |
+|--------|------|--------|---------|
+| GET | `/views` | Page views | period_views, unique_viewers, total_views |
+| GET | `/watchlist` | Watchlist adds | period_additions, total_watchers |
+| GET | `/votes` | Voting activity | period_upvotes, period_downvotes, period_votes, net_score_total |
+| GET | `/sales` | Sales activity | period_sales, period_volume, avg/max/min_price |
+| GET | `/offers` | Offer activity | period_offers, highest_offer, avg_offer, unique_bidders |
+| GET | `/composite` | All signals combined | trending_score with breakdown by signal |
