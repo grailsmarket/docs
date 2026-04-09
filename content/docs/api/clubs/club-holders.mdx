@@ -25,6 +25,12 @@ Get unique holders for a specific club with their name counts. Only includes reg
 | `limit` | number | `20` | Results per page (1–100) |
 | `sortOrder` | string | `desc` | Sort by name count: `asc` or `desc` |
 
+#### Sample Request
+
+```sh
+curl "https://api.grails.app/api/v1/clubs/10k/holders?limit=10"
+```
+
 #### Response
 
 ```jsonc
@@ -44,6 +50,9 @@ Get unique holders for a specific club with their name counts. Only includes reg
     "limit": 20,
     "total": 450,
     "pages": 23
+  },
+  "meta": {
+    "timestamp": "2025-01-01T00:00:00.000Z"
   }
 }
 ```

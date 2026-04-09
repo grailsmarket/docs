@@ -5,7 +5,7 @@ description: Grails API v1
 
 ### GET /api/v1/analytics/registrations/by-length
 
-Registration counts grouped by name character length for the selected period.
+Detailed registration cost breakdown grouped by name character length for the selected period.
 
 **Authentication:** None
 
@@ -15,20 +15,52 @@ Registration counts grouped by name character length for the selected period.
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `period` | string | `7d` | `24h`, `7d`, `30d`, `1y`, `all` |
+| `period` | string | `7d` | `24h`, `7d`, `30d`, `90d`, `all` |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.app/api/v1/analytics/registrations/by-length"
+```
 
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
     "period": "7d",
-    "by_length": [
-      { "length": 3, "count": 15, "total_cost_wei": "750000000000000000" },
-      { "length": 4, "count": 45, "total_cost_wei": "225000000000000000" },
-      { "length": 5, "count": 120, "total_cost_wei": "600000000000000000" }
+    "breakdown": [
+      {
+        "name_length": 3,
+        "count": 15,
+        "total_cost_wei": "750000000000000000",
+        "avg_cost_wei": "50000000000000000",
+        "avg_base_cost_wei": "45000000000000000",
+        "avg_premium_wei": "5000000000000000",
+        "min_cost_wei": "10000000000000000",
+        "max_cost_wei": "200000000000000000",
+        "median_cost_wei": "40000000000000000",
+        "premium_count": 3
+      },
+      {
+        "name_length": 4,
+        "count": 45,
+        "total_cost_wei": "225000000000000000",
+        "avg_cost_wei": "5000000000000000",
+        "avg_base_cost_wei": "4500000000000000",
+        "avg_premium_wei": "500000000000000",
+        "min_cost_wei": "1000000000000000",
+        "max_cost_wei": "50000000000000000",
+        "median_cost_wei": "4000000000000000",
+        "premium_count": 5
+      }
     ]
+  },
+  "meta": {
+    "timestamp": "2026-04-09T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

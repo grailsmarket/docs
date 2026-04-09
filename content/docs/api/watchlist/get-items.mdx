@@ -19,6 +19,13 @@ Get watchlist items with ENS name details and listing status. Defaults to the us
 | `limit` | number | `20` | Results per page (1–100) |
 | `listId` | number | — | Filter by list ID (defaults to user's default list) |
 
+#### Sample Request
+
+```sh
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.app/api/v1/watchlist?page=1&limit=20"
+```
+
 #### Response
 
 ```jsonc
@@ -64,6 +71,10 @@ Get watchlist items with ENS name details and listing status. Defaults to the us
       "hasNext": false,
       "hasPrev": false
     }
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

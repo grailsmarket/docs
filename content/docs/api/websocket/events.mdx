@@ -7,13 +7,17 @@ description: Grails API v1
 
 General-purpose event subscription channel. Subscribe to specific event types and receive broadcasts when they occur.
 
-#### Connection
+#### Connection Example
 
-```
-wss://api.grails.app/ws/events
+```sh
+wscat -c "wss://api.grails.app/ws/events"
 ```
 
-On connect, the server sends: `{ "type": "connected", "clientId": "...", "timestamp": "..." }`
+On connect, the server sends:
+
+```jsonc
+{ "type": "connected", "clientId": "req-1", "timestamp": "2026-04-08T00:00:00.000Z" }
+```
 
 #### Client Messages
 

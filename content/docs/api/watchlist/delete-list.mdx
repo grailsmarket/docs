@@ -17,6 +17,29 @@ Delete a watchlist and all its items (cascade delete). The default watchlist can
 |-----------|------|----------|-------------|
 | `listId` | number | Yes | List ID |
 
+#### Sample Request
+
+```sh
+curl -X DELETE -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.app/api/v1/watchlist/lists/2"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "message": "List deleted"
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
 #### Error Responses
 
 | Status | Code | Description |

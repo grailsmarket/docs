@@ -5,7 +5,7 @@ description: Grails API v1
 
 ### GET /api/v1/analytics/volume
 
-Sales volume distribution broken down by price range buckets.
+Sales volume distribution broken down by price range buckets. ETH and WETH sales only.
 
 **Authentication:** None
 
@@ -17,19 +17,34 @@ Sales volume distribution broken down by price range buckets.
 |-----------|------|---------|-------------|
 | `period` | string | `7d` | `24h`, `7d`, `30d`, `90d`, `all` |
 
+#### Sample Request
+
+```sh
+curl "https://api.grails.app/api/v1/analytics/volume"
+```
+
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
     "period": "7d",
     "distribution": [
-      { "range": "0-0.01 ETH", "count": 50, "volume_wei": "250000000000000000" },
-      { "range": "0.01-0.1 ETH", "count": 80, "volume_wei": "4000000000000000000" },
-      { "range": "0.1-1 ETH", "count": 15, "volume_wei": "7500000000000000000" },
-      { "range": "1+ ETH", "count": 5, "volume_wei": "25000000000000000000" }
+      { "price_range": "< 0.01 ETH", "sales_count": 50, "total_volume_wei": "250000000000000000" },
+      { "price_range": "0.01-0.1 ETH", "sales_count": 80, "total_volume_wei": "4000000000000000000" },
+      { "price_range": "0.1-0.5 ETH", "sales_count": 30, "total_volume_wei": "7500000000000000000" },
+      { "price_range": "0.5-1 ETH", "sales_count": 15, "total_volume_wei": "10000000000000000000" },
+      { "price_range": "1-5 ETH", "sales_count": 10, "total_volume_wei": "25000000000000000000" },
+      { "price_range": "5-10 ETH", "sales_count": 3, "total_volume_wei": "20000000000000000000" },
+      { "price_range": "10-50 ETH", "sales_count": 2, "total_volume_wei": "50000000000000000000" },
+      { "price_range": "50+ ETH", "sales_count": 1, "total_volume_wei": "75000000000000000000" }
     ]
+  },
+  "meta": {
+    "timestamp": "2026-04-09T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

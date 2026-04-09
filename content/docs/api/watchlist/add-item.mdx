@@ -23,6 +23,41 @@ Add an ENS name to a watchlist with notification preferences. If the name is alr
 | `notifyOnPriceChange` | boolean | No | `false` | Notify on price changes |
 | `minOfferThreshold` | number \| null | No | `null` | Minimum offer amount to trigger notification (0+) |
 
+#### Sample Request
+
+```sh
+curl -X POST -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  https://api.grails.app/api/v1/watchlist \
+  -d '{ "ensName": "example.eth", "notifyOnSale": true, "notifyOnListing": true }'
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "userId": 42,
+    "ensNameId": 100,
+    "ensName": "example.eth",
+    "listId": 1,
+    "notifyOnSale": true,
+    "notifyOnOffer": true,
+    "notifyOnListing": true,
+    "notifyOnPriceChange": false,
+    "minOfferThreshold": null,
+    "addedAt": "2026-04-08T00:00:00.000Z"
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
 #### Error Responses
 
 | Status | Code | Description |

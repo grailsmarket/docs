@@ -17,13 +17,20 @@ Daily price aggregates over the selected period — sales count, volume, average
 |-----------|------|---------|-------------|
 | `period` | string | `7d` | `24h`, `7d`, `30d`, `90d`, `all` |
 
+#### Sample Request
+
+```sh
+curl "https://api.grails.app/api/v1/analytics/price-trends"
+```
+
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
-    "period": "30d",
+    "period": "7d",
     "trends": [
       {
         "date": "2026-04-07T00:00:00.000Z",
@@ -34,6 +41,10 @@ Daily price aggregates over the selected period — sales count, volume, average
         "min_price_wei": "50000000000000000"
       }
     ]
+  },
+  "meta": {
+    "timestamp": "2026-04-09T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

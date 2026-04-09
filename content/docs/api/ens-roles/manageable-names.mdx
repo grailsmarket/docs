@@ -24,28 +24,39 @@ Get all ENS names that an address can manage (update records for), with paginati
 | `page` | number | `1` | Page number (min 1) |
 | `limit` | number | `20` | Results per page (1–100) |
 
+#### Sample Request
+
+```sh
+curl "https://api.grails.app/api/v1/ens-roles/users/0x983110309620d911731ac0932219af06091b6744/manageable-names?page=1&limit=10"
+```
+
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
-    "address": "0x1234...",
+    "address": "0x983110309620d911731ac0932219af06091b6744",
     "names": [
       {
         "name": "example.eth",
-        "role": "owner",
+        "role": "both",
         // ... standard search result fields
       }
     ],
     "pagination": {
       "page": 1,
-      "limit": 20,
+      "limit": 10,
       "total": 15,
-      "totalPages": 1,
-      "hasNext": false,
+      "totalPages": 2,
+      "hasNext": true,
       "hasPrev": false
     }
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

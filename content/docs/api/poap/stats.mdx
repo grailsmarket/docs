@@ -9,11 +9,26 @@ Get aggregate POAP statistics — total links, claimed, and remaining.
 
 **Authentication:** None
 
+#### Sample Request
+
+```sh
+curl "https://api.grails.app/api/v1/poap/stats"
+```
+
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
-  "data": { "total": 1000, "claimed": 750, "remaining": 250 }
+  "data": {
+    "total": 1000,
+    "claimed": 750,
+    "remaining": 250
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
+  }
 }
 ```

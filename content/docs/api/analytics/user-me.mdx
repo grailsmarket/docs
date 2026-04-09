@@ -5,30 +5,44 @@ description: Grails API v1
 
 ### GET /api/v1/analytics/user/me
 
-Activity summary for the authenticated user — names owned, listings, offers, sales, and watchlist stats.
+Activity summary and portfolio overview for the authenticated user.
 
 **Authentication:** Required
 
 **Cache:** None
 
+#### Sample Request
+
+```sh
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.app/api/v1/analytics/user/me"
+```
+
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
-    "names_owned": 25,
-    "names_in_clubs": 12,
-    "active_listings": 5,
-    "active_offers_made": 3,
-    "active_offers_received": 8,
-    "total_sales": 10,
-    "total_purchases": 15,
-    "total_sales_volume_wei": "5000000000000000000",
-    "total_purchases_volume_wei": "7500000000000000000",
-    "watchlist_count": 42,
-    "votes_cast": 30,
-    "profile_views": 150
+    "activity": {
+      "names_viewed": 150,
+      "names_watching": 42,
+      "votes_cast": 30,
+      "offers_made": 3,
+      "names_purchased": 15,
+      "names_sold": 10
+    },
+    "portfolio": {
+      "owned_names_count": 25,
+      "listed_names_count": 5,
+      "total_listing_value_wei": "5000000000000000000",
+      "total_offer_value_wei": "7500000000000000000"
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-09T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

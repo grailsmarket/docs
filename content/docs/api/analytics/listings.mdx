@@ -21,28 +21,47 @@ Paginated feed of listings with sorting, status/source filtering, and club filte
 | `sortBy` | string | `date` | `price` or `date` |
 | `sortOrder` | string | `desc` | `asc` or `desc` |
 | `page` | number | `1` | Page number |
-| `limit` | number | `20` | Results per page |
+| `limit` | number | `20` | Results per page (max 100) |
 | `clubs[]` | string[] | — | Filter by clubs (repeatable, comma-separated) |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.app/api/v1/analytics/listings"
+```
 
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
-    "listings": [
+    "results": [
       {
         "name": "example.eth",
+        "token_id": "12345",
         "price_wei": "200000000000000000",
-        "currency_address": "0x0000...0000",
-        "seller_address": "0xabcd...",
+        "currency_address": "0x0000000000000000000000000000000000000000",
+        "seller_address": "0xabcd...1234",
         "status": "active",
         "source": "grails",
         "created_at": "2026-04-07T12:00:00.000Z",
         "clubs": ["999"]
       }
     ],
-    "pagination": { "page": 1, "limit": 20, "total": 300, "totalPages": 15 }
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 300,
+      "totalPages": 15,
+      "hasNext": true,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-09T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

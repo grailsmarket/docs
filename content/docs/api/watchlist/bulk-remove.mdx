@@ -17,6 +17,15 @@ Remove multiple watchlist entries by their IDs. Only entries belonging to the au
 |-------|------|----------|-------------|
 | `ids` | number[] | Yes | Watchlist entry IDs to remove (1–100) |
 
+#### Sample Request
+
+```sh
+curl -X DELETE -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  https://api.grails.app/api/v1/watchlist/bulk \
+  -d '{ "ids": [1, 2, 3, 4, 5] }'
+```
+
 #### Response
 
 ```jsonc
@@ -25,6 +34,10 @@ Remove multiple watchlist entries by their IDs. Only entries belonging to the au
   "success": true,
   "data": {
     "removed": 5
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

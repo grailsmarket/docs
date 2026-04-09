@@ -25,7 +25,9 @@ Search all ENS names with full-text queries, extensive filters, sorting, and pag
 
 #### Sort Fields
 
-`price`, `expiry_date`, `registration_date`, `creation_date`, `last_sale_date`, `last_sale_price`, `character_count`, `watchers_count`, `alphabetical`, `offer`, `listing_date`, `listing_expiry`, `google_monthly_searches`, `google_avg_cpc`
+`price`, `expiry_date`, `registration_date`, `creation_date`, `last_sale_date`, `last_sale_price`, `character_count`, `watchers_count`, `view_count`, `clubs_count`, `alphabetical`, `offer`, `listing_date`, `listing_expiry`, `ranking`, `google_monthly_searches`, `google_avg_cpc`
+
+> **Note:** `ranking` requires exactly one `filters[clubs][]` value. `watchers_count`, `view_count`, and `clubs_count` force a PostgreSQL fallback (bypassing Elasticsearch).
 
 #### Filters
 
@@ -131,6 +133,7 @@ Filters are passed as query parameters in bracket notation: `filters[minPrice]=0
 | `filters[minCreationDate]` | string | Created after date (ISO) |
 | `filters[maxCreationDate]` | string | Created before date (ISO) |
 | `filters[owner]` | string | Filter by owner (address or ENS name) |
+| `filters[uniqueSeller]` | boolean | Deduplicate results by seller (one listing per seller) |
 
 #### Sample Request
 
@@ -153,15 +156,43 @@ curl "https://api.grails.app/api/v1/search?q=cool&filters[minLength]=3&filters[m
         "owner": "0x1234...",
         "expiry_date": "2027-01-15T00:00:00.000Z",
         "registration_date": "2023-01-15T00:00:00.000Z",
-        "metadata": { ... },
+        "creation_date": "2023-01-15T00:00:00.000Z",
+        "last_sale_date": "2025-06-01T00:00:00.000Z",
+        "metadata": { "avatar": "...", "url": "...", "chains": [], "contenthash": null },
+        "metadata_updated_at": "2026-04-01T00:00:00.000Z",
         "clubs": ["999", "10k"],
-        "listings": [{ "price_wei": "100000000000000000", "source": "grails", ... }],
+        "club_ranks": [{ "club": "999", "rank": 42 }],
+        "has_numbers": false,
+        "has_emoji": false,
+        "last_sale_price": "100000000000000000",
+        "last_sale_currency": "0x0000000000000000000000000000000000000000",
+        "last_sale_price_usd": 250.00,
+        "listings": [
+          {
+            "id": 1,
+            "price": "100000000000000000",
+            "currency_address": "0x0000...",
+            "status": "active",
+            "seller_address": "0x1234...",
+            "order_hash": "0xabc...",
+            "order_data": {},
+            "expires_at": "2027-01-01T00:00:00.000Z",
+            "created_at": "2026-01-01T00:00:00.000Z",
+            "source": "grails",
+            "broker_address": null,
+            "broker_fee_bps": null
+          }
+        ],
         "upvotes": 10,
         "downvotes": 2,
         "net_score": 8,
+        "user_vote": null, // only present when authenticated
         "watchers_count": 5,
         "is_user_watching": false,
+        "watchlist_record_id": null,
         "highest_offer_wei": "50000000000000000",
+        "highest_offer_currency": "0x0000000000000000000000000000000000000000",
+        "highest_offer_id": 7,
         "view_count": 42
       }
     ],

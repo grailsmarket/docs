@@ -17,6 +17,12 @@ Global market statistics including name counts, active listings/offers, sales vo
 |-----------|------|---------|-------------|
 | `period` | string | `7d` | `24h`, `7d`, `30d`, `90d`, `all` |
 
+#### Sample Request
+
+```sh
+curl "https://api.grails.app/api/v1/analytics/market"
+```
+
 #### Response
 
 ```jsonc
@@ -49,6 +55,10 @@ Global market statistics including name counts, active listings/offers, sales vo
       "offers": 150,
       "listings": 300
     }
+  },
+  "meta": {
+    "timestamp": "2026-04-09T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

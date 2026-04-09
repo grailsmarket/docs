@@ -53,8 +53,32 @@ curl -H "Authorization: Bearer YOUR_TOKEN" \
         "owner": "0xabcd...",
         "listings": [...],
         "upvotes": 10,
-        "watchers_count": 5
+        "watchers_count": 5,
         // ... standard search result fields
+        "watchlist": {
+          "watchlistId": 1,
+          "listId": 1,
+          "listName": "Watchlist",
+          "notifyOnSale": true,
+          "notifyOnOffer": true,
+          "notifyOnListing": true,
+          "notifyOnPriceChange": false,
+          "minOfferThreshold": null,
+          "addedAt": "2026-04-01T00:00:00.000Z"
+        },
+        "watchlistEntries": [
+          {
+            "watchlistId": 1,
+            "listId": 1,
+            "listName": "Watchlist",
+            "notifyOnSale": true,
+            "notifyOnOffer": true,
+            "notifyOnListing": true,
+            "notifyOnPriceChange": false,
+            "minOfferThreshold": null,
+            "addedAt": "2026-04-01T00:00:00.000Z"
+          }
+        ]
       }
     ],
     "pagination": {
@@ -65,6 +89,10 @@ curl -H "Authorization: Bearer YOUR_TOKEN" \
       "hasNext": false,
       "hasPrev": false
     }
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

@@ -17,6 +17,29 @@ Remove a single item from a watchlist.
 |-----------|------|----------|-------------|
 | `id` | number | Yes | Watchlist entry ID |
 
+#### Sample Request
+
+```sh
+curl -X DELETE -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.app/api/v1/watchlist/1"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "message": "Removed from watchlist"
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
 #### Error Responses
 
 | Status | Code | Description |

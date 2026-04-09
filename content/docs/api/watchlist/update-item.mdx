@@ -29,6 +29,36 @@ Update notification preferences for a watchlist entry.
 
 At least one field must be provided.
 
+#### Sample Request
+
+```sh
+curl -X PATCH -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  https://api.grails.app/api/v1/watchlist/1 \
+  -d '{ "notifyOnPriceChange": true }'
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "notifyOnSale": true,
+    "notifyOnOffer": true,
+    "notifyOnListing": true,
+    "notifyOnPriceChange": true,
+    "minOfferThreshold": null
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
 #### Error Responses
 
 | Status | Code | Description |

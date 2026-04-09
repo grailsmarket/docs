@@ -15,21 +15,28 @@ Analytics for a specific club — member stats, sales volume, activity, and curr
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `club` | string | Yes | Club name (e.g. `999`) |
+| `club` | string | Yes | Club name (e.g. `999`, `10k`) |
 
 #### Query Parameters
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `period` | string | `7d` | `24h`, `7d`, `30d`, `90d` |
+| `period` | string | `7d` | `24h`, `7d`, `30d`, `90d`, `all` |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.app/api/v1/analytics/clubs/10k"
+```
 
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
-    "club": "999",
+    "club": "10k",
     "period": "7d",
     "stats": {
       "member_count": 1000,
@@ -48,6 +55,10 @@ Analytics for a specific club — member stats, sales volume, activity, and curr
       "watchlist_adds": 100,
       "votes": 50
     }
+  },
+  "meta": {
+    "timestamp": "2026-04-09T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

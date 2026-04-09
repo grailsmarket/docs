@@ -30,9 +30,15 @@ curl https://api.grails.app/api/v1/users/0x1234.../unclaimed-deposits
 {
   "success": true,
   "data": {
-    "address": "0x1234567890abcdef1234567890abcdef12345678",
-    "deposits": [],
-    "totalUnclaimedWei": "0"
+    "address": "0x983110309620d911731ac0932219af06091b6744",
+    "deeds": [
+      {
+        "deedAddress": "0xabcdef1234567890abcdef1234567890abcdef12",
+        "balance": "0.01"
+      }
+    ],
+    "totalUnclaimedEth": "0.01",
+    "totalUnclaimedWei": "10000000000000000"
   },
   "meta": {
     "timestamp": "2026-04-07T12:00:00.000Z",

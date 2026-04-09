@@ -33,17 +33,40 @@ curl -H "Authorization: Bearer YOUR_TOKEN" \
   "data": {
     "items": [
       {
+        // Cart-specific fields
         "cartItemId": 1,
         "cartType": "buy",
         "addedAt": "2026-04-07T12:00:00.000Z",
+        // Enriched ENS name fields (from buildSearchResults)
+        "id": 42,
         "name": "example.eth",
         "token_id": "12345...",
         "owner": "0xabcd...",
-        "listings": [...],
+        "expiry_date": "2027-04-07T00:00:00.000Z",
+        "registration_date": "2022-01-15T00:00:00.000Z",
+        "creation_date": "2022-01-15T00:00:00.000Z",
+        "last_sale_date": "2025-06-01T00:00:00.000Z",
+        "metadata": { "avatar": "https://...", "url": "https://..." },
+        "metadata_updated_at": "2026-04-01T00:00:00.000Z",
+        "clubs": ["999"],
+        "club_ranks": [{ "club": "999", "rank": 5 }],
+        "has_numbers": true,
+        "has_emoji": false,
+        "last_sale_price": "50000000000000000",
+        "last_sale_currency": "ETH",
+        "last_sale_price_usd": 125.50,
+        "listings": [],
         "upvotes": 10,
+        "downvotes": 2,
+        "net_score": 8,
+        "user_vote": 1,
         "watchers_count": 5,
-        "highest_offer_wei": "50000000000000000"
-        // ... full search result fields
+        "is_user_watching": true,
+        "watchlist_record_id": 77,
+        "highest_offer_wei": "50000000000000000",
+        "highest_offer_currency": "WETH",
+        "highest_offer_id": 12,
+        "view_count": 230
       }
     ]
   },

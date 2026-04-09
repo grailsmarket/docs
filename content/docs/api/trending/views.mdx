@@ -9,6 +9,15 @@ Trending names ranked by page view count. Uses materialized views (`trending_vie
 
 **Authentication:** Optional
 
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `period` | string | `24h` | Time period: `24h` or `7d` |
+| `limit` | number | `20` | Results to return (1-100) |
+
 #### Trending Metrics
 
 | Field | Type | Description |
@@ -32,8 +41,7 @@ curl "https://api.grails.app/api/v1/trending/views?period=24h&limit=10"
   "data": {
     "names": [
       {
-        "name": "example.eth",
-        // ... standard search result fields
+        // ... standard SearchResult fields (id, name, token_id, owner, etc.)
         "trending_metrics": {
           "period": "24h",
           "period_views": 150,
@@ -43,6 +51,10 @@ curl "https://api.grails.app/api/v1/trending/views?period=24h&limit=10"
       }
     ],
     "meta": { "period": "24h", "type": "views", "limit": 10 }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

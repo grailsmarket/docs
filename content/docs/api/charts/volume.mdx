@@ -11,6 +11,13 @@ Total sales volume (in wei) per time bucket with Grails/OpenSea source breakdown
 
 **Cache:** None
 
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `period` | string | `7d` | `1d`, `7d`, `30d`, `1y`, `all` |
+| `club` | string | — | Filter by club (comma-separated for multiple, e.g. `999,10k`) |
+
 #### Sample Request
 
 ```sh
@@ -20,6 +27,7 @@ curl "https://api.grails.app/api/v1/charts/volume?period=7d"
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
@@ -40,6 +48,10 @@ curl "https://api.grails.app/api/v1/charts/volume?period=7d"
         "opensea": "0"
       }
     ]
+  },
+  "meta": {
+    "timestamp": "2026-04-09T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

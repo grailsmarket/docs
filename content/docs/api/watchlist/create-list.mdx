@@ -17,6 +17,15 @@ Create a new named watchlist. Maximum 20 lists per user. List names must be uniq
 |-------|------|----------|-------------|
 | `name` | string | Yes | List name (1–100 chars, trimmed) |
 
+#### Sample Request
+
+```sh
+curl -X POST -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  https://api.grails.app/api/v1/watchlist/lists \
+  -d '{ "name": "My New List" }'
+```
+
 #### Response
 
 ```jsonc
@@ -30,6 +39,10 @@ Create a new named watchlist. Maximum 20 lists per user. List names must be uniq
     "itemCount": 0,
     "createdAt": "2026-04-08T00:00:00.000Z",
     "updatedAt": "2026-04-08T00:00:00.000Z"
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

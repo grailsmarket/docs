@@ -9,6 +9,15 @@ Trending names ranked by a weighted composite score combining all signals. The r
 
 **Authentication:** Optional
 
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `period` | string | `24h` | Time period: `24h` or `7d` |
+| `limit` | number | `20` | Results to return (1-100) |
+
 #### Trending Metrics
 
 | Field | Type | Description |
@@ -41,12 +50,13 @@ curl "https://api.grails.app/api/v1/trending/composite?period=24h&limit=10"
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
     "names": [
       {
-        "name": "example.eth",
+        // ... standard SearchResult fields (id, name, token_id, owner, etc.)
         "trending_metrics": {
           "period": "24h",
           "trending_score": 285.5,
@@ -74,6 +84,10 @@ curl "https://api.grails.app/api/v1/trending/composite?period=24h&limit=10"
         "sales": 50
       }
     }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

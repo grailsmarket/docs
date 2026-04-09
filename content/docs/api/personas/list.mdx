@@ -9,9 +9,16 @@ List all available personas with their descriptions, icons, and default filter c
 
 **Authentication:** None
 
+#### Sample Request
+
+```sh
+curl "https://api.grails.app/api/v1/personas"
+```
+
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": [
@@ -28,6 +35,9 @@ List all available personas with their descriptions, icons, and default filter c
         "offers": { "sortBy": "price", "sortOrder": "desc" }
       }
     }
-  ]
+  ],
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z"
+  }
 }
 ```

@@ -9,6 +9,15 @@ Names the authenticated user has recently viewed, ordered by most recent.
 
 **Authentication:** Required
 
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page (1-100) |
+
 #### Extra Fields
 
 | Field | Type | Description |
@@ -20,4 +29,33 @@ Names the authenticated user has recently viewed, ordered by most recent.
 ```sh
 curl -H "Authorization: Bearer YOUR_TOKEN" \
   "https://api.grails.app/api/v1/user/history/viewed?limit=10"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "names": [
+      {
+        // ... standard SearchResult fields (id, name, token_id, owner, etc.)
+        "viewed_at": "2026-04-07T11:30:00.000Z"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 10,
+      "total": 42,
+      "totalPages": 5,
+      "hasNext": true,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
 ```

@@ -11,6 +11,13 @@ Offers created per time bucket with Grails/OpenSea source breakdown.
 
 **Cache:** None
 
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `period` | string | `7d` | `1d`, `7d`, `30d`, `1y`, `all` |
+| `club` | string | — | Filter by club (comma-separated for multiple, e.g. `999,10k`) |
+
 #### Sample Request
 
 ```sh
@@ -20,6 +27,7 @@ curl "https://api.grails.app/api/v1/charts/offers?period=7d&club=any"
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
@@ -30,6 +38,10 @@ curl "https://api.grails.app/api/v1/charts/offers?period=7d&club=any"
       { "date": "2026-04-01T00:00:00.000Z", "total": 15, "grails": 10, "opensea": 5 },
       { "date": "2026-04-02T00:00:00.000Z", "total": 8, "grails": 6, "opensea": 2 }
     ]
+  },
+  "meta": {
+    "timestamp": "2026-04-09T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

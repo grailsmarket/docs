@@ -9,6 +9,15 @@ Names the authenticated user has voted on, ordered by most recent vote.
 
 **Authentication:** Required
 
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page (1-100) |
+
 #### Extra Fields
 
 | Field | Type | Description |
@@ -21,4 +30,34 @@ Names the authenticated user has voted on, ordered by most recent vote.
 ```sh
 curl -H "Authorization: Bearer YOUR_TOKEN" \
   "https://api.grails.app/api/v1/user/history/voted?limit=10"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "names": [
+      {
+        // ... standard SearchResult fields (id, name, token_id, owner, etc.)
+        "my_vote": 1,
+        "voted_at": "2026-04-06T15:00:00.000Z"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 10,
+      "total": 18,
+      "totalPages": 2,
+      "hasNext": true,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
 ```

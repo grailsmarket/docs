@@ -9,14 +9,25 @@ Queue a background job to reclassify the authenticated user's persona based on c
 
 **Authentication:** Required
 
+#### Sample Request
+
+```sh
+curl -X POST -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.app/api/v1/personas/me/reclassify"
+```
+
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
     "jobId": "abc-123",
     "message": "Reclassification queued"
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z"
   }
 }
 ```

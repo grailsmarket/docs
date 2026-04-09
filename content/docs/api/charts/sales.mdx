@@ -11,6 +11,13 @@ Sales count per time bucket with Grails/OpenSea source breakdown.
 
 **Cache:** None
 
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `period` | string | `7d` | `1d`, `7d`, `30d`, `1y`, `all` |
+| `club` | string | — | Filter by club (comma-separated for multiple, e.g. `999,10k`) |
+
 #### Sample Request
 
 ```sh
@@ -20,6 +27,7 @@ curl "https://api.grails.app/api/v1/charts/sales?period=30d&club=999"
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
@@ -31,6 +39,10 @@ curl "https://api.grails.app/api/v1/charts/sales?period=30d&club=999"
       { "date": "2026-03-10T00:00:00.000Z", "total": 0, "grails": 0, "opensea": 0 },
       { "date": "2026-03-11T00:00:00.000Z", "total": 8, "grails": 6, "opensea": 2 }
     ]
+  },
+  "meta": {
+    "timestamp": "2026-04-09T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

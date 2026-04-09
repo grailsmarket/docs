@@ -36,12 +36,29 @@ curl -X DELETE -H "Authorization: Bearer YOUR_TOKEN" \
 #### Response
 
 ```jsonc
-// 200 OK
+// 200 OK — with cartType specified
 {
   "success": true,
   "data": {
     "message": "Cleared buy cart",
     "deletedCount": 3
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+When `cartType` is omitted, all items are cleared:
+
+```jsonc
+// 200 OK — all items
+{
+  "success": true,
+  "data": {
+    "message": "Cleared all cart items",
+    "deletedCount": 5
   },
   "meta": {
     "timestamp": "2026-04-08T00:00:00.000Z",

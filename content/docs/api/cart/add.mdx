@@ -30,12 +30,32 @@ curl -X POST -H "Authorization: Bearer YOUR_TOKEN" \
 #### Response
 
 ```jsonc
-// 200 OK
+// 200 OK — newly added
 {
   "success": true,
   "data": {
     "message": "Added to cart",
     "cartItemId": 1,
+    "ensNameId": 42,
+    "ensName": "example.eth",
+    "cartType": "buy"
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+When the item already exists in the cart with the same type, `cartItemId` is `null`:
+
+```jsonc
+// 200 OK — duplicate (no-op)
+{
+  "success": true,
+  "data": {
+    "message": "Item already in cart",
+    "cartItemId": null,
     "ensNameId": 42,
     "ensName": "example.eth",
     "cartType": "buy"

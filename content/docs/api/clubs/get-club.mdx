@@ -24,6 +24,12 @@ Get a specific club's details and its member names (paginated). Returns both reg
 | `page` | number | `1` | Page number |
 | `limit` | number | `20` | Results per page (1–100) |
 
+#### Sample Request
+
+```sh
+curl "https://api.grails.app/api/v1/clubs/10k"
+```
+
 #### Response
 
 ```jsonc
@@ -58,6 +64,10 @@ Get a specific club's details and its member names (paginated). Returns both reg
       "hasNext": true,
       "hasPrev": false
     }
+  },
+  "meta": {
+    "timestamp": "2025-01-01T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

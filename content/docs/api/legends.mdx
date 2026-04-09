@@ -25,17 +25,28 @@ Get legend summary for an address — counts grouped by legend type with first/l
 |-----------|------|----------|-------------|
 | `address` | string | Yes | Ethereum address (`0x` + 40 hex) |
 
+#### Sample Request
+
+```sh
+curl "https://api.grails.app/api/v1/legends/0x983110309620d911731ac0932219af06091b6744"
+```
+
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
-    "address": "0x1234...",
+    "address": "0x983110309620d911731ac0932219af06091b6744",
     "legends": {
       "OG": { "qualified": true, "count": 5, "firstMint": "2017-05-04T00:00:00.000Z", "lastMint": "2019-01-15T00:00:00.000Z" },
       "Pioneer": { "qualified": true, "count": 12, "firstMint": "2019-05-05T00:00:00.000Z", "lastMint": "2021-11-01T00:00:00.000Z" }
     }
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```
@@ -62,13 +73,25 @@ Get detailed legend mints for an address, optionally filtered by legend type.
 |-----------|------|---------|-------------|
 | `type` | string | — | Filter by legend type |
 
+#### Sample Request
+
+```sh
+curl "https://api.grails.app/api/v1/legends/0x983110309620d911731ac0932219af06091b6744/details"
+```
+
+```sh
+# Filter by legend type
+curl "https://api.grails.app/api/v1/legends/0x983110309620d911731ac0932219af06091b6744/details?type=OG"
+```
+
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
-    "address": "0x1234...",
+    "address": "0x983110309620d911731ac0932219af06091b6744",
     "legends": {
       "OG": {
         "qualified": true,
@@ -85,6 +108,10 @@ Get detailed legend mints for an address, optionally filtered by legend type.
         ]
       }
     }
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

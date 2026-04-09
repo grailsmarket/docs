@@ -9,6 +9,13 @@ Check if the authenticated user has already claimed a POAP link.
 
 **Authentication:** Required
 
+#### Sample Request
+
+```sh
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.app/api/v1/poap/status"
+```
+
 #### Response
 
 ```jsonc
@@ -19,12 +26,24 @@ Check if the authenticated user has already claimed a POAP link.
     "has_claimed": true,
     "claimed_at": "2026-04-08T00:00:00.000Z",
     "link": "https://poap.xyz/claim/abc123"
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
+```
 
+```jsonc
 // 200 OK — has not claimed
 {
   "success": true,
-  "data": { "has_claimed": false }
+  "data": {
+    "has_claimed": false
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
+  }
 }
 ```

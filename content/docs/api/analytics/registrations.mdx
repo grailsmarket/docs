@@ -5,7 +5,7 @@ description: Grails API v1
 
 ### GET /api/v1/analytics/registrations
 
-Paginated feed of ENS name registrations with sorting and club filtering.
+Registration analytics with summary statistics, breakdown by name length, and paginated individual records.
 
 **Authentication:** None
 
@@ -19,28 +19,71 @@ Paginated feed of ENS name registrations with sorting and club filtering.
 | `sortBy` | string | `date` | `cost`, `date`, `length` |
 | `sortOrder` | string | `desc` | `asc` or `desc` |
 | `page` | number | `1` | Page number |
-| `limit` | number | `20` | Results per page |
+| `limit` | number | `20` | Results per page (max 100) |
 | `clubs[]` | string[] | — | Filter by clubs (repeatable, comma-separated) |
+
+#### Sample Request
+
+```sh
+curl "https://api.grails.app/api/v1/analytics/registrations"
+```
 
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
-    "registrations": [
+    "period": "7d",
+    "summary": {
+      "registration_count": 500,
+      "total_base_cost_wei": "25000000000000000000",
+      "total_premium_wei": "5000000000000000000",
+      "total_cost_wei": "30000000000000000000",
+      "avg_base_cost_wei": "50000000000000000",
+      "avg_premium_wei": "10000000000000000",
+      "avg_cost_wei": "60000000000000000",
+      "premium_registrations": 45,
+      "unique_registrants": 320
+    },
+    "by_length": [
       {
-        "name": "example.eth",
-        "registrant_address": "0x1234...",
-        "registration_date": "2026-04-07T12:00:00.000Z",
-        "expiry_date": "2027-04-07T12:00:00.000Z",
-        "total_cost_wei": "5000000000000000",
-        "duration_years": 1,
-        "source": "grails",
-        "clubs": ["999"]
+        "name_length": 3,
+        "count": 15,
+        "total_cost_wei": "750000000000000000",
+        "avg_cost_wei": "50000000000000000",
+        "avg_base_cost_wei": "45000000000000000",
+        "avg_premium_wei": "5000000000000000"
       }
     ],
-    "pagination": { "page": 1, "limit": 20, "total": 500, "totalPages": 25 }
+    "results": [
+      {
+        "id": 12345,
+        "name": "example.eth",
+        "registrant_address": "0x1234...abcd",
+        "owner_address": "0x1234...abcd",
+        "base_cost_wei": "4500000000000000",
+        "premium_wei": "500000000000000",
+        "total_cost_wei": "5000000000000000",
+        "name_length": 7,
+        "registration_date": "2026-04-07T12:00:00.000Z",
+        "clubs": ["999"],
+        "source": "grails"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 500,
+      "totalPages": 25,
+      "hasNext": true,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-09T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

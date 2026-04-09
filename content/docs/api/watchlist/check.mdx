@@ -17,6 +17,13 @@ Check if a specific ENS name is on any of the user's watchlists. Returns both a 
 |-----------|------|----------|-------------|
 | `name` | string | Yes | ENS name to check (e.g. `example.eth`) |
 
+#### Sample Request
+
+```sh
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  "https://api.grails.app/api/v1/watchlist/check/example.eth"
+```
+
 #### Response
 
 ```jsonc
@@ -50,6 +57,10 @@ Check if a specific ENS name is on any of the user's watchlists. Returns both a 
         "addedAt": "2026-04-01T00:00:00.000Z"
       }
     ]
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```

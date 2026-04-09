@@ -40,13 +40,49 @@ curl "https://api.grails.app/api/v1/brokered-listings/broker/0x5678...?status=ac
   "data": {
     "results": [
       {
+        "id": 1,
         "name": "example.eth",
         "token_id": "12345...",
         "owner": "0xabcd...",
-        "listings": [...],
+        "expiry_date": "2027-01-01T00:00:00.000Z",
+        "registration_date": "2023-06-15T00:00:00.000Z",
+        "creation_date": "2023-06-15T00:00:00.000Z",
+        "last_sale_date": null,
+        "metadata": null,
+        "metadata_updated_at": null,
+        "clubs": ["999"],
+        "club_ranks": [{ "club": "999", "rank": 42 }],
+        "has_numbers": true,
+        "has_emoji": false,
+        "last_sale_price": null,
+        "last_sale_currency": null,
+        "last_sale_price_usd": null,
+        "listings": [
+          {
+            "id": 44,
+            "price": "100000000000000000",
+            "currency_address": "0x0000000000000000000000000000000000000000",
+            "status": "active",
+            "seller_address": "0xabcd...",
+            "order_hash": "0xabc123...",
+            "order_data": "{...}",
+            "expires_at": "2026-04-14T12:00:00.000Z",
+            "created_at": "2026-04-08T00:00:00.000Z",
+            "source": "grails",
+            "broker_address": "0x5678...",
+            "broker_fee_bps": 500
+          }
+        ],
         "upvotes": 10,
-        "watchers_count": 5
-        // ... standard search result fields
+        "downvotes": 0,
+        "net_score": 10,
+        "watchers_count": 5,
+        "is_user_watching": false,
+        "watchlist_record_id": null,
+        "highest_offer_wei": null,
+        "highest_offer_currency": null,
+        "highest_offer_id": null,
+        "view_count": 42
       }
     ],
     "pagination": {

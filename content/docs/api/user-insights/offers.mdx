@@ -9,6 +9,15 @@ Offers the authenticated user has made, ordered by most recent.
 
 **Authentication:** Required
 
+**Cache:** None
+
+#### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | number | `1` | Page number |
+| `limit` | number | `20` | Results per page (1-100) |
+
 #### Extra Fields
 
 | Field | Type | Description |
@@ -25,6 +34,42 @@ Offers the authenticated user has made, ordered by most recent.
 ```sh
 curl -H "Authorization: Bearer YOUR_TOKEN" \
   "https://api.grails.app/api/v1/user/history/offers?limit=10"
+```
+
+#### Response
+
+```jsonc
+// 200 OK
+{
+  "success": true,
+  "data": {
+    "names": [
+      {
+        // ... standard SearchResult fields (id, name, token_id, owner, etc.)
+        "offer": {
+          "id": 42,
+          "price_wei": "100000000000000000",
+          "currency_address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+          "status": "pending",
+          "created_at": "2026-04-06T10:00:00.000Z",
+          "expires_at": "2026-04-13T10:00:00.000Z"
+        }
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 10,
+      "total": 5,
+      "totalPages": 1,
+      "hasNext": false,
+      "hasPrev": false
+    }
+  },
+  "meta": {
+    "timestamp": "2026-04-07T12:00:00.000Z",
+    "version": "1.0.0"
+  }
+}
 ```
 
 #### Error Responses

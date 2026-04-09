@@ -30,12 +30,36 @@ curl https://api.grails.app/api/v1/users/0x1234.../balances
 {
   "success": true,
   "data": {
-    "address": "0x1234567890abcdef1234567890abcdef12345678",
+    "address": "0x983110309620d911731ac0932219af06091b6744",
     "balances": {
-      "eth": "1.5",
-      "weth": "0.25",
-      "usdc": "1000.00",
-      "ens": "50.0"
+      "eth": {
+        "symbol": "ETH",
+        "address": null,
+        "wei": "1500000000000000000",
+        "formatted": "1.5",
+        "decimals": 18
+      },
+      "weth": {
+        "symbol": "WETH",
+        "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+        "wei": "250000000000000000",
+        "formatted": "0.25",
+        "decimals": 18
+      },
+      "usdc": {
+        "symbol": "USDC",
+        "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "wei": "1000000000",
+        "formatted": "1000.0",
+        "decimals": 6
+      },
+      "ens": {
+        "symbol": "ENS",
+        "address": "0xC18360217D8F7Ab5e7c516566761Ea12Ce7F9D72",
+        "wei": "50000000000000000000",
+        "formatted": "50.0",
+        "decimals": 18
+      }
     }
   },
   "meta": {

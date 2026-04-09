@@ -9,20 +9,44 @@ REST endpoint returning WebSocket connection statistics for debugging.
 
 **Authentication:** None
 
+**Cache:** None
+
+#### Sample Request
+
+```sh
+curl https://api.grails.app/ws/status
+```
+
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
     "eventsClients": 5,
     "activityClients": 12,
-    "activityClientDetails": [...],
+    "activityClientDetails": [
+      {
+        "id": "req-1",
+        "subscribeAll": true,
+        "addressSubscriptions": ["0xd8da6bf26964af9d7eed9e03e53415d37aa96045"],
+        "nameSubscriptions": ["nick.eth"],
+        "clubSubscription": "999",
+        "eventTypeFilters": {
+          "include": null,
+          "exclude": null
+        }
+      }
+    ],
     "broadcastStats": {
       "totalBroadcasts": 1500,
       "lastBroadcastTime": "2026-04-08T00:00:00.000Z",
       "lastEventType": "sale"
     }
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z"
   }
 }
 ```

@@ -22,7 +22,7 @@ Search for exact ENS name matches with filter and sort support. Unlike `/bulk`, 
 | `terms` | string[] | Yes | ENS names to search for (1–10,000 items) |
 | `page` | number | No | Page number (default `1`) |
 | `limit` | number | No | Results per page (1–100, default `20`) |
-| `sortBy` | string | No | Sort field (see [Global Search](/docs/api/search/global-search#sort-fields)) |
+| `sortBy` | string | No | Sort field: `price`, `expiry_date`, `registration_date`, `creation_date`, `last_sale_date`, `last_sale_price`, `character_count`, `watchers_count`, `alphabetical`, `offer`, `listing_date`, `listing_expiry`, `google_monthly_searches`, `google_avg_cpc` |
 | `sortOrder` | string | No | `asc` or `desc` |
 | `filters` | object | No | Filter object (same structure as [Global Search filters](/docs/api/search/global-search#filters)) |
 
@@ -71,7 +71,7 @@ curl -X POST https://api.grails.app/api/v1/search/bulk-filters \
         "token_id": "12345...",
         "owner": "0x1234...",
         "listings": [...],
-        // ... only names matching both terms AND filters
+        // ... only names matching both terms AND filters (full search result fields)
       }
     ],
     "pagination": {
@@ -81,6 +81,10 @@ curl -X POST https://api.grails.app/api/v1/search/bulk-filters \
       "totalPages": 1,
       "hasNext": false,
       "hasPrev": false
+    },
+    "stats": {
+      "inputTerms": 4,
+      "matchedTerms": 2
     }
   },
   "meta": {

@@ -17,20 +17,57 @@ Get all roles (owner, manager, ETH address) for a specific ENS name, resolved on
 |-----------|------|----------|-------------|
 | `name` | string | Yes | ENS name (must end with `.eth` or contain `.`) |
 
+#### Sample Request
+
+```sh
+curl "https://api.grails.app/api/v1/ens-roles/names/brantly.eth/roles"
+```
+
 #### Response
 
 ```jsonc
+// 200 OK
 {
   "success": true,
   "data": {
-    "name": "example.eth",
-    "owner": "0x1234...",
-    "manager": "0xabcd...",
-    "ethAddress": "0x1234...",
-    "isWrapped": true
+    "name": "brantly.eth",
+    "owner": "0x983110309620d911731ac0932219af06091b6744",
+    "manager": "0x983110309620d911731ac0932219af06091b6744",
+    "ethAddress": "0x983110309620d911731ac0932219af06091b6744",
+    "isWrapped": true,
+    "fuses": {
+      "canUnwrap": false,
+      "canBurnFuses": true,
+      "canTransfer": true,
+      "canSetResolver": true,
+      "canSetTTL": true,
+      "canCreateSubdomain": true,
+      "parentCanControl": false,
+      "canExtendExpiry": true,
+      "raw": 65537
+    },
+    "expiryDate": 1745000000,
+    "resolver": "0x231b0ee14048e9dccd1d247744d114a4eb5e8e63"
+  },
+  "meta": {
+    "timestamp": "2026-04-08T00:00:00.000Z",
+    "version": "1.0.0"
   }
 }
 ```
+
+#### Response Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | string | The ENS name |
+| `owner` | string \| null | NFT holder address (registrant for unwrapped, wrappedOwner for wrapped) |
+| `manager` | string \| null | Address authorized to edit records (same as owner for wrapped names) |
+| `ethAddress` | string \| null | ETH address record (where funds are sent) |
+| `isWrapped` | boolean | Whether the name is wrapped in the NameWrapper contract |
+| `fuses` | object \| null | Fuse permissions (only for wrapped names) |
+| `expiryDate` | number \| null | Registration expiry (Unix timestamp) |
+| `resolver` | string \| null | Resolver contract address |
 
 #### Error Responses
 
