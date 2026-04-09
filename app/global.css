@@ -16,3 +16,13 @@
   color: black;
   background: white;
 }
+
+/* Fix transparent mobile nav menu background */
+.nextra-mobile-nav {
+  background-color: rgb(17, 17, 17) !important;
+}
+
+.nextra-navbar-blur {
+  background-color: rgb(17, 17, 17) !important;
+  backdrop-filter: none !important;
+}
