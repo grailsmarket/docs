@@ -99,7 +99,7 @@ Brief description.
 #### Sample Request
 
 \```sh
-curl https://api.grails.market/full/api/path
+curl https://api.grails.app/full/api/path
 \```
 
 #### Response

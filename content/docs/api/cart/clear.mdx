@@ -23,13 +23,13 @@ Clear all cart items, or only items of a specific cart type.
 # Clear all items
 curl -X DELETE -H "Authorization: Bearer YOUR_TOKEN" \
   -H "Content-Type: application/json" \
-  https://api.grails.market/api/v1/cart \
+  https://api.grails.app/api/v1/cart \
   -d '{}'
 
 # Clear only "buy" items
 curl -X DELETE -H "Authorization: Bearer YOUR_TOKEN" \
   -H "Content-Type: application/json" \
-  https://api.grails.market/api/v1/cart \
+  https://api.grails.app/api/v1/cart \
   -d '{ "cartType": "buy" }'
 ```
 

@@ -30,12 +30,12 @@ Ranks users by ENS name holdings, club membership, listings, sales, and volume. 
 #### Sample Request
 
 ```sh
-curl "https://api.grails.market/api/v1/leaderboard?sortBy=names_owned&limit=10"
+curl "https://api.grails.app/api/v1/leaderboard?sortBy=names_owned&limit=10"
 ```
 
 ```sh
 # Filter to 999 Club holders
-curl "https://api.grails.market/api/v1/leaderboard?clubs[]=999&sortBy=sales_volume"
+curl "https://api.grails.app/api/v1/leaderboard?clubs[]=999&sortBy=sales_volume"
 ```
 
 #### Response

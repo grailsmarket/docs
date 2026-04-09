@@ -38,13 +38,13 @@ At least one field must be provided.
 # Buyer cancels their offer
 curl -X PUT -H "Authorization: Bearer BUYER_TOKEN" \
   -H "Content-Type: application/json" \
-  https://api.grails.market/api/v1/offers/99 \
+  https://api.grails.app/api/v1/offers/99 \
   -d '{ "status": "rejected" }'
 
 # Owner accepts an offer
 curl -X PUT -H "Authorization: Bearer OWNER_TOKEN" \
   -H "Content-Type: application/json" \
-  https://api.grails.market/api/v1/offers/99 \
+  https://api.grails.app/api/v1/offers/99 \
   -d '{ "status": "accepted" }'
 ```
 

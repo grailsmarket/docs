@@ -28,7 +28,7 @@ A standard GraphQL query object:
 
 ```sh
 curl -X POST -H "Content-Type: application/json" \
-  https://api.grails.market/api/v1/subgraph \
+  https://api.grails.app/api/v1/subgraph \
   -d '{
     "query": "query GetDomain($name: String!) { domains(where: { name: $name }) { id name labelhash registrant { id } registration { expiryDate } } }",
     "variables": { "name": "example.eth" }

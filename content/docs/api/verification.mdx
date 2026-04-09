@@ -29,7 +29,7 @@ Verify an email address using the token from the verification link. The token mu
 
 ```sh
 curl -X POST -H "Content-Type: application/json" \
-  https://api.grails.market/api/v1/verification/email \
+  https://api.grails.app/api/v1/verification/email \
   -d '{ "token": "abc123..." }'
 ```
 
@@ -66,7 +66,7 @@ Resend the verification email to the authenticated user's email address. Generat
 
 ```sh
 curl -X POST -H "Authorization: Bearer YOUR_TOKEN" \
-  https://api.grails.market/api/v1/verification/resend
+  https://api.grails.app/api/v1/verification/resend
 ```
 
 #### Response

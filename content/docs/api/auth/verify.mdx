@@ -21,10 +21,10 @@ Verify a SIWE signature and create an authenticated session. Returns a JWT token
 #### Sample Request
 
 ```sh
-curl -X POST https://api.grails.market/api/v1/auth/verify \
+curl -X POST https://api.grails.app/api/v1/auth/verify \
   -H "Content-Type: application/json" \
   -d '{
-    "message": "api.grails.market wants you to sign in with your Ethereum account:\n0x1234...5678\n\nSign in to Grails\n\nURI: https://api.grails.market\nVersion: 1\nChain ID: 1\nNonce: a1b2c3d4e5f6a7b8\nIssued At: 2026-04-07T12:00:00.000Z",
+    "message": "api.grails.app wants you to sign in with your Ethereum account:\n0x1234...5678\n\nSign in to Grails\n\nURI: https://api.grails.app\nVersion: 1\nChain ID: 1\nNonce: a1b2c3d4e5f6a7b8\nIssued At: 2026-04-07T12:00:00.000Z",
     "signature": "0xabc123..."
   }'
 ```

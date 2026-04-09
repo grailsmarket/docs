@@ -135,7 +135,7 @@ Filters are passed as query parameters in bracket notation: `filters[minPrice]=0
 #### Sample Request
 
 ```sh
-curl "https://api.grails.market/api/v1/search?q=cool&filters[minLength]=3&filters[maxLength]=5&filters[listed]=true&sortBy=price&sortOrder=asc&limit=10"
+curl "https://api.grails.app/api/v1/search?q=cool&filters[minLength]=3&filters[maxLength]=5&filters[listed]=true&sortBy=price&sortOrder=asc&limit=10"
 ```
 
 #### Response
@@ -189,7 +189,7 @@ Set `export=true` to download results as CSV (requires authentication). The resp
 
 ```sh
 curl -H "Authorization: Bearer YOUR_TOKEN" \
-  "https://api.grails.market/api/v1/search?q=cool&export=true&filename=my-export"
+  "https://api.grails.app/api/v1/search?q=cool&export=true&filename=my-export"
 ```
 
 #### Error Responses
