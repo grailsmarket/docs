@@ -1,28 +1,57 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --font-mono: 'Chivo Mono', monospace;
-  --color-primary: #FFFA80;
-  --color-primary-hover: #FDF420;
-  --color-secondary: #ffffff;
+	--font-mono: 'Chivo Mono', monospace;
+	--color-primary: #ffdfc0;
+	--color-primary-hover: #e4c8ab;
+	--color-secondary: #ffffff;
+	--color-background: #222222;
+	--color-foreground: #ffffff;
+}
+
+body {
+	background-color: var(--color-background);
+	color: var(--color-foreground);
+}
+
+nav {
+	background-color: transparent !important;
+	color: var(--color-foreground);
+	backdrop-filter: blur(16px) !important;
+	border-bottom: 1px solid #333333 !important;
+}
+
+.nextra-navbar-blur {
+	display: none !important;
 }
 
 ::-moz-selection {
-  color: black;
-  background: white;
+	color: black;
+	background: white;
 }
 
 ::selection {
-  color: black;
-  background: white;
+	color: black;
+	background: white;
 }
 
 /* Fix transparent mobile nav menu background */
 .nextra-mobile-nav {
-  background-color: rgb(17, 17, 17) !important;
+	background-color: rgb(17, 17, 17) !important;
 }
 
 .nextra-navbar-blur {
-  background-color: rgb(17, 17, 17) !important;
-  backdrop-filter: none !important;
+	background-color: rgb(17, 17, 17) !important;
+	backdrop-filter: none !important;
+}
+
+.primary-shadow {
+	box-shadow: 0 0 50px 0 rgba(255, 223, 192, 0.25);
+}
+
+.nextra-mobile-nav {
+	background-color: #222222ca !important;
+	backdrop-filter: blur(16px) !important;
+	border-bottom: 1px solid #333333 !important;
+	transition: all 0.2s ease-in-out !important;
 }

@@ -5,6 +5,8 @@ import { Layout, Navbar } from 'nextra-theme-docs'
 import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
 import './global.css'
+import { Head } from 'nextra/components'
+import Image from 'next/image'
 
 const chivoMono = Chivo_Mono({
   subsets: ['latin'],
@@ -17,11 +19,37 @@ export const metadata: Metadata = {
     template: '%s | Grails API',
   },
   description: 'API documentation for Grails: ENS Manager & Market',
+  authors: [{ name: 'Grails Market', url: 'https://grails.app' }],
+  openGraph: {
+    title: 'Grails API Documentation',
+    description: 'API documentation for Grails: ENS Manager & Market',
+    images: ['https://grails.app/previews/home.jpeg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Grails API Documentation',
+    description: 'API documentation for Grails: ENS Manager & Market',
+    images: ['https://grails.app/previews/home.jpeg'],
+  },
 }
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" dir="ltr" className="dark" suppressHydrationWarning>
+      <Head
+        color={{
+          hue: 30,
+          saturation: 100,
+          lightness: {
+            light: 90,
+            dark: 85
+          }
+        }}
+        backgroundColor={{
+          dark: '#222222',
+          light: '#ffffff',
+        }}
+      />
       <body className={chivoMono.className}>
         <Layout
           pageMap={await getPageMap()}
@@ -39,8 +67,14 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           }}
           navbar={
             <Navbar
-              logo={<span style={{ fontWeight: 700, fontSize: '1.1rem' }}>Grails API</span>}
+              logo={
+                <div className='flex items-center gap-2'>
+                  <Image src='https://grails.app/logo.png' alt='Grails Logo' width={22} height={22} />
+                  <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>Grails API</span>
+                </div>
+              }
               projectLink="https://github.com/grailsmarket/docs"
+
             />
           }
           footer={<div />}

@@ -1,6 +1,29 @@
-# Grails API Documentation
+import Image from 'next/image'
+import HomeImage from 'public/home.png'
+import Link from 'next/link'
+
+<div className='flex items-center gap-4'>
+	<Image
+		src='https://grails.app/logo.png'
+		alt='Grails Logo'
+		width={24}
+		height={32}
+		className='w-auto h-8'
+	/>
+	<h1 className='text-2xl font-bold'>Grails API Documentation</h1>
+</div>
 
 Welcome to the Grails API documentation. Grails is an ENS name manager and marketplace.
+
+<Link href='https://grails.app' target='_blank'>
+	<Image
+		src={HomeImage}
+		alt='Grails App'
+		width={3000}
+		height={2000}
+		className='w-full h-full primary-shadow mt-6 sm:mt-8 lg:mt-12 rounded-md border border-foreground/10 hover:scale-105 transition-all duration-300'
+	/>
+</Link>
 
 ## Getting Started
 
